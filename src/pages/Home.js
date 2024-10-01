@@ -2,289 +2,354 @@ import React, { useRef, useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import axios from 'axios';
+import ImageComponent from '../components/ImageComponent'; // Import the Image component
+import backgroundImg from '../assets/images/font3.jpg';
+import githubLogo from '../assets/icons/github.svg';
+import linkedinLogo from '../assets/icons/linkedin.svg';
+import cvLogo from '../assets/icons/cv.svg';
+import calendarLogo from '../assets/icons/calendar.svg';
+import contactLogo from '../assets/icons/contact.svg';
 
 const Home = () => {
-    const homeRef = useRef(null);
-    const aboutRef = useRef(null);
-    const contactRef = useRef(null);
-    const projetRef = useRef(null);
+  const homeRef = useRef(null);
+  const aboutRef = useRef(null);
+  const contactRef = useRef(null);
+  const projetRef = useRef(null);
 
-    const handleScroll = (ref) => {
-        ref.current.scrollIntoView({ behavior: 'smooth' });
-    };
+  const handleScroll = (ref) => {
+    ref.current.scrollIntoView({ behavior: 'smooth' });
+  };
 
-    const [userData, setUserData] = useState([]);
-    const [jobs, setJobs] = useState([]); // State to store jobs fetched from API
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [displayedText, setDisplayedText] = useState('');
-    const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
-    const [errors, setErrors] = useState({});
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        contactSecondMail: '',
-        text: '',
-        emailContact: 'kacihamroun@outlook.com'
+  const [userData, setUserData] = useState([]);
+  const [jobs, setJobs] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState('');
+  const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
+  const [errors, setErrors] = useState({});
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    contactSecondMail: '',
+    text: '',
+    emailContact: 'kacihamroun@outlook.com',
+  });
+
+  // Handle progressive display with smooth transition
+  const handleScrollDisplay = () => {
+    const elements = document.querySelectorAll('[data-scroll]');
+    const windowHeight = window.innerHeight;
+
+    elements.forEach((element) => {
+      const rect = element.getBoundingClientRect();
+      if (rect.top <= windowHeight * 0.9) {
+        element.classList.add('opacity-100', 'translate-y-0');
+        element.classList.remove('opacity-0', 'translate-y-10');
+      }
     });
+  };
 
-    const fetchProjects = async () => {
-        try {
-            const response = await axios.get('http://localhost:3002/api/kaci');
-            const dataFetched = response.data;
-            setUserData([dataFetched]);
+  const handleInitialDisplay = () => {
+    const elements = document.querySelectorAll('[data-animate]');
+    elements.forEach((element) => {
+      const rect = element.getBoundingClientRect();
+      if (rect.top <= window.innerHeight) {
+        element.classList.add('opacity-100', 'translate-y-0');
+        element.classList.remove('opacity-0', 'translate-y-10');
+      }
+    });
+  };
 
-            // Assuming dataFetched.jobs is an array of job titles
-            if (dataFetched.jobs) {
-                const jobTitles = dataFetched.jobs.map((job) => job.title);
-                setJobs(jobTitles); // Directly set the jobs array to state
-            } else {
-                console.warn('Jobs data not found in response');
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+  useEffect(() => {
+    handleInitialDisplay();
+    // Add scroll event listener for smooth progressive display
+    window.addEventListener('scroll', handleScrollDisplay);
+    return () => {
+      window.removeEventListener('scroll', handleScrollDisplay);
     };
+  }, []);
 
-    useEffect(() => {
-        fetchProjects();
-    }, []);
+  const fetchProjects = async () => {
+    try {
+      const response = await axios.get('http://localhost:3002/api/kaci');
+      const dataFetched = response.data;
+      setUserData([dataFetched]);
 
-    const startsWithVowel = (word) => {
-        const vowels = ['a', 'e', 'i', 'o', 'u'];
-        return vowels.includes(word[0].toLowerCase());
-    };
+      if (dataFetched.jobs) {
+        const jobTitles = dataFetched.jobs.map((job) => job.title);
+        setJobs(jobTitles);
+      } else {
+        console.warn('Jobs data not found in response');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
-    useEffect(() => {
-        if (jobs.length === 0) return; // Exit if no jobs are available
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
-        const job = jobs[currentIndex];
-
-        if (currentLetterIndex < job.length) {
-            const timer = setTimeout(() => {
-                setDisplayedText((prev) => prev + job[currentLetterIndex]);
-                setCurrentLetterIndex((prevIndex) => prevIndex + 1);
-            }, 150);
-
-            return () => clearTimeout(timer);
-        } else {
-            const nextWordTimer = setTimeout(() => {
-                setCurrentIndex((prevIndex) => (prevIndex + 1) % jobs.length);
-                setDisplayedText('');
-                setCurrentLetterIndex(0);
-            }, 1000);
-
-            return () => clearTimeout(nextWordTimer);
-        }
-    }, [currentLetterIndex, currentIndex, jobs]);
+  useEffect(() => {
+    if (jobs.length === 0) return;
 
     const job = jobs[currentIndex];
-    const article = job && startsWithVowel(job) ? 'an' : 'a';
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    if (currentLetterIndex < job.length) {
+      const timer = setTimeout(() => {
+        setDisplayedText((prev) => prev + job[currentLetterIndex]);
+        setCurrentLetterIndex((prevIndex) => prevIndex + 1);
+      }, 150);
 
-        const newErrors = {};
-        if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
-        if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
-        if (!formData.contactSecondMail.trim()) newErrors.contactSecondMail = 'Contact email is required';
-        if (!formData.text.trim()) newErrors.text = 'Message is required';
+      return () => clearTimeout(timer);
+    } else {
+      const nextWordTimer = setTimeout(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % jobs.length);
+        setDisplayedText('');
+        setCurrentLetterIndex(0);
+      }, 1000);
 
-        setErrors(newErrors);
+      return () => clearTimeout(nextWordTimer);
+    }
+  }, [currentLetterIndex, currentIndex, jobs]);
 
-        if (Object.keys(newErrors).length > 0) {
-            return;
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        try {
-            const response = await axios.post('http://localhost:3002/api/contacts', formData);
-            if (response.status === 200) {
-                alert('Form submitted successfully!');
-                setFormData({ firstName: '', lastName: '', contactSecondMail: '', text: '', emailContact: 'kacihamroun@outlook.com' });
-                setErrors({});
-            }
-        } catch (error) {
-            console.error('Error submitting the form:', error);
-            alert('Failed to submit the form. Please try again.');
-        }
-    };
+    const newErrors = {};
+    if (!formData.firstName.trim()) newErrors.firstName = 'Le prénom est requis';
+    if (!formData.lastName.trim()) newErrors.lastName = 'Le nom est requis';
+    if (!formData.contactSecondMail.trim()) newErrors.contactSecondMail = "L'email de contact est requis";
+    if (!formData.text.trim()) newErrors.text = 'Votre message est requis';
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
+    setErrors(newErrors);
 
-        const trimmedValue = value.trim();
-        const processedValue = name === 'contactSecondMail' ? trimmedValue.toLowerCase() : trimmedValue;
+    if (Object.keys(newErrors).length > 0) {
+      return;
+    }
 
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: processedValue,
-        }));
-    };
+    try {
+      const response = await axios.post('http://localhost:3002/api/contacts', formData);
+      if (response.status === 200) {
+        alert('Form submitted successfully!');
+        setFormData({ firstName: '', lastName: '', contactSecondMail: '', text: '', emailContact: 'kacihamroun@outlook.com' });
+        setErrors({});
+      }
+    } catch (error) {
+      console.error('Error submitting the form:', error);
+      alert('Failed to submit the form. Please try again.');
+    }
+  };
 
-    return (
-        <>
-            <Navbar handleScroll={handleScroll} refs={{ homeRef, aboutRef, projetRef, contactRef }} />
-            <div ref={homeRef} className='flex flex-col bgjustify-center bg-blue-300 bg-opacity-50 min-h-[90vh]'>
-                {userData.map((data) => (
-                    <div key={data._id}>
-                        <div className='flex justify-center pt-28'>
-                            <img className="w-[300px] rounded-full m-4" src={`http://localhost:3002/${data.profilePic}`} alt="Profile" />
-                        </div>
-                        <div className='flex justify-center rounded-full p-1 m-5 gap-2'>
-                            <div className='bg-white rounded-lg'>
-                                <a href={data.linkedinUrl} target='_blank' rel='noreferrer'>
-                                    {/* LinkedIn SVG Icon */}
-                                </a>
-                            </div>
-                            <div className='bg-white rounded-lg'>
-                                <a href={data.githubUrl} target='_blank' rel='noreferrer'>
-                                    {/* GitHub SVG Icon */}
-                                </a>
-                            </div>
-                        </div>
-                        <div>
-                            <h1 className='text-center text-4xl weo my-2'>
-                                Hi! My name is {data.firstName + " " + data.lastName.toUpperCase()}
-                            </h1>
-                            <div className='flex flex-col justify-center items-center gap-2'>
-                                <h2 className='text-left text-4xl weo'>and I'm {article}</h2>
-                                <div className='my-4'>
-                                    <h2><span className='text-5xl font-bold my-8'>{displayedText}</span></h2>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <div className='bg-red-300 flex' ref={aboutRef}>
-                {userData.map((data) => (
-                    <div key={data._id} className='flex w-full min-h-[90vh] my-4 justify-center'>
-                        <div className='w-full min-w-1/2 gap-4 flex flex-col justify-center items-center'>
-                            <div>
-                                <h2 className='text-3xl'>Bio</h2>
-                            </div>
-                            <div>
-                                <p className='text-center'>{data.bio}</p>
-                            </div>
-                        </div>
-                        <div className='w-full min-w-1/2 flex flex-col gap-4 justify-center items-center'>
-                            <div>
-                                <h2 className='text-3xl'>Stack</h2>
-                            </div>
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const trimmedValue = value.trim();
+    const processedValue = name === 'contactSecondMail' ? trimmedValue.toLowerCase() : trimmedValue;
 
-                            <div className='flex flex-row flex-wrap gap-4 justify-center'>
-                                {data.skills.map((skillsData) => (
-                                    <div className='flex' key={skillsData._id}>
-                                        <img
-                                            className='w-16 h-16 rounded-full border-4'
-                                            src={`http://localhost:3002/${skillsData.logo}`}
-                                            title={skillsData.name}
-                                            alt={skillsData.name}
-                                        />
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <div ref={projetRef} className='bg-green-300 w-full flex flex-col min-h-[90vh]'>
-                <div>
-                    <h2 className='text-3xl text-center'>Projets</h2>
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: processedValue,
+    }));
+  };
+
+  return (
+    <>
+      <Navbar handleScroll={handleScroll} refs={{ homeRef, aboutRef, projetRef, contactRef }} />
+      <div className='w-screen'>
+        <div ref={homeRef} className='flex flex-col justify-center bg-[#f8f9fa] bg-opacity-50 min-h-[95vh] opacity-0 translate-y-10  transition-transform duration-[1500ms] ease relative w-screen' data-animate style={{
+          backgroundImage: `url(${backgroundImg})`,
+          backgroundSize: 'cover',  
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed', 
+        }}>
+          {userData.map((data) => (
+            <div key={data._id}>
+              <div className='flex justify-center pt-18'>
+                <ImageComponent
+                  src={`http://localhost:3002/${data.profilePic}`}
+                  alt="Profile"
+                  className="w-[150px] sm:w-[250px] m-4" // responsive sizing for profile image
+                />
+              </div>
+              <div className='flex justify-center rounded-full p-1 m-3 gap-4 my-8'>
+                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:animate-bounce'>
+                  <a href={data.linkedinUrl} target='_blank' rel='noreferrer'>
+                    <ImageComponent src={linkedinLogo} />
+                  </a>
                 </div>
-                {userData.map((data) => (
-                    <div key={data._id}>
-                        {data.projects.map((projectData, index) => (
-                            <div
-                                key={projectData._id}
-                                className={`relative flex items-center w-full gap-4 justify-center my-2 overflow-hidden ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
-                            >
-                                <div className="flex flex-col w-1/2 items-stretch">
-                                    <div>
-                                        <h2 className="text-center">{projectData.title}</h2>
-                                    </div>
-                                    <div>
-                                        <p className="px-20">{projectData.description}</p>
-                                    </div>
-                                </div>
-                                <div className="relative m-10 flex items-center justify-center w-1/2 max-h-[500px] rounded-lg overflow-hidden shadow-lg border-4 group">
-                                    <img
-                                        src={`http://localhost:3002/${projectData.imageUrl}`}
-                                        alt={projectData.title}
-                                        className="w-full h-full object-contain rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-110"
-                                    />
-                                </div>
-                            </div>
+                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:animate-bounce'>
+                  <a href={data.githubUrl} target='_blank' rel='noreferrer'>
+                    <ImageComponent src={githubLogo} />
+                  </a>
+                </div>  
+                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:animate-bounce'>
+                  <a href={`http://localhost:3002/${data.resumePdf}`} target='_blank' rel='noreferrer'>
+                    <ImageComponent src={cvLogo} className={'w-10 top-2 h-fit rounded-none'} />
+                  </a>
+                </div>
+                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:animate-bounce'>
+                  <a href={data.scheduleUrl} target='_blank' rel='noreferrer'>
+                    <ImageComponent src={calendarLogo} className={'w-10 top-2 h-fit rounded-none'} />
+                  </a>  
+                </div>
+                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:animate-bounce cursor-pointer'>
+                  <button  rel='noreferrer' onClick={() => handleScroll(contactRef)}>
+                    <ImageComponent src={contactLogo} className={'w-10 top-2 h-fit rounded-none'} />
+                  </button>
+                </div>
+              </div>
+              <div>
+                <h1 className='text-center text-2xl sm:text-3xl md:text-4xl   px-16 weo my-2'>
+                  Bonjour ! Je m'appelle {data.firstName + " " + data.lastName.toUpperCase()}
+                </h1>
+                <div className='flex flex-col justify-center h-28 items-center gap-2'>
+                  <h2 className='text-left text-2xl sm:text-3xl md:text-4xl'>et je suis</h2>
+                  <div className='my-4'>
+                    <h2><span className='text-4xl sm:text-3xl md:text-5xl font-bold my-8'>{displayedText}</span></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
 
-                        ))}
-                    </div>
-                ))}
-            </div >
-            <div className='flex flex-col justify-center my-4 min-h-[90vh] items-center gap-4' ref={contactRef}>
-                <div className='flex gap-12 justify-center items-center my-12'>
-                    <h2 className='font-bold text-3xl'>Un projet ? Une idée ? Prenons contact !</h2>
+        {/* Section with smooth transition effect */}
+        <div className='bg-[#65a0ca] flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center' data-scroll ref={aboutRef}>
+          {userData.map((data) => (
+            <div key={data._id} className='flex w-full max-w-7xl min-h-[40vh] flex-col lg:flex-row my-4 justify-between items-center'>
+              <div className='w-full sm:w-1/2 gap-4 flex flex-col justify-center items-center text-center'>
+                <div>
+                  <h2 className='text-xl sm:text-2xl md:text-3xl font-bold text-white'>Bio</h2>
                 </div>
                 <div>
-                    <form onSubmit={handleSubmit} className='bg-slate-200 flex flex-col gap-4 border-4 justify-center h-full shadow-md rounded-2xl px-8 pt-6 pb-8 mb-4'>
-                        <div className='flex gap-4 items-center'>
-                            <div className='flex flex-col justify-center'>
-                                <label htmlFor="firstName" className='py-2'>First Name</label>
-                                <input
-                                    value={formData.firstName}
-                                    onChange={handleChange}
-                                    className='shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                                    type="text"
-                                    name="firstName"
-                                    id="firstName"
-                                    placeholder='Your first name'
-                                />
-                                {errors.firstName && <p style={{ color: "red" }}>{errors.firstName}</p>}
-                            </div>
-                            <div className='flex flex-col py-2 justify-center'>
-                                <label htmlFor="lastName" className='py-2'>Last Name</label>
-                                <input
-                                    value={formData.lastName}
-                                    onChange={handleChange}
-                                    className='shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                                    type="text"
-                                    name="lastName"
-                                    id="lastName"
-                                    placeholder='Your last name'
-                                />
-                                {errors.lastName && <p style={{ color: "red" }}>{errors.lastName}</p>}
-                            </div>
-                        </div>
-                        <label htmlFor="contactSecondMail">Contact Email</label>
-                        <input
-                            value={formData.contactSecondMail}
-                            onChange={handleChange}
-                            className='shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                            type="email"
-                            name='contactSecondMail'
-                            id='contactSecondMail'
-                            placeholder='Your email'
-                        />
-                        {errors.contactSecondMail && <p style={{ color: "red" }}>{errors.contactSecondMail}</p>}
-
-                        <label htmlFor="text">Your Message</label>
-                        <textarea
-                            value={formData.text}
-                            onChange={handleChange}
-                            className='shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                            name='text'
-                            id='text'
-                            placeholder='Type your message here'
-                        />
-                        {errors.text && <p style={{ color: "red" }}>{errors.text}</p>}
-
-                        <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' type='submit'>
-                            Send
-                        </button>
-                    </form>
+                  <p className='text-white text-sm sm:text-lg'>{data.bio}</p>
                 </div>
+              </div>
+              <div className='w-full sm:w-1/2 gap-4 flex flex-col justify-center items-center text-center'>
+                <div>
+                  <h2 className='text-xl sm:text-2xl md:text-3xl font-bold text-white'>Stack</h2>
+                </div>
+                <div className='flex flex-row flex-wrap gap-2 sm:gap-4 items-center justify-center px-4 sm:px-14'>
+                  {data.skills
+                    .sort((a, b) => (a.category > b.category ? 1 : -1)) // Sort by category
+                    .map((skillsData) => (
+                      <ImageComponent
+                        key={skillsData._id}
+                        src={`http://localhost:3002/${skillsData.logo}`}
+                        alt={skillsData.name}
+                        className='w-12 h-12 sm:w-16 sm:h-16 rounded-xl border-4 hover:animate-bounce'
+                        title={skillsData.name}
+                      />
+                    ))}
+                </div>
+              </div>
             </div>
-            <Footer />
-        </>
-    );
+          ))}
+        </div>
+
+        <div ref={projetRef} className='w-full flex flex-col min-h-[70vh] opacity-0 translate-y-10 transition-all duration-[1500ms] ease-in-out pt-[100px]' data-scroll>
+          <div className='flex justify-center'>
+            <h2 className='text-2xl sm:text-3xl font-bold text-center'>Projets</h2>
+          </div>
+          {userData.map((data) => (
+            <div key={data._id}>
+              {data.projects.map((projectData, index) => (
+                <div
+                  key={projectData._id}
+                  className={`relative flex items-center min-h-fit w-full gap-8 justify-center py-4  overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms] px-2 ease-in-out  ${index % 2 === 0 ? 'flex-col sm:flex-row bg-[#E0E3E8] my-2' : 'flex-col text-white sm:flex-row-reverse bg-[#65a0ca]'}` }
+                  data-scroll>
+                  <div className="flex flex-col gap-6 w-full sm:w-1/4 h-100 mx-4">
+                    <div>
+                      <h2 className="text-center text-xl sm:text-2xl md:text-3xl font-bold">{projectData.title}</h2>
+                    </div>
+                    <div>
+                      <p className="px-4 lg:px-20 text-sm sm:text-base">{projectData.description}</p>
+                    </div>
+                  </div>
+                  <div className="relative m-10 flex items-center justify-center w-full sm:w-1/2 max-h-[40vh] rounded-lg overflow-hidden shadow-lg border-8 group">
+                    <ImageComponent
+                      src={`http://localhost:3002/${projectData.imageUrl}`}
+                      alt={projectData.title}
+                      className="w-full h-full object-contain rounded-lg transition-transform  duration-300 ease-in-out group-hover:scale-110"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        <div className='flex flex-col justify-center my-4 min-h-[50vh] items-center gap-4 w-full translate-y-10 transition-all duration-[2000ms] ease-in-out mt-4 pt-[80px]' data-scroll ref={contactRef}>
+  <div>
+    <h2 className='font-bold text-xl sm:text-3xl'>Contact</h2>
+  </div>
+  <div className='flex gap-12 justify-center items-center my-8'>
+    <h2 className=' text-xl sm:text-2xl text-center'>Un projet ? Une idée ? Prenons contact !</h2>
+  </div>
+  <div className='w-full sm:w-1/2 px-2 sm:px-0'> {/* Responsive width for the form: full on mobile, half on large screens */}
+    <form onSubmit={handleSubmit} className='bg-slate-200 flex flex-col gap-4 border-4 justify-center w-full shadow-md rounded-2xl px-4 sm:px-6 pt-6 pb-4 mb-4'>
+      <div className='flex flex-col sm:flex-row gap-4 items-center flex-wrap w-full'>
+        <div className='flex flex-col justify-center w-full'>
+          <label htmlFor="firstName" className='py-2 pl-2'>Prénom</label>
+          <input
+            value={formData.firstName}
+            onChange={handleChange}
+            className='shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+            type="text"
+            name="firstName"
+            placeholder="Entrez votre prénom"
+          />
+          {errors.firstName && <div className='my-2'><p style={{ color: "red" }} >{errors.firstName}</p></div>}
+        </div>
+        <div className='flex flex-col py-2 justify-center w-full'>
+          <label htmlFor="lastName" className='py-2 pl-2'>Nom</label>
+          <input
+            value={formData.lastName}
+            onChange={handleChange}
+            className='shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+            type="text"
+            name="lastName"
+            id="lastName"
+            placeholder="Entrez votre nom"
+          />
+          {errors.lastName && <div className='my-2'> <p style={{ color: "red" }}>{errors.lastName}</p></div> }
+        </div>
+      </div>
+      <label htmlFor="contactSecondMail" className='pl-2'>Email de contact</label>
+      <input
+        value={formData.contactSecondMail}
+        onChange={handleChange}
+        className='shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+        type="email"
+        name='contactSecondMail'
+        id='contactSecondMail'
+        placeholder="Entrez votre email"
+      />
+      {errors.contactSecondMail && <p style={{ color: "red" }}>{errors.contactSecondMail}</p>}
+
+      <label htmlFor="text" className='pl-2'>Votre message</label>
+      <textarea
+        value={formData.text}
+        onChange={handleChange}
+        className='shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+        name='text'
+        id='text'
+        rows={5}
+        placeholder="Entrez votre message"
+      />
+      {errors.text && <p style={{ color: "red" }}>{errors.text}</p>}
+      <div className='flex justify-end mt-6'>
+        <button className='bg-blue-500 hover:bg-blue-700 focus:bg-blue-700 w-full sm:w-1/4 h-16 items-center text-white font-bold py-2 px-4 rounded-xl focus:outline-none focus:shadow-outline submit' type='submit'>
+          Envoyer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+      </div>
+      <Footer />
+    </>
+  );
 };
 
 export default Home;
