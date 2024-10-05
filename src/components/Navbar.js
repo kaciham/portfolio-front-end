@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 
 const Navbar = ({ handleScroll, refs }) => {
+
+    const apiUrl = process.env.REACT_APP_SERVER_PROD;
+
     const [isOpen, setIsOpen] = useState(false); // Menu toggle state
     const [userData, setUserData] = useState([]);
     const [scrollTop, setScrollTop] = useState(true); // Track if the scroll is at the top
@@ -14,7 +17,7 @@ const Navbar = ({ handleScroll, refs }) => {
     // Fetch user data from backend
     const fetchProjects = async () => {
         try {
-            const response = await axios.get('http://localhost:3002/api/kaci'); // Replace with your actual backend URL
+            const response = await axios.get(`${apiUrl}api/kaci`); // Replace with your actual backend URL
             const dataFetched = response.data;
             setUserData([dataFetched]);
         } catch (error) {
@@ -24,7 +27,7 @@ const Navbar = ({ handleScroll, refs }) => {
 
     useEffect(() => {
         fetchProjects(); // Fetch user data on component mount
-    }, []);
+    });
 
     // Track scroll position to update navbar style
     useEffect(() => {
@@ -58,7 +61,7 @@ const Navbar = ({ handleScroll, refs }) => {
                 <div className="flex items-center py-2">
                     {userData.map(data => (
                         <div key={data._id} className="flex items-center mx-2 gap-4">
-                            <img className='w-14 rounded-full hover:scale-110 transition-transform duration-100' src={`http://localhost:3002/${data.profilePic}`} alt={`${data.firstName} ${data.lastName.toUpperCase()} profile`} />
+                            <img className='w-14 rounded-full hover:scale-110 transition-transform duration-100' src={`${apiUrl}${data.profilePic}`} alt={`${data.firstName} ${data.lastName.toUpperCase()} profile`} />
                             <h2 className='hover:scale-110 transition-transform duration-100'>{`${data.firstName} ${data.lastName.toUpperCase()}`}</h2>
                         </div>
                     ))}

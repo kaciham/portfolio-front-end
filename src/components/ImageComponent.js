@@ -6,7 +6,7 @@ const ImageComponent = ({ src, alt, className, title, onClick }) => {
         <img
             src={src}
             alt={alt}
-            className={`rounded-full ${className}`} // Apply additional classes like 'rounded-full' here
+            className={className} // Apply additional classes like 'rounded-full' here
             title={title}
             onClick={onClick}
         />
