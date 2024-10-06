@@ -61,8 +61,8 @@ const Navbar = ({ handleScroll, refs }) => {
                 <div className="flex items-center py-2">
                     {userData.map(data => (
                         <div key={data._id} className="flex items-center mx-2 gap-4">
-                            <img className='w-14 rounded-full hover:scale-110 transition-transform duration-100' src={`${apiUrl}${data.profilePic}`} alt={`${data.firstName} ${data.lastName.toUpperCase()} profile`} />
-                            <h2 className='hover:scale-110 transition-transform duration-100'>{`${data.firstName} ${data.lastName.toUpperCase()}`}</h2>
+                            <img className='w-14 rounded-full sm:hover:scale-110 transition-transform duration-100' src={`${apiUrl}${data.profilePic}`} alt={`${data.firstName} ${data.lastName.toUpperCase()} profile`} />
+                            <h2 className='sm:hover:scale-110 transition-transform duration-100'>{`${data.firstName} ${data.lastName.toUpperCase()}`}</h2>
                         </div>
                     ))}
                 </div>

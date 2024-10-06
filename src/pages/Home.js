@@ -143,7 +143,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
     if (!formData.firstName.trim()) newErrors.firstName = 'Le prénom est requis';
     if (!formData.lastName.trim()) newErrors.lastName = 'Le nom est requis';
     if (!formData.contactSecondMail.trim()) newErrors.contactSecondMail = "L'email de contact est requis";
-    if (!formData.text.trim()) newErrors.text = 'Votre message est requis';
+    if (!formData.text) newErrors.text = 'Votre message est requis';
 
     setErrors(newErrors);
 
@@ -210,27 +210,27 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                 />
               </div>
               <div className='flex justify-center rounded-full p-1 m-3 gap-4 my-8'>
-                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:animate-bounce'>
+                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center '>
                   <a href={data.linkedinUrl} target='_blank' rel='noreferrer'>
                     <ImageComponent src={linkedinLogo} />
                   </a>
                 </div>
-                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:animate-bounce'>
+                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center '>
                   <a href={data.githubUrl} target='_blank' rel='noreferrer'>
                     <ImageComponent src={githubLogo} />
                   </a>
                 </div>
-                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:animate-bounce'>
+                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center '>
                   <a href={`${apiUrl}${data.resumePdf}`} target='_blank' rel='noreferrer'>
                     <ImageComponent src={cvLogo} className={'w-10 top-2 h-fit rounded-none'} />
                   </a>
                 </div>
-                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:animate-bounce'>
+                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center '>
                   <a href={data.scheduleUrl} target='_blank' rel='noreferrer'>
                     <ImageComponent src={calendarLogo} className={'w-10 top-2 h-fit rounded-none'} />
                   </a>
                 </div>
-                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:animate-bounce cursor-pointer'>
+                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center  cursor-pointer'>
                   <button onClick={() => handleScroll(contactRef)}>
                     <ImageComponent src={contactLogo} className={'w-10 top-2 h-fit rounded-none'} />
                   </button>
@@ -244,7 +244,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                   <h2 className='text-left text-2xl sm:text-3xl md:text-4xl'>et je suis</h2>
                   <div className='my-4'>
                     <h2>
-                      <span className='text-4xl sm:text-3xl md:text-5xl font-bold my-8'>{displayedText}</span>
+                      <span className='text-4xl sm:text-2xl md:text-3xl font-bold my-6'>{displayedText}</span>
                     </h2>
                   </div>
                 </div>
