@@ -171,15 +171,21 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    const trimmedValue = value.trim();
-    const processedValue = name === 'contactSecondMail' ? trimmedValue.toLowerCase() : trimmedValue;
+  const { name, value } = e.target;
 
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: processedValue,
-    }));
-  };
+  let processedValue = value;
+
+  // Apply trim for all fields except 'text'
+  if (name !== 'text') {
+    processedValue = processedValue.trim();
+  }
+
+  setFormData((prevData) => ({
+    ...prevData,
+    [name]: processedValue,
+  }));
+};
+
 
   const toTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -202,14 +208,14 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
         >
           {userData.map((data) => (
             <div key={data._id}>
-              <div className='flex justify-center pt-18'>
+              <div className='flex justify-center pt-20'>
                 <ImageComponent
                   src={`${apiUrl}${data.profilePic}`}
                   alt="Profile"
                   className="w-[150px] sm:w-[250px] m-4 rounded-full"
                 />
               </div>
-              <div className='flex justify-center rounded-full p-1 m-3 gap-4 my-8'>
+              <div className='flex justify-center rounded-full p-1 m-3 gap-4 my-6'>
                 <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center '>
                   <a href={data.linkedinUrl} target='_blank' rel='noreferrer'>
                     <ImageComponent src={linkedinLogo} />
@@ -237,14 +243,14 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                 </div>
               </div>
               <div>
-                <h1 className='text-center text-2xl sm:text-3xl md:text-4xl px-16 weo my-2'>
+                <h1 className='text-center text-2xl sm:text-3xl md:text-4xl  p-6 sm:px-16 weo my-2'>
                   Bonjour ! Je m'appelle {data.firstName + ' ' + data.lastName.toUpperCase()}
                 </h1>
-                <div className='flex flex-col justify-center h-28 items-center gap-2'>
+                <div className='flex flex-col justify-center h-28 items-center '>
                   <h2 className='text-left text-2xl sm:text-3xl md:text-4xl'>et je suis</h2>
                   <div className='my-4'>
-                    <h2>
-                      <span className='text-4xl sm:text-2xl md:text-3xl font-bold my-6'>{displayedText}</span>
+                    <h2 className='text-2xl sm:text-3xl md:text-4xl font-bold my-6'  >
+                      <span className='py-2'>{displayedText}</span>
                     </h2>
                   </div>
                 </div>
@@ -266,12 +272,12 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                   <h2 className='text-xl sm:text-2xl md:text-3xl font-bold text-white'>Bio</h2>
                 </div>
                 <div>
-                  <p className='text-white text-sm sm:text-lg'>{data.bio}</p>
+                  <p className='text-white px-4 text-sm sm:text-lg'>{data.bio}</p>
                 </div>
               </div>
               <div className='w-full sm:w-1/2 gap-4 flex flex-col justify-center items-center text-center'>
                 <div>
-                  <h2 className='text-xl sm:text-2xl md:text-3xl font-bold text-white'>Stack</h2>
+                  <h2 className=' px-4 text-xl sm:text-2xl md:text-3xl font-bold text-white'>Stack</h2>
                 </div>
                 <div className='flex flex-row flex-wrap gap-2 sm:gap-4 items-center justify-center px-4 sm:px-14'>
                   {data.skills
@@ -368,7 +374,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
           <div className='w-full sm:w-1/2 px-2 sm:px-0'>
             <form
               onSubmit={handleSubmit}
-              className='bg-slate-200 flex flex-col gap-4 border-4 justify-center w-full shadow-md rounded-2xl px-4 sm:px-6 pt-6 pb-4 mb-4'
+              className='bg-slate-200 flex flex-col  min-h-[75vh] gap-4 border-4 justify-center w-full shadow-md rounded-2xl px-4 sm:px-6 pt-6 pb-4 mb-4'
             >
               <div className='flex flex-col sm:flex-row gap-4 items-center flex-wrap w-full'>
                 <div className='flex flex-col justify-center w-full'>
@@ -438,7 +444,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
               {errors.text && <p style={{ color: 'red' }}>{errors.text}</p>}
               <div className='flex justify-end mt-6'>
                 <button
-                  className='bg-blue-500 hover:bg-blue-700 focus:bg-blue-700 w-full sm:w-1/4 h-16 items-center text-white font-bold py-2 px-4 rounded-xl focus:outline-none focus:shadow-outline submit'
+                  className='bg-blue-500 text-center hover:bg-blue-700 focus:bg-blue-700 w-full sm:w-1/3 h-16 items-center text-white font-bold py-2 px-2 rounded-xl focus:outline-none focus:shadow-outline submit'
                   type='submit'
                 >
                   Envoyer
@@ -453,7 +459,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
 
       {showTopIcon && (
         <div
-          className='w-24 h-24 fixed bottom-5 rounded-full right-5 bg-[#E0E3E8] border-[#65A0CA] border-8 p-5 shadow-custom cursor-pointer opacity-90'
+          className='w-20 h-20 sm:w-24 sm:h-24 fixed bottom-5 rounded-full right-5 bg-[#E0E3E8] border-[#65A0CA] border-8 p-5 shadow-custom cursor-pointer opacity-90'
           onClick={toTop}
         >
           <TopIcon iconSource={upArrow} onClick={toTop} />
