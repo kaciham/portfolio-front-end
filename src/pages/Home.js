@@ -284,7 +284,6 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                 </div>
                 <div className='flex flex-row flex-wrap gap-2 sm:gap-4 items-center justify-center px-4 sm:px-14'>
                   {data.skills
-                    .sort((a, b) => (a.category > b.category ? 1 : -1))
                     .map((skillsData) => (
                       <ImageComponent
                         key={skillsData._id}

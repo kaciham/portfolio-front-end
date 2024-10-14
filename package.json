@@ -20,6 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "https://kacihamroun.website",  
   "eslintConfig": {
     "extends": [
       "react-app",
