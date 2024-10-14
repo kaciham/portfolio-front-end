@@ -154,7 +154,12 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
     }
 
     try {
-      const response = await axios.post(`${apiUrl}api/contacts`, formData);
+      const response = await axios.post(`${apiUrl}api/contacts`, formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      withCredentials: true,
+      });
       if (response.status === 200) {
         alert('Form submitted successfully!');
         setFormData({
@@ -283,8 +288,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                   <h2 className=' px-4 text-xl sm:text-2xl md:text-3xl font-bold text-white'>Stack</h2>
                 </div>
                 <div className='flex flex-row flex-wrap gap-2 sm:gap-4 items-center justify-center px-4 sm:px-14'>
-                  {data.skills
-                    .map((skillsData) => (
+                  {data.skills.map((skillsData) => (
                       <ImageComponent
                         key={skillsData._id}
                         src={`${apiUrl}${skillsData.logo}`}
