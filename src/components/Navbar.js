@@ -3,7 +3,7 @@ import axios from "axios";
 
 const Navbar = ({ handleScroll, refs }) => {
 
-    const apiUrl = process.env.REACT_APP_SERVER_DEV;
+    const apiUrl = process.env.REACT_APP_SERVER_PROD;
 
     const [isOpen, setIsOpen] = useState(false); // Menu toggle state
     const [userData, setUserData] = useState([]);

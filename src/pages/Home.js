@@ -15,7 +15,7 @@ import upArrow from '../assets/icons/up-arrow.svg';
 
 const Home = () => {
 
-const apiUrl = process.env.REACT_APP_SERVER_DEV;
+const apiUrl = process.env.REACT_APP_SERVER_PROD;
 
 // const testClicked = () => {
 //   alert(apiUrl);
