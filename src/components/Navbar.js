@@ -3,7 +3,7 @@ import axios from "axios";
 
 const Navbar = ({ handleScroll, refs }) => {
 
-    const apiUrl = process.env.REACT_APP_SERVER_PROD;
+    const apiUrl = process.env.REACT_APP_SERVER_DEV;
 
     const [isOpen, setIsOpen] = useState(false); // Menu toggle state
     const [userData, setUserData] = useState([]);
@@ -14,7 +14,8 @@ const Navbar = ({ handleScroll, refs }) => {
         setIsOpen(!isOpen);
     };
 
-    // Fetch user data from backend
+    useEffect(() => {
+        // Fetch user data from backend
     const fetchProjects = async () => {
         try {
             const response = await axios.get(`${apiUrl}api/kaci`); // Replace with your actual backend URL
@@ -24,10 +25,8 @@ const Navbar = ({ handleScroll, refs }) => {
             console.error('Error fetching data:', error);
         }
     };
-
-    useEffect(() => {
         fetchProjects(); // Fetch user data on component mount
-    });
+    },[apiUrl]);
 
     // Track scroll position to update navbar style
     useEffect(() => {

@@ -15,7 +15,7 @@ import upArrow from '../assets/icons/up-arrow.svg';
 
 const Home = () => {
 
-const apiUrl = process.env.REACT_APP_SERVER_PROD;
+const apiUrl = process.env.REACT_APP_SERVER_DEV;
 
 // const testClicked = () => {
 //   alert(apiUrl);
@@ -92,26 +92,28 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
     };
   }, []);
 
-  const fetchProjects = async () => {
-    try {
-      const response = await axios.get(`${apiUrl}api/kaci`);
-      const dataFetched = response.data;
-      setUserData([dataFetched]);
 
-      if (dataFetched.jobs) {
-        const jobTitles = dataFetched.jobs.map((job) => job.title);
-        setJobs(jobTitles);
-      } else {
-        console.warn('Jobs data not found in response');
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
 
   useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}api/kaci`);
+        const dataFetched = response.data;
+        setUserData([dataFetched]);
+  
+        if (dataFetched.jobs) {
+          const jobTitles = dataFetched.jobs.map((job) => job.title);
+          setJobs(jobTitles);
+        } else {
+          console.warn('Jobs data not found in response');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
     fetchProjects();
-  });
+    
+  },[apiUrl]);
 
   useEffect(() => {
     if (jobs.length === 0) return;
@@ -242,17 +244,15 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                   </button>
                 </div>
               </div>
-              <div>
-                <h1 className='text-center text-2xl sm:text-3xl md:text-4xl  p-6 sm:px-16 weo my-2'>
-                  Bonjour ! Je m'appelle {data.firstName + ' ' + data.lastName.toUpperCase()}
+              <div className='h-26'>
+                <h1 className='text-center text-2xl sm:text-3xl h-20 md:text-4xl  p-6 sm:px-16 weo my-2'>
+                  Bonjour ! Je m'appelle {data.firstName + ' ' + data.lastName.toUpperCase()} et je suis:
                 </h1>
-                <div className='flex flex-col justify-center h-28 items-center '>
-                  <h2 className='text-left text-2xl sm:text-3xl md:text-4xl'>et je suis</h2>
-                  <div className='my-4'>
-                    <h2 className='text-2xl sm:text-3xl md:text-4xl font-bold my-6'  >
-                      <span className='py-2'>{displayedText}</span>
+                <div className='flex flex-col justify-center  items-center '>
+                  {/* <h2 className='text-left text-2xl sm:text-3xl md:text-4xl'>et je suis</h2> */}
+                    <h2 className='text-3xl sm:text-3xl md:text-4xl font-bold my-2'>
+                      <span >{displayedText}</span>
                     </h2>
-                  </div>
                 </div>
               </div>
             </div>
@@ -260,13 +260,16 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
         </div>
 
         {/* Section with smooth transition effect */}
+        <div className='flex justify-center' ref={aboutRef} >
+    <h2 className='text-2xl sm:text-3xl font-bold text-center my-24'>à Propos</h2>
+  </div>
         <div
           className='bg-[#65a0ca] flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center'
           data-scroll
-          ref={aboutRef}
         >
           {userData.map((data) => (
             <div key={data._id} className='flex w-full max-w-7xl min-h-[40vh] flex-col sm:flex-row my-4 justify-between items-center'>
+            
               <div className='w-full sm:w-1/2 gap-4 flex flex-col justify-center items-center text-center'>
                 <div>
                   <h2 className='text-xl sm:text-2xl md:text-3xl font-bold text-white'>Bio</h2>
@@ -287,7 +290,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                         key={skillsData._id}
                         src={`${apiUrl}${skillsData.logo}`}
                         alt={skillsData.name}
-                        className='w-12 h-12 sm:w-16 sm:h-16 rounded-xl border-4 hover:animate-bounce'
+                        className='w-12 h-12 sm:w-16 sm:h-16 rounded-xl border-4 transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2'
                         title={skillsData.name}
                       />
                     ))}
@@ -299,11 +302,11 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
 
         <div
   ref={projetRef}
-  className='w-full flex flex-col min-h-[70vh] opacity-0 translate-y-10 transition-all duration-[1500ms] ease-in-out pt-[100px]'
+  className='w-full flex flex-col min-h-[70vh] opacity-0 translate-y-10 transition-all duration-[1500ms] ease-in-out '
   data-scroll
 >
   <div className='flex justify-center'>
-    <h2 className='text-2xl sm:text-3xl font-bold text-center'>Projets</h2>
+    <h2 className='text-2xl sm:text-3xl font-bold text-center my-24'>Projets</h2>
   </div>
   {userData.map((data) => (
     <div key={data._id}>
@@ -361,12 +364,12 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
 
 
         <div
-          className='flex flex-col justify-center my-4 min-h-[50vh] items-center gap-4 w-full translate-y-10 transition-all duration-[2000ms] ease-in-out mt-4 pt-[80px]'
+          className='flex flex-col justify-center my-4 min-h-[50vh] items-center gap-4 w-full translate-y-10 transition-all duration-[2000ms] ease-in-out mt-4'
           data-scroll
           ref={contactRef}
         >
           <div>
-            <h2 className='font-bold text-xl sm:text-3xl'>Contact</h2>
+            <h2 className='font-bold text-xl sm:text-3xl my-24'>Contact</h2>
           </div>
           <div className='flex gap-12 justify-center items-center my-8'>
             <h2 className='text-xl sm:text-2xl text-center'>Un projet ? Une idée ? Prenons contact !</h2>
@@ -459,7 +462,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
 
       {showTopIcon && (
         <div
-          className='w-20 h-20 sm:w-24 sm:h-24 fixed bottom-5 rounded-full right-5 bg-[#E0E3E8] border-[#65A0CA] border-8 p-5 shadow-custom cursor-pointer opacity-90'
+          className='w-20 h-20 sm:w-24 sm:h-24 fixed bottom-5 rounded-full right-5 bg-[#E0E3E8] border-[#65A0CA] border-8 p-5 shadow-custom cursor-pointer opacity-90 transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2'
           onClick={toTop}
         >
           <TopIcon iconSource={upArrow} onClick={toTop} />
