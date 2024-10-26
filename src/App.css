@@ -7,3 +7,38 @@
     font-optical-sizing: auto;
 }
 
+.simple-loader {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3); /* Light border */
+    border-top: 3px solid white; /* Darker top border */
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .alert {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid;
+    border-radius: 0.5rem;
+    transition: opacity 2s ease-in-out; /* Transition for opacity */
+  }
+  
+  .opacity-100 {
+    opacity: 1;
+  }
+  
+  .opacity-0 {
+    opacity: 0;
+  }

@@ -17,9 +17,6 @@ const Home = () => {
 
 const apiUrl = process.env.REACT_APP_SERVER_PROD;
 
-// const testClicked = () => {
-//   alert(apiUrl);
-// }
 
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
@@ -44,6 +41,10 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
     emailContact: 'kacihamroun@outlook.com',
   });
   const [showTopIcon, setShowTopIcon] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isVisible, setIsVisible] = useState(false)
 
   const handleScrollTopArrow = () => {
     if (window.scrollY > 100) {
@@ -59,6 +60,22 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
       window.removeEventListener('scroll', handleScrollTopArrow);
     };
   }, []);
+
+  useEffect(() => {
+    let timer;
+    if (successMessage || errorMessage) {
+      setIsVisible(true); // Set visible when message appears
+
+      timer = setTimeout(() => {
+        setIsVisible(false); // Trigger fade-out transition
+        setTimeout(() => {
+          setSuccessMessage('');
+          setErrorMessage('');
+        }, 1000); // Delay hiding message completely to allow fade-out
+      }, 3000); // Show message for 5 seconds
+    }
+    return () => clearTimeout(timer); // Clear timer on unmount or update
+  }, [successMessage, errorMessage]);
 
   const handleScrollDisplay = () => {
     const elements = document.querySelectorAll('[data-scroll]');  
@@ -153,15 +170,18 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
       return;
     }
 
+    setIsLoading(true);
     try {
       const response = await axios.post(`${apiUrl}api/contacts`, formData, {
         headers: {
           'Content-Type': 'application/json',
         },
-      withCredentials: true,
+        withCredentials: true,
       });
+
       if (response.status === 200) {
-        alert('Form submitted successfully!');
+        setSuccessMessage('Form submitted successfully!');
+        setErrorMessage('');
         setFormData({
           firstName: '',
           lastName: '',
@@ -173,9 +193,13 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
       }
     } catch (error) {
       console.error('Error submitting the form:', error);
-      alert('Failed to submit the form. Please try again.');
+      setErrorMessage('Failed to submit the form. Please try again.');
+      setSuccessMessage('');
+    } finally {
+      setIsLoading(false);
     }
   };
+
 
   const handleChange = (e) => {
   const { name, value } = e.target;
@@ -223,40 +247,42 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                 />
               </div>
               <div className='flex justify-center rounded-full p-1 m-3 gap-4 my-6'>
-                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center '>
+                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out   hover:-translate-y-2'>
                   <a href={data.linkedinUrl} target='_blank' rel='noreferrer'>
                     <ImageComponent src={linkedinLogo} />
                   </a>
                 </div>
-                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center '>
+                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out  hover:-translate-y-2'>
                   <a href={data.githubUrl} target='_blank' rel='noreferrer'>
                     <ImageComponent src={githubLogo} />
                   </a>
                 </div>
-                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center '>
+                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out  hover:-translate-y-2'>
                   <a href={`${apiUrl}${data.resumePdf}`} target='_blank' rel='noreferrer'>
                     <ImageComponent src={cvLogo} className={'w-10 top-2 h-fit rounded-none'} />
                   </a>
                 </div>
-                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center '>
+                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out   hover:-translate-y-2'>
                   <a href={data.scheduleUrl} target='_blank' rel='noreferrer'>
                     <ImageComponent src={calendarLogo} className={'w-10 top-2 h-fit rounded-none'} />
                   </a>
                 </div>
-                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center  cursor-pointer'>
+                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center  cursor-pointer transition-transform duration-50 ease-in-out   hover:-translate-y-2'>
                   <button onClick={() => handleScroll(contactRef)}>
                     <ImageComponent src={contactLogo} className={'w-10 top-2 h-fit rounded-none'} />
                   </button>
                 </div>
               </div>
-              <div className='h-26'>
+              <div className='h-60'>
+              <div className='pb-4'>
                 <h1 className='text-center text-2xl sm:text-3xl h-20 md:text-4xl  p-6 sm:px-16 weo my-2'>
                   Bonjour ! Je m'appelle {data.firstName + ' ' + data.lastName.toUpperCase()} et je suis:
                 </h1>
-                <div className='flex flex-col justify-center  items-center '>
+                </div>
+                <div className='flex flex-col justify-center items-center '>
                   {/* <h2 className='text-left text-2xl sm:text-3xl md:text-4xl'>et je suis</h2> */}
                     <h2 className='text-3xl sm:text-3xl md:text-4xl font-bold my-2'>
-                      <span >{displayedText}</span>
+                      {displayedText}
                     </h2>
                 </div>
               </div>
@@ -267,105 +293,98 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
         {/* Section with smooth transition effect */}
         <div className='flex justify-center' ref={aboutRef} >
     <h2 className='text-2xl sm:text-3xl font-bold text-center my-24'>à Propos</h2>
-  </div>
+        </div>
         <div
-          className='bg-[#65a0ca] flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center'
+                  className='bg-[#65a0ca] flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center'
+                  data-scroll
+                >
+                  {userData.map((data) => (
+                    <div key={data._id} className='flex w-full max-w-7xl min-h-[40vh] flex-col sm:flex-row my-4 justify-between items-center'>
+                    
+                      <div className='w-full sm:w-1/2 gap-4 flex flex-col justify-center items-center text-center'>
+                        <div>
+                          <h2 className='text-xl sm:text-2xl md:text-3xl font-bold text-white'>Bio</h2>
+                        </div>
+                        <div>
+                          <p className='text-white px-4 text-sm sm:text-lg'>{data.bio}</p>
+                        </div>
+                      </div>
+                      <div className='w-full sm:w-1/2 gap-4 flex flex-col justify-center items-center text-center'>
+                        <div>
+                          <h2 className=' px-4 text-xl sm:text-2xl md:text-3xl font-bold text-white'>Stack</h2>
+                        </div>
+                        <div className='flex flex-row flex-wrap gap-2 sm:gap-4 items-center justify-center px-8 sm:px-14'>
+                          {data.skills.map((skillsData) => (
+                              <ImageComponent
+                                key={skillsData._id}
+                                src={`${apiUrl}${skillsData.logo}`}
+                                alt={skillsData.name}
+                                className='w-10 h-10 sm:w-14 sm:h-14 rounded-xl border-4 transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2'
+                                title={skillsData.name}
+                              />
+                            ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+        </div>
+        <div
+          ref={projetRef}
+          className='w-full flex flex-col min-h-[70vh] opacity-0 translate-y-10 transition-all duration-[1500ms] ease-in-out '
           data-scroll
         >
+          <div className='flex justify-center'>
+            <h2 className='text-2xl sm:text-3xl font-bold text-center my-24'>Projets</h2>
+          </div>
           {userData.map((data) => (
-            <div key={data._id} className='flex w-full max-w-7xl min-h-[40vh] flex-col sm:flex-row my-4 justify-between items-center'>
-            
-              <div className='w-full sm:w-1/2 gap-4 flex flex-col justify-center items-center text-center'>
-                <div>
-                  <h2 className='text-xl sm:text-2xl md:text-3xl font-bold text-white'>Bio</h2>
-                </div>
-                <div>
-                  <p className='text-white px-4 text-sm sm:text-lg'>{data.bio}</p>
-                </div>
+            <div key={data._id}>
+              {data.projects.map((projectData, index) => (
+                <div
+          key={projectData._id}
+          className={`relative flex flex-col sm:flex-col md:flex-col items-center w-full gap-8 justify-center py-4 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms] px-2 ease-in-out ${
+            index % 2 === 0 ? 'bg-[#E0E3E8] my-2' : 'text-white bg-[#65a0ca]'
+          }`}
+          data-scroll
+        >
+          {/* Title (always on top in both mobile and desktop view) */}
+          <div className='w-full text-center mb-4'>
+            <h2 className='text-xl sm:text-2xl md:text-3xl font-bold'>{projectData.title}</h2>
+          </div>
+
+          {/* Flex Container for Image and Description */}
+          <div className={`flex flex-col sm:flex-row w-full gap-8 ${index % 2 === 0 ? ' sm:flex-row-reverse' : 'sm:flex-row'}`}>
+            {/* Image (side by side with description on desktop) */}
+            <div className='relative flex items-center justify-center w-full max-h-[30vh] sm:max-h-[40vh] sm:mx-4 rounded-lg overflow-hidden shadow-lg border-8 group'>
+              <ImageComponent
+                src={`${apiUrl}${projectData.imageUrl}`}
+                alt={projectData.title}
+                className='w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110'
+              />
+            </div>
+
+            {/* Description and Skills */}
+            <div className='flex flex-col gap-6 w-full sm:w-1/2 h-100 sm:mx-4 text-center justify-around'>
+              <div>
+                <p className='px-4 lg:px-10 text-sm sm:text-base'>{projectData.description}</p>
               </div>
-              <div className='w-full sm:w-1/2 gap-4 flex flex-col justify-center items-center text-center'>
-                <div>
-                  <h2 className=' px-4 text-xl sm:text-2xl md:text-3xl font-bold text-white'>Stack</h2>
-                </div>
-                <div className='flex flex-row flex-wrap gap-2 sm:gap-4 items-center justify-center px-4 sm:px-14'>
-                  {data.skills.map((skillsData) => (
-                      <ImageComponent
-                        key={skillsData._id}
-                        src={`${apiUrl}${skillsData.logo}`}
-                        alt={skillsData.name}
-                        className='w-12 h-12 sm:w-16 sm:h-16 rounded-xl border-4 transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2'
-                        title={skillsData.name}
-                      />
-                    ))}
-                </div>
+              <div className='flex flex-wrap justify-center'>
+                {projectData.skills.map((projectSkillsData) => (
+                  <ImageComponent
+                    key={projectSkillsData._id}
+                    src={`${apiUrl}${projectSkillsData.logo}`}
+                    alt={projectSkillsData.name}
+                    className='w-8 h-8 sm:w-12 sm:h-12 rounded-xl border-4 hover:animate-bounce'
+                    title={projectSkillsData.name}
+                  />
+                ))}
               </div>
+            </div>
+          </div>
+        </div>
+              ))}
             </div>
           ))}
         </div>
-
-        <div
-  ref={projetRef}
-  className='w-full flex flex-col min-h-[70vh] opacity-0 translate-y-10 transition-all duration-[1500ms] ease-in-out '
-  data-scroll
->
-  <div className='flex justify-center'>
-    <h2 className='text-2xl sm:text-3xl font-bold text-center my-24'>Projets</h2>
-  </div>
-  {userData.map((data) => (
-    <div key={data._id}>
-      {data.projects.map((projectData, index) => (
-        <div
-  key={projectData._id}
-  className={`relative flex flex-col sm:flex-col md:flex-col items-center w-full gap-8 justify-center py-4 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms] px-2 ease-in-out ${
-    index % 2 === 0 ? 'bg-[#E0E3E8] my-2' : 'text-white bg-[#65a0ca]'
-  }`}
-  data-scroll
->
-  {/* Title (always on top in both mobile and desktop view) */}
-  <div className='w-full text-center mb-4'>
-    <h2 className='text-xl sm:text-2xl md:text-3xl font-bold'>{projectData.title}</h2>
-  </div>
-
-  {/* Flex Container for Image and Description */}
-  <div className={`flex flex-col sm:flex-row w-full gap-8 ${index % 2 === 0 ? ' sm:flex-row-reverse' : 'sm:flex-row'}`}>
-    {/* Image (side by side with description on desktop) */}
-    <div className='relative flex items-center justify-center w-full max-h-[30vh] sm:max-h-[40vh] sm:mx-4 rounded-lg overflow-hidden shadow-lg border-8 group'>
-      <ImageComponent
-        src={`${apiUrl}${projectData.imageUrl}`}
-        alt={projectData.title}
-        className='w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110'
-      />
-    </div>
-
-    {/* Description and Skills */}
-    <div className='flex flex-col gap-6 w-full sm:w-1/2 h-100 sm:mx-4 text-center justify-around'>
-      <div>
-        <p className='px-4 lg:px-10 text-sm sm:text-base'>{projectData.description}</p>
-      </div>
-      <div className='flex flex-wrap justify-center'>
-        {projectData.skills.map((projectSkillsData) => (
-          <ImageComponent
-            key={projectSkillsData._id}
-            src={`${apiUrl}${projectSkillsData.logo}`}
-            alt={projectSkillsData.name}
-            className='w-8 h-8 sm:w-12 sm:h-12 rounded-xl border-4 hover:animate-bounce'
-            title={projectSkillsData.name}
-          />
-        ))}
-      </div>
-    </div>
-  </div>
-</div>
-
- 
-
-
-      ))}
-    </div>
-  ))}
-</div>
-
-
         <div
           className='flex flex-col justify-center my-4 min-h-[50vh] items-center gap-4 w-full translate-y-10 transition-all duration-[2000ms] ease-in-out mt-4'
           data-scroll
@@ -384,7 +403,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
             >
               <div className='flex flex-col sm:flex-row gap-4 items-center flex-wrap w-full'>
                 <div className='flex flex-col justify-center w-full'>
-                  <label htmlFor='firstName' className='py-2 pl-2'>
+                  <label htmlFor='firstName' className='py-1 pl-2'>
                     Prénom
                   </label>
                   <input
@@ -395,14 +414,16 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                     name='firstName'
                     placeholder='Entrez votre prénom'
                   />
+                   <div className='py-2 pl-2'>
                   {errors.firstName && (
                     <div className='my-2'>
                       <p style={{ color: 'red' }}>{errors.firstName}</p>
                     </div>
                   )}
+                  </div>
                 </div>
-                <div className='flex flex-col py-2 justify-center w-full'>
-                  <label htmlFor='lastName' className='py-2 pl-2'>
+                <div className='flex flex-col py-1 justify-center w-full'>
+                  <label htmlFor='lastName' className='py-1 pl-2'>
                     Nom
                   </label>
                   <input
@@ -414,14 +435,17 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                     id='lastName'
                     placeholder='Entrez votre nom'
                   />
+                   <div className='py-2 pl-2'>
                   {errors.lastName && (
                     <div className='my-2'>
                       <p style={{ color: 'red' }}>{errors.lastName}</p>
                     </div>
                   )}
+                  </div>
                 </div>
               </div>
-              <label htmlFor='contactSecondMail' className='pl-2'>
+              <div className='flex flex-col py-1 justify-center w-full'>
+              <label htmlFor='contactSecondMail' className='pl-2 py-1'>
                 Email de contact
               </label>
               <input
@@ -433,9 +457,12 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                 id='contactSecondMail'
                 placeholder='Entrez votre email'
               />
+              <div className='py-2 pl-2'>
               {errors.contactSecondMail && <p style={{ color: 'red' }}>{errors.contactSecondMail}</p>}
-
-              <label htmlFor='text' className='pl-2'>
+              </div>
+</div>
+<div className='flex flex-col py-1 justify-center w-full'>
+              <label htmlFor='text' className='pl-2 py-1'>
                 Votre message
               </label>
               <textarea
@@ -447,15 +474,50 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                 rows={5}
                 placeholder='Entrez votre message'
               />
+              <div className='py-2 pl-2'>
               {errors.text && <p style={{ color: 'red' }}>{errors.text}</p>}
-              <div className='flex justify-end mt-6'>
-                <button
-                  className='bg-blue-500 text-center hover:bg-blue-700 focus:bg-blue-700 w-full sm:w-1/3 h-16 items-center text-white font-bold py-2 px-2 rounded-xl focus:outline-none focus:shadow-outline submit'
-                  type='submit'
-                >
-                  Envoyer
-                </button>
               </div>
+              </div>
+      <div className='flex justify-end mt-6'>
+        <button
+          className='bg-blue-500 text-center hover:bg-blue-700 focus:bg-blue-700 w-full sm:w-1/3 h-16 items-center text-white font-bold py-2 px-2 rounded-xl focus:outline-none focus:shadow-outline submit'
+          type='submit'
+          disabled={isLoading}
+        >
+        <div className='flex justify-center'>
+          {isLoading ? (
+            <div className="simple-loader flex justify-center text-center"></div>
+          ) : (
+            'Envoyer'
+          )}
+          </div>
+        </button>
+      </div>
+     {/* Display Success Message */}
+     {successMessage && (
+        <div className={`  flex items-center p-4 mb-4 text-sm text-green-500 border border-green-500 rounded-lg bg-green-50 alert transition-opacity ${isVisible ? 'opacity-100' : 'opacity-0'}`} role="alert">
+          <svg className="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+          </svg>
+          <span className="sr-only">Info</span>
+          <div>
+            <span className="font-medium">Success alert!</span> {successMessage}
+          </div>
+        </div>
+      )}
+
+      {/* Display Error Message */}
+      {errorMessage && (
+        <div className={`flex items-center p-4 mb-4 text-sm text-red-600 border border-red-600 rounded-lg bg-red-50 alert transition-opacity ${isVisible ? 'opacity-100' : 'opacity-0'}`} role="alert">
+          <svg className="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+          </svg>
+          <span className="sr-only">Info</span>
+          <div>
+            <span className="font-medium">Danger alert!</span> {errorMessage}
+          </div>
+        </div>
+      )}
             </form>
           </div>
         </div>

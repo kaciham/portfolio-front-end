@@ -61,7 +61,7 @@ const Navbar = ({ handleScroll, refs }) => {
                     {userData.map(data => (
                         <div key={data._id} className="flex items-center mx-2 gap-4">
                             <img className='w-14 rounded-full sm:hover:scale-110 transition-transform duration-100' src={`${apiUrl}${data.profilePic}`} alt={`${data.firstName} ${data.lastName.toUpperCase()} profile`} />
-                            <h2 className='sm:hover:scale-110 transition-transform duration-100'>{`${data.firstName} ${data.lastName.toUpperCase()}`}</h2>
+                            <h2 className='sm:hover:scale-110 transition-transform duration-100 text-xl'>{`${data.firstName} ${data.lastName.toUpperCase()}`}</h2>
                         </div>
                     ))}
                 </div>
@@ -76,10 +76,10 @@ const Navbar = ({ handleScroll, refs }) => {
                 <div className="hidden md:flex">
                     {/* Navigation menu */}
                     <ul className='flex gap-2'>
-                        <li className='mx-2 text-xl cursor-pointer hover:scale-110 transition-transform duration-100' onClick={() => handleScroll(refs.homeRef)}>Accueil</li>
-                        <li className='mx-2 text-xl cursor-pointer hover:scale-110 transition-transform duration-100' onClick={() => handleScroll(refs.aboutRef)}>À Propos</li>
-                        <li className='mx-2 text-xl cursor-pointer hover:scale-110 transition-transform duration-100' onClick={() => handleScroll(refs.projetRef)}>Projets</li>
-                        <li className='mx-2 text-xl cursor-pointer hover:scale-110 transition-transform duration-100' onClick={() => handleScroll(refs.contactRef)}>Contact</li>
+                        <li className='mx-2 text-lg cursor-pointer hover:scale-110 transition-transform duration-100' onClick={() => handleScroll(refs.homeRef)}>Accueil</li>
+                        <li className='mx-2 text-lg cursor-pointer hover:scale-110 transition-transform duration-100' onClick={() => handleScroll(refs.aboutRef)}>À Propos</li>
+                        <li className='mx-2 text-lg cursor-pointer hover:scale-110 transition-transform duration-100' onClick={() => handleScroll(refs.projetRef)}>Projets</li>
+                        <li className='mx-2 text-lg cursor-pointer hover:scale-110 transition-transform duration-100' onClick={() => handleScroll(refs.contactRef)}>Contact</li>
                     </ul>
                 </div>
             </div>
