@@ -2,8 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import axios from 'axios';
-import ImageComponent from '../components/ImageComponent'; // Import the Image component
-import backgroundImg from '../assets/images/font3.jpg';
+import ImageComponent from '../components/ImageComponent';
+import backgroundImg2 from '../assets/images/vecteezy_vector-blurred-gradient-background-in-blue-color_27204890.jpg';
 import githubLogo from '../assets/icons/github.svg';
 import linkedinLogo from '../assets/icons/linkedin.svg';
 import cvLogo from '../assets/icons/cv.svg';
@@ -12,11 +12,9 @@ import contactLogo from '../assets/icons/email.svg';
 import TopIcon from '../components/TopIcon';
 import upArrow from '../assets/icons/up-arrow.svg';
 
-
 const Home = () => {
 
 const apiUrl = process.env.REACT_APP_SERVER_PROD;
-
 
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
@@ -38,7 +36,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
     lastName: '',
     contactSecondMail: '',
     text: '',
-    emailContact: 'kacihamroun@outlook.com',
+    emailContact: '',
   });
   const [showTopIcon, setShowTopIcon] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -167,6 +165,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) {
+      contactRef.current.scrollIntoView({ behavior: 'smooth' });
       return;
     }
 
@@ -225,17 +224,23 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
   return (
     <>
       <Navbar handleScroll={handleScroll} refs={{ homeRef, aboutRef, projetRef, contactRef }} />
-      <div className='w-screen'>
-        <div
-          ref={homeRef}
-          className='flex flex-col justify-center bg-[#f8f9fa] bg-opacity-50 min-h-[95vh] opacity-0 translate-y-10 transition-transform duration-[1500ms] ease relative w-screen'
-          data-animate
-          style={{
-            backgroundImage: `url(${backgroundImg})`,
+      <div className='w-screen'
+        style={{
+            backgroundImage: `url(${backgroundImg2})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed',
-          }}
+          }} >
+        <div
+          ref={homeRef}
+          className='flex flex-col justify-center  bg-opacity-50 min-h-[90vh] sm:max-h-[90vh] opacity-0 translate-y-10 transition-transform duration-[1500ms] ease relative w-screen'
+          data-animate
+          // style={{
+          //   backgroundImage: `url(${backgroundImg})`,
+          //   backgroundSize: 'cover',
+          //   backgroundPosition: 'center',
+          //   backgroundAttachment: 'fixed',
+          // }}
         >
           {userData.map((data) => (
             <div key={data._id}>
@@ -274,8 +279,8 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                 </div>
               </div>
               <div className='h-60'>
-              <div className='pb-4'>
-                <h1 className='text-center text-2xl sm:text-3xl h-20 md:text-4xl  p-6 sm:px-16 weo my-2'>
+              <div>
+                <h1 className='text-center text-xl sm:text-2xl h-20 md:text-2xl  p-6 sm:px-16 weo my-2'>
                   Bonjour ! Je m'appelle {data.firstName + ' ' + data.lastName.toUpperCase()} et je suis:
                 </h1>
                 </div>
@@ -286,6 +291,15 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                     </h2>
                 </div>
               </div>
+         
+<div class="flex justify-center items-center h-fit">
+  <div class="animate-bounce text-gray-700">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </div>
+</div>
+
             </div>
           ))}
         </div>
@@ -295,11 +309,11 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
     <h2 className='text-2xl sm:text-3xl font-bold text-center my-24'>à Propos</h2>
         </div>
         <div
-                  className='bg-[#65a0ca] flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center'
+                  className='bg-[#6793e0] flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center'
                   data-scroll
                 >
                   {userData.map((data) => (
-                    <div key={data._id} className='flex w-full max-w-7xl min-h-[40vh] flex-col sm:flex-row my-4 justify-between items-center'>
+                    <div key={data._id} className='flex w-full max-w-7xl min-h-[40vh] flex-col sm:flex-row my-4 justify-around items-center'>
                     
                       <div className='w-full sm:w-1/2 gap-4 flex flex-col justify-center items-center text-center'>
                         <div>
@@ -341,8 +355,8 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
               {data.projects.map((projectData, index) => (
                 <div
           key={projectData._id}
-          className={`relative flex flex-col sm:flex-col md:flex-col items-center w-full gap-8 justify-center py-4 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms] px-2 ease-in-out ${
-            index % 2 === 0 ? 'bg-[#E0E3E8] my-2' : 'text-white bg-[#65a0ca]'
+          className={`relative flex flex-col sm:flex-col md:flex-col items-center rounded-lg gap-8 justify-center py-8 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms] px-2 ease-in-out lg:ml-10 ${
+            index % 2 === 0 ? ' my-2' : 'text-white   bg-[#6793e0]  '
           }`}
           data-scroll
         >
@@ -352,9 +366,9 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
           </div>
 
           {/* Flex Container for Image and Description */}
-          <div className={`flex flex-col sm:flex-row w-full gap-8 ${index % 2 === 0 ? ' sm:flex-row-reverse' : 'sm:flex-row'}`}>
+          <div className={`flex flex-col sm:flex-row w-full gap-8 sm:px-20 ${index % 2 === 0 ? ' sm:flex-row-reverse' : 'sm:flex-row'}`}>
             {/* Image (side by side with description on desktop) */}
-            <div className='relative flex items-center justify-center w-full max-h-[30vh] sm:max-h-[40vh] sm:mx-4 rounded-lg overflow-hidden shadow-lg border-8 group'>
+            <div className='relative flex items-center justify-center w-full max-h-[30vh] sm:max-h-[40vh] sm:mx-12 rounded-lg overflow-hidden shadow-lg border-8 group'>
               <ImageComponent
                 src={`${apiUrl}${projectData.imageUrl}`}
                 alt={projectData.title}
@@ -367,7 +381,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
               <div>
                 <p className='px-4 lg:px-10 text-sm sm:text-base'>{projectData.description}</p>
               </div>
-              <div className='flex flex-wrap justify-center'>
+              <div className='flex flex-wrap justify-center '>
                 {projectData.skills.map((projectSkillsData) => (
                   <ImageComponent
                     key={projectSkillsData._id}
@@ -399,11 +413,11 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
           <div className='w-full sm:w-1/2 px-2 sm:px-0'>
             <form
               onSubmit={handleSubmit}
-              className='bg-slate-200 flex flex-col  min-h-[75vh] gap-4 border-4 justify-center w-full shadow-md rounded-2xl px-4 sm:px-6 pt-6 pb-4 mb-4'
+              className='bg-[#6793e0] flex flex-col  min-h-[75vh] gap-4 justify-center w-full shadow-md rounded-2xl px-4 sm:px-6 pt-6 pb-4 mb-8'
             >
               <div className='flex flex-col sm:flex-row gap-4 items-center flex-wrap w-full'>
-                <div className='flex flex-col justify-center w-full'>
-                  <label htmlFor='firstName' className='py-1 pl-2'>
+                <div className='flex flex-col justify-center w-full'> 
+                  <label htmlFor='firstName' className='py-2 pl-2 text-white text-lg'>
                     Prénom
                   </label>
                   <input
@@ -416,14 +430,14 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                   />
                    <div className='py-2 pl-2'>
                   {errors.firstName && (
-                    <div className='my-2'>
-                      <p style={{ color: 'red' }}>{errors.firstName}</p>
+                    <div className='my-2 '>
+                      <p className=' text-red-600'>{errors.firstName}</p>
                     </div>
                   )}
                   </div>
                 </div>
-                <div className='flex flex-col py-1 justify-center w-full'>
-                  <label htmlFor='lastName' className='py-1 pl-2'>
+                <div className='flex flex-col  justify-center w-full'>
+                  <label htmlFor='lastName' className='py-2 pl-2  text-white text-lg'>
                     Nom
                   </label>
                   <input
@@ -438,14 +452,14 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                    <div className='py-2 pl-2'>
                   {errors.lastName && (
                     <div className='my-2'>
-                      <p style={{ color: 'red' }}>{errors.lastName}</p>
+                      <p className=' text-red-600'>{errors.lastName}</p>
                     </div>
                   )}
                   </div>
                 </div>
               </div>
-              <div className='flex flex-col py-1 justify-center w-full'>
-              <label htmlFor='contactSecondMail' className='pl-2 py-1'>
+              <div className='flex flex-col justify-center w-full'>
+              <label htmlFor='contactSecondMail' className='pl-2 py-2  text-white text-lg'>
                 Email de contact
               </label>
               <input
@@ -457,12 +471,12 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                 id='contactSecondMail'
                 placeholder='Entrez votre email'
               />
-              <div className='py-2 pl-2'>
-              {errors.contactSecondMail && <p style={{ color: 'red' }}>{errors.contactSecondMail}</p>}
+              <div className='py-3 pl-2'>
+              {errors.contactSecondMail && <p className=' text-red-600'>{errors.contactSecondMail}</p>}
               </div>
 </div>
-<div className='flex flex-col py-1 justify-center w-full'>
-              <label htmlFor='text' className='pl-2 py-1'>
+<div className='flex flex-col justify-center w-full'>
+              <label htmlFor='text' className='pl-2 py-2  text-white text-lg'>
                 Votre message
               </label>
               <textarea
@@ -474,13 +488,13 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                 rows={5}
                 placeholder='Entrez votre message'
               />
-              <div className='py-2 pl-2'>
-              {errors.text && <p style={{ color: 'red' }}>{errors.text}</p>}
+              <div className='py-3 pl-2'>
+              {errors.text && <p className=' text-red-600'>{errors.text}</p>}
               </div>
               </div>
       <div className='flex justify-end mt-6'>
         <button
-          className='bg-blue-500 text-center hover:bg-blue-700 focus:bg-blue-700 w-full sm:w-1/3 h-16 items-center text-white font-bold py-2 px-2 rounded-xl focus:outline-none focus:shadow-outline submit'
+          className='bg-white text-center hover:bg-gray-200 focus:bg-gray-200 w-full sm:w-1/3 h-16 items-center text-[#6793e0] font-bold py-2 px-2 rounded-xl focus:outline-none focus:shadow-outline submit'
           type='submit'
           disabled={isLoading}
         >
@@ -527,7 +541,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
 
       {showTopIcon && (
         <div
-          className='w-20 h-20 sm:w-24 sm:h-24 fixed bottom-5 rounded-full right-5 bg-[#E0E3E8] border-[#65A0CA] border-8 p-5 shadow-custom cursor-pointer opacity-90 transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2'
+          className='w-20 h-20 sm:w-24 sm:h-24 fixed bottom-5 rounded-full right-5 bg-[#E0E3E8] border-[#6793e0] border-8 p-5 shadow-custom cursor-pointer opacity-90 transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2'
           onClick={toTop}
         >
           <TopIcon iconSource={upArrow} onClick={toTop} />

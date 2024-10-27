@@ -11,7 +11,7 @@
     width: 20px;
     height: 20px;
     border: 3px solid rgba(255, 255, 255, 0.3); /* Light border */
-    border-top: 3px solid white; /* Darker top border */
+    border-top: 3px solid rgb(71, 68, 222); /* Darker top border */
     border-radius: 50%;
     animation: spin 2s linear infinite;
   }
