@@ -222,7 +222,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
   };
 
   return (
-    <>
+    <div className='w-full'>
       <Navbar handleScroll={handleScroll} refs={{ homeRef, aboutRef, projetRef, contactRef }} />
       <div className='w-screen'
         style={{
@@ -278,36 +278,36 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                   </button>
                 </div>
               </div>
-              <div className='h-60'>
-              <div>
-                <h1 className='text-center text-xl sm:text-2xl h-20 md:text-2xl  p-6 sm:px-16 weo my-2'>
-                  Bonjour ! Je m'appelle {data.firstName + ' ' + data.lastName.toUpperCase()} et je suis:
-                </h1>
+              <div className='h-56 lg:h-50'>
+              <div className='my-12 md:my-8 '>
+                <h2 className='text-center text-5xl md:text-5xl h-18 m-8 weo my-2 text'>
+                {data.firstName + ' ' + data.lastName.toUpperCase()}
+                </h2>
                 </div>
                 <div className='flex flex-col justify-center items-center '>
                   {/* <h2 className='text-left text-2xl sm:text-3xl md:text-4xl'>et je suis</h2> */}
-                    <h2 className='text-3xl sm:text-3xl md:text-4xl font-bold my-2'>
+                    <h1 className='text-3xl sm:text-4xl md:text-4xl font-bold my-2'>
                       {displayedText}
-                    </h2>
+                    </h1>
                 </div>
               </div>
-         
-<div class="flex justify-center items-center h-fit">
-  <div class="animate-bounce text-gray-700">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-    </svg>
-  </div>
-</div>
-
+          <div class="flex justify-center items-center h-10">
+            <div class="animate-bounce text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
             </div>
           ))}
+       
         </div>
+      
 
         {/* Section with smooth transition effect */}
-        <div className='flex justify-center' ref={aboutRef} >
-    <h2 className='text-2xl sm:text-3xl font-bold text-center my-24'>à Propos</h2>
-        </div>
+        <div className='flex justify-center  ' ref={aboutRef} >
+    <h2 className=' text-4xl sm:text-5xl font-bold text-center mt-28 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-400 to-blue-400'>à Propos</h2>
+        </div> 
         <div
                   className='bg-[#6793e0] flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center'
                   data-scroll
@@ -348,7 +348,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
           data-scroll
         >
           <div className='flex justify-center'>
-            <h2 className='text-2xl sm:text-3xl font-bold text-center my-24'>Projets</h2>
+            <h2 className='text-4xl sm:text-5xl font-bold text-center mt-28 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-400 to-blue-400'>Projets</h2>
           </div>
           {userData.map((data) => (
             <div key={data._id}>
@@ -405,19 +405,19 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
           ref={contactRef}
         >
           <div>
-            <h2 className='font-bold text-xl sm:text-3xl my-24'>Contact</h2>
+            <h2 className='font-bold text-4xl sm:text-5xl mt-28 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-400 to-blue-400'>Contact</h2>
           </div>
-          <div className='flex gap-12 justify-center items-center my-8'>
-            <h2 className='text-xl sm:text-2xl text-center'>Un projet ? Une idée ? Prenons contact !</h2>
+          <div className='flex gap-12 justify-center items-center my-2'>
+            <h2 className='text-xl sm:text-2xl text-center px-4'>Un projet ? Une idée ? Prenons contact !</h2>
           </div>
           <div className='w-full sm:w-1/2 px-2 sm:px-0'>
             <form
               onSubmit={handleSubmit}
-              className='bg-[#6793e0] flex flex-col  min-h-[75vh] gap-4 justify-center w-full shadow-md rounded-2xl px-4 sm:px-6 pt-6 pb-4 mb-8'
+              className='bg-[#6793e0] flex flex-col  min-h-[75vh] gap-4 justify-center w-full shadow-md rounded-2xl px-4 sm:px-6 pt-6 pb-4 mb-8 '
             >
               <div className='flex flex-col sm:flex-row gap-4 items-center flex-wrap w-full'>
                 <div className='flex flex-col justify-center w-full'> 
-                  <label htmlFor='firstName' className='py-2 pl-2 text-white text-lg'>
+                  <label htmlFor='firstName' className='py-2 pl-2 text-white text-sm sm:text-lg'>
                     Prénom
                   </label>
                   <input
@@ -437,7 +437,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                   </div>
                 </div>
                 <div className='flex flex-col  justify-center w-full'>
-                  <label htmlFor='lastName' className='py-2 pl-2  text-white text-lg'>
+                  <label htmlFor='lastName' className='py-2 pl-2  text-white text-sm sm:text-lg'>
                     Nom
                   </label>
                   <input
@@ -459,7 +459,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                 </div>
               </div>
               <div className='flex flex-col justify-center w-full'>
-              <label htmlFor='contactSecondMail' className='pl-2 py-2  text-white text-lg'>
+              <label htmlFor='contactSecondMail' className='pl-2 py-2  text-white text-sm sm:text-lg'>
                 Email de contact
               </label>
               <input
@@ -476,7 +476,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
               </div>
 </div>
 <div className='flex flex-col justify-center w-full'>
-              <label htmlFor='text' className='pl-2 py-2  text-white text-lg'>
+              <label htmlFor='text' className='pl-2 py-2  text-white text-sm sm:text-lg'>
                 Votre message
               </label>
               <textarea
@@ -541,15 +541,15 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
 
       {showTopIcon && (
         <div
-          className='w-20 h-20 sm:w-24 sm:h-24 fixed bottom-5 rounded-full right-5 bg-[#E0E3E8] border-[#6793e0] border-8 p-5 shadow-custom cursor-pointer opacity-90 transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2'
+          className='w-14 h-14   sm:w-18 sm:h-18 fixed bottom-5 rounded-md right-5 bg-[#E0E3E8] border-[#6793e0] border-4 p-2 shadow-custom cursor-pointer opacity-90 transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2'
           onClick={toTop}
         >
           <TopIcon iconSource={upArrow} onClick={toTop} />
         </div>
       )}
       <Footer />
-    </>
+    </div> 
   );
 };
 
-export default Home;
+export default Home;  
