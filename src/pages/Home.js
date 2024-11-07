@@ -252,41 +252,44 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
                 />
               </div>
               <div className='flex justify-center rounded-full p-1 m-3 gap-4 my-6'>
-                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out   hover:-translate-y-2'>
+                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out   hover:-translate-y-2'>
                   <a href={data.linkedinUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={linkedinLogo} />
+                    <ImageComponent src={linkedinLogo} className="w-8" />
                   </a>
                 </div>
-                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out  hover:-translate-y-2'>
+                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out  hover:-translate-y-2'>
                   <a href={data.githubUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={githubLogo} />
+                    <ImageComponent src={githubLogo} className="w-8" />
                   </a>
                 </div>
-                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out  hover:-translate-y-2'>
+                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out  hover:-translate-y-2'>
                   <a href={`${apiUrl}${data.resumePdf}`} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={cvLogo} className={'w-10 top-2 h-fit rounded-none'} />
+                    <ImageComponent src={cvLogo} className="w-7" />
                   </a>
                 </div>
-                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out   hover:-translate-y-2'>
+                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out   hover:-translate-y-2'>
                   <a href={data.scheduleUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={calendarLogo} className={'w-10 top-2 h-fit rounded-none'} />
+                    <ImageComponent src={calendarLogo} className="w-7" />
                   </a>
                 </div>
-                <div className='bg-white rounded-lg w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center  cursor-pointer transition-transform duration-50 ease-in-out   hover:-translate-y-2'>
+                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center  cursor-pointer transition-transform duration-50 ease-in-out   hover:-translate-y-2'>
                   <button onClick={() => handleScroll(contactRef)}>
-                    <ImageComponent src={contactLogo} className={'w-10 top-2 h-fit rounded-none'} />
+                    <ImageComponent src={contactLogo} className="w-7" />
                   </button>
                 </div>
               </div>
               <div className='h-56 lg:h-50'>
               <div className='my-12 md:my-8 '>
-                <h2 className='text-center text-5xl md:text-5xl h-18 m-8 weo my-2 text'>
+              <h2 
+  className="text-center text-7xl md:text-5xl h-18 m-8 weo my- mainTitle" 
+class="mainTitle"
+>
                 {data.firstName + ' ' + data.lastName.toUpperCase()}
                 </h2>
                 </div>
                 <div className='flex flex-col justify-center items-center '>
                   {/* <h2 className='text-left text-2xl sm:text-3xl md:text-4xl'>et je suis</h2> */}
-                    <h1 className='text-3xl sm:text-4xl md:text-4xl font-bold my-2'>
+                    <h1 className='text-3xl sm:text-4xl md:text-4xl font-bold my-2' class="subTitle">
                       {displayedText}
                     </h1>
                 </div>
@@ -302,7 +305,6 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
           ))}
        
         </div>
-      
 
         {/* Section with smooth transition effect */}
         <div className='flex justify-center  ' ref={aboutRef} >
@@ -541,7 +543,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
 
       {showTopIcon && (
         <div
-          className='w-14 h-14   sm:w-18 sm:h-18 fixed bottom-5 rounded-md right-5 bg-[#E0E3E8] border-[#6793e0] border-4 p-2 shadow-custom cursor-pointer opacity-90 transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2'
+          className='w-14 h-14   sm:w-18 sm:h-18 fixed bottom-5 rounded-full right-5 bg-[#E0E3E8] border-[#6793e0] border-4 p-2 shadow-custom cursor-pointer opacity-90 transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2'
           onClick={toTop}
         >
           <TopIcon iconSource={upArrow} onClick={toTop} />
