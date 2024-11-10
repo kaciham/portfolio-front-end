@@ -115,10 +115,12 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
         const response = await axios.get(`${apiUrl}api/kaci`);
         const dataFetched = response.data;
         setUserData([dataFetched]);
+     
   
         if (dataFetched.jobs) {
           const jobTitles = dataFetched.jobs.map((job) => job.title);
-          setJobs(jobTitles);
+          setJobs(jobTitles)
+       
         } else {
           console.warn('Jobs data not found in response');
         }
@@ -139,7 +141,7 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
       const timer = setTimeout(() => {
         setDisplayedText((prev) => prev + job[currentLetterIndex]);
         setCurrentLetterIndex((prevIndex) => prevIndex + 1);
-      }, 150);
+      }, 100);
 
       return () => clearTimeout(timer);
     } else {
@@ -308,14 +310,14 @@ class="mainTitle"
 
         {/* Section with smooth transition effect */}
         <div className='flex justify-center  ' ref={aboutRef} >
-    <h2 className=' text-4xl sm:text-5xl font-bold text-center mt-28 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-400 to-blue-400'>à Propos</h2>
+    <h2 className=' text-4xl sm:text-5xl font-bold text-center mt-28 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-400 to-blue-400 '>à Propos</h2>
         </div> 
         <div
                   className='bg-[#6793e0] flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center'
                   data-scroll
                 >
                   {userData.map((data) => (
-                    <div key={data._id} className='flex w-full max-w-7xl min-h-[40vh] flex-col sm:flex-row my-4 justify-around items-center'>
+                    <div key={data._id} className='flex w-full max-w-7xl min-h-[40vh] flex-col sm:flex-row my-4 justify-around  gap-10 items-center'>
                     
                       <div className='w-full sm:w-1/2 gap-4 flex flex-col justify-center items-center text-center'>
                         <div>
@@ -384,7 +386,7 @@ class="mainTitle"
                 <p className='px-4 lg:px-10 text-sm sm:text-base'>{projectData.description}</p>
               </div>
               <div className='flex flex-wrap justify-center '>
-                {projectData.skills.map((projectSkillsData) => (
+                {projectData?.skills?.map((projectSkillsData) => (
                   <ImageComponent
                     key={projectSkillsData._id}
                     src={`${apiUrl}${projectSkillsData.logo}`}
@@ -410,7 +412,7 @@ class="mainTitle"
             <h2 className='font-bold text-4xl sm:text-5xl mt-28 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-400 to-blue-400'>Contact</h2>
           </div>
           <div className='flex gap-12 justify-center items-center my-2'>
-            <h2 className='text-xl sm:text-2xl text-center px-4'>Un projet ? Une idée ? Prenons contact !</h2>
+            <h2 className='text-xl sm:text-2xl text-center px-4' class="projet">Un projet ? Une idée ? Prenons contact !</h2>
           </div>
           <div className='w-full sm:w-1/2 px-2 sm:px-0'>
             <form
