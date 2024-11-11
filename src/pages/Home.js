@@ -319,7 +319,7 @@ class="mainTitle"
                   {userData.map((data) => (
                     <div key={data._id} className='flex w-full max-w-7xl min-h-[40vh] flex-col sm:flex-row my-4 justify-around  gap-10 items-center'>
                     
-                      <div className='w-full sm:w-1/2 gap-4 flex flex-col justify-center items-center text-center'>
+                      <div className='w-full sm:w-1/2 gap-4 md:px-4 flex flex-col justify-center items-center text-center'>
                         <div>
                           <h2 className='text-xl sm:text-2xl md:text-3xl font-bold text-white'>Bio</h2>
                         </div>
@@ -370,9 +370,9 @@ class="mainTitle"
           </div>
 
           {/* Flex Container for Image and Description */}
-          <div className={`flex flex-col sm:flex-row w-full gap-8 sm:px-20 ${index % 2 === 0 ? ' sm:flex-row-reverse' : 'sm:flex-row'}`}>
+          <div className={`flex flex-col sm:flex-row w-full     gap-8 sm:px-6 ${index % 2 === 0 ? ' sm:flex-row-reverse' : 'sm:flex-row'}`}>
             {/* Image (side by side with description on desktop) */}
-            <div className='relative flex items-center justify-center w-full max-h-[30vh] sm:max-h-[40vh] sm:mx-12 rounded-lg overflow-hidden shadow-lg border-8 group'>
+            <div className='relative flex items-center justify-center w-full md:min-h-[50vh] sm:max-h-[40vh] rounded-lg overflow-hidden shadow-lg border-8 group'>
               <ImageComponent
                 src={`${apiUrl}${projectData.imageUrl}`}
                 alt={projectData.title}
