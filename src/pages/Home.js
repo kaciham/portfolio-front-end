@@ -256,27 +256,28 @@ const apiUrl = process.env.REACT_APP_SERVER_PROD;
               <div className='flex justify-center rounded-full p-1 m-3 gap-4 my-6'>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out   hover:-translate-y-2'>
                   <a href={data.linkedinUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={linkedinLogo} className="w-8" />
+                    <ImageComponent src={linkedinLogo} className="w-8" alt="logo LinkedIn" />
                   </a>
                 </div>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out  hover:-translate-y-2'>
                   <a href={data.githubUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={githubLogo} className="w-8" />
+                    <ImageComponent src={githubLogo} className="w-8" alt="logo Github" />
                   </a>
                 </div>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out  hover:-translate-y-2'>
                   <a href={`${apiUrl}${data.resumePdf}`} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={cvLogo} className="w-7" />
+                    <ImageComponent src={cvLogo} className="w-7" alt="logo Resume" />
                   </a>
                 </div>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-50 ease-in-out   hover:-translate-y-2'>
                   <a href={data.scheduleUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={calendarLogo} className="w-7" />
+                    <ImageComponent src={calendarLogo} className="w-7" alt="logo Appointment"/>
                   </a>
                 </div>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center  cursor-pointer transition-transform duration-50 ease-in-out   hover:-translate-y-2'>
                   <button onClick={() => handleScroll(contactRef)}>
-                    <ImageComponent src={contactLogo} className="w-7" />
+                  <span className='hidden'>Contact</span>
+                    <ImageComponent src={contactLogo} className="w-7" alt="logo Contact" />
                   </button>
                 </div>
               </div>
