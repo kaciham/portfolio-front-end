@@ -50,7 +50,7 @@ const Navbar = ({ handleScroll, refs }) => {
     return (
         <nav
             className={`h-fit p-2  w-full z-10 fixed top-0 left-0 transition-all duration-300 ${
-                scrollTop ? 'bg-transparent text-black' : 'bg-[#243873] opacity-90 text-white'
+                scrollTop ? 'bg-transparent text-black' : 'bg-[#243873] opacity-70 text-white'
             }`}
             style={{
                 backdropFilter: isOpen ? 'blur(10px)' : 'none', 

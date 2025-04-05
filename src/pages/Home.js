@@ -2,7 +2,8 @@ import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import axios from 'axios';
-import backgroundImg2 from '../assets/images/flat-lay-blue-monday-paper-with-copy-space.webp';
+import backgroundImg2 from '../assets/images/duplo3.webp';
+// import backgroundImg2 from '../assets/images/flat-lay-blue-monday-paper-with-copy-space.webp';
 import githubLogo from '../assets/icons/github.svg';
 import linkedinLogo from '../assets/icons/linkedin.svg';
 import cvLogo from '../assets/icons/cv.svg';
@@ -300,7 +301,7 @@ const Home = () => {
           </h2>
         </div>
         <div
-          className='bg-[#243873]  bg-opacity-70 flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center rounded-xl mx-6'
+          className='bg-[#243873]  bg-opacity-50 flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center rounded-xl mx-6'
           data-scroll
 
         >
@@ -410,7 +411,7 @@ const Home = () => {
           <div className='w-full sm:w-1/2 px-2 sm:px-0 '>
             <form
               onSubmit={handleSubmit}
-              className='bg-[#243873] bg-opacity-70 flex flex-col gap-6 w-full max-w-lg mx-auto shadow-lg rounded-lg p-6 sm:p-8'
+              className='bg-[#243873] bg-opacity-50 flex flex-col gap-6 w-full max-w-lg mx-auto shadow-lg rounded-lg p-6 sm:p-8'
             >
               <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
                 <div className='flex flex-col'>
