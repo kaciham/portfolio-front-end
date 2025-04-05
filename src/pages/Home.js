@@ -1,18 +1,17 @@
-import React, { useRef, useEffect, useState, lazy } from 'react';
+import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import axios from 'axios';
-// import ImageComponent from '../components/ImageComponent';
 import backgroundImg2 from '../assets/images/flat-lay-blue-monday-paper-with-copy-space.webp';
 import githubLogo from '../assets/icons/github.svg';
 import linkedinLogo from '../assets/icons/linkedin.svg';
 import cvLogo from '../assets/icons/cv.svg';
 import calendarLogo from '../assets/icons/calendar.svg';
 import contactLogo from '../assets/icons/email.svg';
-// import TopIcon from '../components/TopIcon';
 import upArrow from '../assets/icons/up-arrow.svg';
 import ImageComponent from '../components/ImageComponent';
 import TopIcon from '../components/TopIcon';
+import Loader from '../components/Loader';
 
 const Home = () => {
 
@@ -22,10 +21,6 @@ const Home = () => {
   const aboutRef = useRef(null);
   const contactRef = useRef(null);
   const projetRef = useRef(null);
-
-  const handleScroll = (ref) => {
-    ref.current.scrollIntoView({ behavior: 'smooth' });
-  };
 
   const [userData, setUserData] = useState([]);
   const [jobs, setJobs] = useState([]);
@@ -46,20 +41,20 @@ const Home = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isVisible, setIsVisible] = useState(false);
 
-  const handleScrollTopArrow = () => {
-    if (window.scrollY > 100) {
-      setShowTopIcon(true);
-    } else {
-      setShowTopIcon(false);
-    }
-  };
+  const handleScroll = useCallback((ref) => {
+    ref.current.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  const handleScrollTopArrow = useCallback(() => {
+    setShowTopIcon(window.scrollY > 100);
+  }, []);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScrollTopArrow);
     return () => {
       window.removeEventListener('scroll', handleScrollTopArrow);
     };
-  }, []);
+  }, [handleScrollTopArrow]);
 
   useEffect(() => {
     let timer;
@@ -109,26 +104,25 @@ const Home = () => {
     };
   }, []);
 
-  const fetchProjects = async () => {
+  const fetchProjects = useCallback(async () => {
     try {
       const response = await axios.get(`${apiUrl}api/kaci`);
       const dataFetched = response.data;
       setUserData([dataFetched]);
 
       if (dataFetched.jobs) {
-        const jobTitles = dataFetched.jobs.map((job) => job.title);
-        setJobs(jobTitles)
+        setJobs(dataFetched.jobs.map((job) => job.title));
       } else {
         console.warn('Jobs data not found in response');
       }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  };
+  }, [apiUrl]);
 
   useEffect(() => {
     fetchProjects();
-  }, [apiUrl]);
+  }, [fetchProjects]);
 
   useEffect(() => {
     if (jobs.length === 0) return;
@@ -199,41 +193,30 @@ const Home = () => {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     const { name, value } = e.target;
-
-    let processedValue = value;
-
-    // Apply trim for all fields except 'text'
-    if (name !== 'text') {
-      processedValue = processedValue.trim();
-    }
 
     setFormData((prevData) => ({
       ...prevData,
-      [name]: processedValue,
+      [name]: name !== 'text' ? value.trim() : value,
     }));
-  };
+  }, []);
 
-  const toTop = () => {
+  const toTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  }, []);
 
-
-  const [preloadedImages, setPreloadedImages] = useState({});
-
-  useEffect(() => {
+  const preloadedImages = useMemo(() => {
+    const images = {};
     if (userData.length > 0) {
-      const imagesToPreload = userData.map((data) => `${apiUrl}${data.profilePic}`);
-
-      imagesToPreload.forEach((src) => {
+      userData.forEach((data) => {
+        const src = `${apiUrl}${data.profilePic}`;
         const img = new Image();
         img.src = src;
-        img.onload = () => {
-          setPreloadedImages((prev) => ({ ...prev, [src]: true }));
-        };
+        images[src] = true;
       });
     }
+    return images;
   }, [userData, apiUrl]);
 
   return (
@@ -250,26 +233,9 @@ const Home = () => {
           ref={homeRef}
           className='flex flex-col justify-center items-center  bg-opacity-50 min-h-[100vh] sm:max-h-[90vh] opacity-0 translate-y-10 transition-transform duration-[1500ms] ease relative w-screen'
           data-animate
-        // style={{
-        //   backgroundImage: `url(${backgroundImg})`,
-        //   backgroundSize: 'cover',
-        //   backgroundPosition: 'center',
-        //   backgroundAttachment: 'fixed',
-        // }}
         >
           {userData !== null ? userData.map((data) => (
             <div key={data._id}>
-              {/* <div className='flex justify-center pt-20'>
-  {preloadedImages[`${apiUrl}${data.profilePic}`] ? (
-    <ImageComponent
-      src={`${apiUrl}${data.profilePic}`}
-      alt="Profile"
-      className="w-[100px] sm:w-[200px] m-4 rounded-full"
-    />
-  ) : (
-    <div className="w-[100px] sm:w-[200px] m-4 rounded-full bg-gray-200 animate-pulse"></div>
-  )}
-</div> */}
               <div className='my-12 md:my-12 '>
                 <h1
                   className="text-center text-7xl md:text-5xl h-18 m-8 weo mainTitle"
@@ -321,7 +287,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          )) : <div className="loadership_TMPGC"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>}
+          )) : <Loader />}
           <div></div>
         </div>
 
@@ -334,7 +300,7 @@ const Home = () => {
           </h2>
         </div>
         <div
-          className='bg-[#47A0D9]  bg-opacity-70 flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center rounded-xl mx-6'
+          className='bg-[#243873]  bg-opacity-70 flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center rounded-xl mx-6'
           data-scroll
 
         >
@@ -384,7 +350,7 @@ const Home = () => {
               {data.projects.map((projectData, index) => (
                 <div
                   key={projectData._id}
-                  className={`relative flex flex-col sm:flex-col md:flex-col items-center rounded-lg gap-8 justify-center py-8 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms] px-2 ease-in-out lg:ml-10 ${index % 2 === 0 ? ' my-2' : 'text-white  font-medium   bg-[#47A0D9]  bg-opacity-80  '
+                  className={`relative flex flex-col sm:flex-col md:flex-col items-center rounded-lg gap-8 justify-center py-8 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms] px-2 ease-in-out lg:ml-10 ${index % 2 === 0 ? ' my-2' : 'text-white  font-medium   bg-[#243873]  bg-opacity-80  '
                     }`}
                   data-scroll
                 >
@@ -444,7 +410,7 @@ const Home = () => {
           <div className='w-full sm:w-1/2 px-2 sm:px-0 '>
             <form
               onSubmit={handleSubmit}
-              className='bg-[#47A0D9] bg-opacity-70 flex flex-col gap-6 w-full max-w-lg mx-auto shadow-lg rounded-lg p-6 sm:p-8'
+              className='bg-[#243873] bg-opacity-70 flex flex-col gap-6 w-full max-w-lg mx-auto shadow-lg rounded-lg p-6 sm:p-8'
             >
               <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
                 <div className='flex flex-col'>
@@ -540,12 +506,9 @@ const Home = () => {
         <Footer />
       </div>
 
-      {/* 
-      <button onClick={testClicked}>test</button> */}
-
       {showTopIcon && (
         <div
-          className='w-14 h-14 sm:w-18 sm:h-18 fixed bottom-5 rounded-full right-5 bg-[#47A0D9] opacity-90 border-4 p-2 shadow-custom cursor-pointer transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2'
+          className='w-14 h-14 sm:w-18 sm:h-18 fixed bottom-5 rounded-full right-5  bg-slate-200 opacity-90 border-4 p-2 shadow-custom cursor-pointer transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2'
           onClick={toTop}
         >
           <TopIcon iconSource={upArrow} onClick={toTop} />

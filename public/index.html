@@ -25,9 +25,30 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Portfolio - Kaci HAMROUN</title>
+
+    <!-- Preload critical images -->
+    <link rel="preload" as="image" href="%PUBLIC_URL%/images/flat-lay-blue-monday-paper-with-copy-space.webp" />
+
+    <!-- Preload fonts (if applicable) -->
+    <link rel="preload" as="font" href="/path-to-font.woff2" type="font/woff2" crossorigin="anonymous" />
+
+    <!-- Inline critical CSS -->
+    <style>
+      /* Example of critical CSS for above-the-fold content */
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background-color: #f8f9fa;
+      }
+      .mainTitle {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+      }
+    </style>
   </head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7B19NKLWLF"></script>
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-7B19NKLWLF"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
