@@ -320,7 +320,7 @@ const Home = () => {
                 <div>
                   <h2 className=' px-4 text-xl sm:text-2xl md:text-3xl font-bold text-white'>Stack</h2>
                 </div>
-                <div className='flex flex-row flex-wrap gap-2 sm:gap-4 items-center justify-center px-8 sm:px-14'>
+                <div className='flex flex-row flex-wrap gap-4 sm:gap-4 items-center justify-center px-8 sm:px-14'>
                   {data.skills.map((skillsData) => (
                     <ImageComponent
                       key={skillsData._id}
@@ -376,7 +376,7 @@ const Home = () => {
                       <div>
                         <p className='px-4 lg:px-10 text-sm sm:text-base'>{projectData.description}</p>
                       </div>
-                      <div className='flex flex-wrap justify-center '>
+                      <div className='flex flex-wrap justify-center mx-2 sm:mx-0 gap-4'>
                         {projectData?.skills?.map((projectSkillsData) => (
                           <ImageComponent
                             key={projectSkillsData._id}
