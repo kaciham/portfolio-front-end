@@ -351,7 +351,7 @@ const Home = () => {
               {data.projects.map((projectData, index) => (
                 <div
                   key={projectData._id}
-                  className={`relative flex flex-col sm:flex-col md:flex-col items-center rounded-lg gap-8 justify-center py-8 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms] px-2 ease-in-out lg:ml-10 ${index % 2 === 0 ? ' my-2' : 'text-white  font-medium   bg-[#243873]  bg-opacity-80  '
+                  className={`relative flex flex-col sm:flex-col md:flex-col items-center rounded-lg gap-8 justify-center py-8 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms] px-2 ease-in-out lg:ml-10 ${index % 2 === 0 ? ' my-2' : 'text-white bg-[#243873]  bg-opacity-80  '
                     }`}
                   data-scroll
                 >
@@ -370,11 +370,38 @@ const Home = () => {
                         className='w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110'
                       />
                     </div>
-
+                    {/* Project link */}
+                    {projectData.projectUrl && (
+                      <div className="flex justify-center items-center lg:w-1/3 md:w-1/2">
+                        <a
+                          href={projectData.projectUrl}
+                          target='_blank'
+                          rel='noreferrer'
+                          className=' 
+                          text-black hover:border border-black pl-4 pr-5 
+                          hover:border-2 cursor-pointer text-[10px] font-semibold flex items-center justify-center gap-2 bg-white text-[#6793e0] m-2 rounded-lg shadow-md transition-transform duration-300 ease-in-out hover:scale-105 text-center s-m:w-1/2 w-full sm:h-10 h-8'
+                        >
+                          <span className='text-sm'>Lien vers le projet</span>
+                        </a>
+                      </div>
+                    )}
                     {/* Description and Skills */}
                     <div className='flex flex-col gap-6 w-full sm:w-1/2 h-100 sm:mx-4 text-center justify-around'>
                       <div>
-                        <p className='px-4 lg:px-10 text-sm sm:text-base'>{projectData.description}</p>
+                         <h3 className='text-sm font-semibold my-2'>Description:</h3>
+                        <p className='px-4 lg:px-10 text-sm my-2'>{projectData.description}</p>
+                          { projectData.problematic && (
+                          <>
+                            <h3 className='text-sm font-semibold my-2'>Problématique:</h3>
+                            <p className='px-4 lg:px-10 text-sm my-2'>{projectData.problematic}</p>
+                          </>
+                        )}
+                        {projectData.solution && (
+                          <>
+                            <h3 className='text-sm font-semibold my-2'>Solutions:</h3>
+                            <p className='px-4 lg:px-10 text-sm my-2'>{projectData.solution}</p>
+                          </>
+                        )}
                       </div>
                       <div className='flex flex-wrap justify-center mx-2 sm:mx-0 gap-4'>
                         {projectData?.skills?.map((projectSkillsData) => (
