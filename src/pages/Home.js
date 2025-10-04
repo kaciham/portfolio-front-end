@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import axios from 'axios';
-import backgroundImg2 from '../assets/images/duplo3.webp';
+import backgroundImg2 from '../assets/images/8550.webp';
 // import backgroundImg2 from '../assets/images/flat-lay-blue-monday-paper-with-copy-space.webp';
 import githubLogo from '../assets/icons/github.svg';
 import linkedinLogo from '../assets/icons/linkedin.svg';
