@@ -223,13 +223,14 @@ const Home = () => {
   return (
     <div className='w-full'>
       <Navbar handleScroll={handleScroll} refs={{ homeRef, aboutRef, projetRef, contactRef }} />
-      <div className='w-screen'
-        style={{
-          backgroundImage: `url(${backgroundImg2})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-        }} >
+      <div className='w-screen bg-slate-100'
+        // style={{
+        //   backgroundImage: `url(${backgroundImg2})`,
+        //   backgroundSize: 'cover',
+        //   backgroundPosition: 'center',
+        //   backgroundAttachment: 'fixed',
+        // }} >
+        >
         <div
           ref={homeRef}
           className='flex flex-col justify-center items-center  bg-opacity-50 min-h-[100vh] sm:max-h-[90vh] opacity-0 translate-y-10 transition-transform duration-[1500ms] ease relative w-screen'
