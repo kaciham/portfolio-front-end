@@ -13,10 +13,21 @@ import upArrow from '../assets/icons/up-arrow.svg';
 import ImageComponent from '../components/ImageComponent';
 import TopIcon from '../components/TopIcon';
 import Loader from '../components/Loader';
+import { useMultipleLoading } from '../hooks/useLoading';
+import { getUserData, sendContactForm } from '../api/apiCalls';
 
 const Home = () => {
 
   const apiUrl = process.env.REACT_APP_SERVER_PROD;
+  
+  // Loading states management
+  const { 
+    startLoading, 
+    stopLoading, 
+    isLoading: isMultiLoading, 
+    getMessage, 
+    withLoading 
+  } = useMultipleLoading();
 
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
@@ -37,7 +48,6 @@ const Home = () => {
     emailContact: '',
   });
   const [showTopIcon, setShowTopIcon] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -103,19 +113,26 @@ const Home = () => {
 
   const fetchProjects = useCallback(async () => {
     try {
-      const response = await axios.get(`${apiUrl}api/kaci`);
-      const dataFetched = response.data;
-      setUserData([dataFetched]);
+      const result = await withLoading('userData', async () => {
+        const response = await getUserData();
+        if (response.error) {
+          throw new Error(response.error);
+        }
+        return response.data;
+      }, 'Chargement des données...');
 
-      if (dataFetched.jobs) {
-        setJobs(dataFetched.jobs.map((job) => job.title));
+      setUserData([result]);
+
+      if (result.jobs) {
+        setJobs(result.jobs.map((job) => job.title));
       } else {
         console.warn('Jobs data not found in response');
       }
     } catch (error) {
       console.error('Error fetching data:', error);
+      setErrorMessage('Erreur lors du chargement des données');
     }
-  }, [apiUrl]);
+  }, [withLoading]);
 
   useEffect(() => {
     fetchProjects();
@@ -160,33 +177,29 @@ const Home = () => {
       return;
     }
 
-    setIsLoading(true);
     try {
-      const response = await axios.post(`${apiUrl}api/contacts`, formData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      });
+      const result = await withLoading('contactForm', async () => {
+        const response = await sendContactForm(formData);
+        if (response.error) {
+          throw new Error(response.error);
+        }
+        return response.data;
+      }, 'Envoi en cours...');
 
-      if (response.status === 200) {
-        setSuccessMessage('Votre message a bien été envoyé !');
-        setErrorMessage('');
-        setFormData({
-          firstName: '',
-          lastName: '',
-          contactSecondMail: '',
-          text: '',
-          emailContact: 'kacihamroun@outlook.com',
-        });
-        setErrors({});
-      }
+      setSuccessMessage('Votre message a bien été envoyé !');
+      setErrorMessage('');
+      setFormData({
+        firstName: '',
+        lastName: '',
+        contactSecondMail: '',
+        text: '',
+        emailContact: 'kacihamroun@outlook.com',
+      });
+      setErrors({});
     } catch (error) {
       console.error("Oops ! Nous avons rencontré un problème dans l'envoi de votre message, veuillez recommencer s'il vous plaît", error);
       setErrorMessage("Oops ! Nous avons rencontré un problème dans l'envoi de votre message, veuillez recommencer s'il vous plaît");
       setSuccessMessage('');
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -217,7 +230,12 @@ const Home = () => {
           className='flex flex-col justify-center items-center bg-opacity-50 min-h-[100vh] sm:min-h-[90vh] opacity-0 translate-y-10 transition-transform duration-[1500ms] ease relative w-full max-w-none'
           data-animate
         >
-          {userData !== null ? userData.map((data) => (
+          {isMultiLoading('userData') ? (
+            <div className="flex flex-col items-center justify-center min-h-[50vh]">
+              <Loader type="spinner" size="large" color="blue" />
+              <p className="mt-4 text-lg text-gray-600">{getMessage('userData') || 'Chargement en cours...'}</p>
+            </div>
+          ) : userData.length > 0 ? userData.map((data) => (
             <div key={data._id}>
               <div className='my-12 md:my-12 '>
                 <h1
@@ -270,7 +288,12 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          )) : <Loader />}
+          )) : (
+            <div className="flex flex-col items-center justify-center min-h-[50vh]">
+              <Loader type="spinner" size="large" color="blue" />
+          
+            </div>
+          )}
           <div></div>
         </div>
 
@@ -286,7 +309,12 @@ const Home = () => {
           className='bg-[#3f6fe6] bg-opacity-80 px-4 flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out justify-center items-center sm:mx-auto w-full self-center'
           data-scroll
         >
-          {userData.map((data) => (
+          {isMultiLoading('userData') ? (
+            <div className="flex flex-col items-center justify-center">
+              <Loader type="dots" size="medium" />
+              <p className="mt-4 text-white">{getMessage('userData') || 'Chargement des informations...'}</p>
+            </div>
+          ) : userData.map((data) => (
             <div key={data._id} className='flex w-full max-w-7xl min-h-[40vh] flex-col sm:flex-row my-4 justify-around  gap-10 items-center'>
 
               <div className='w-full sm:w-1/2 gap-4 md:px-4 flex flex-col justify-center items-center text-center'>
@@ -327,7 +355,12 @@ const Home = () => {
                 Projets            </span>
             </h2>
           </div>
-          {userData.map((data) => (
+          {isMultiLoading('userData') ? (
+            <div className="flex flex-col items-center justify-center min-h-[30vh]">
+              <Loader type="pulse" size="large" />
+              <p className="mt-4 text-lg text-gray-600">{getMessage('userData') || 'Chargement des projets...'}</p>
+            </div>
+          ) : userData.map((data) => (
             <div key={data._id}>
               {data.projects.map((projectData, index) => (
                 <div
@@ -490,9 +523,9 @@ const Home = () => {
                 <button
                   className='bg-white text-center hover:bg-gray-200 focus:bg-gray-200 w-full sm:w-1/3 h-12 flex justify-center items-center text-[#6793e0] font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
                   type='submit'
-                  disabled={isLoading}
+                  disabled={isMultiLoading('contactForm')}
                 >
-                  {isLoading ? <div className="simple-loader"></div> : 'Envoyer'}
+                  {isMultiLoading('contactForm') ? <Loader type="spinner" size="small" color="blue" /> : 'Envoyer'}
                 </button>
               </div>
 
