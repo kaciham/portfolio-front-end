@@ -302,7 +302,7 @@ const Home = () => {
           </h2>
         </div>
         <div
-          className='bg-[#243873]  bg-opacity-50 flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center rounded-xl mx-6'
+          className='bg-[#3f6fe6]  bg-opacity-80 flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center rounded-xl mx-6'
           data-scroll
 
         >
@@ -343,7 +343,7 @@ const Home = () => {
         >
           <div className="flex justify-center" >
             <h2 className="text-4xl font-medium  sm:text-5xl text-black text-center mt-28 mb-4 bg-clip-text text-transparent  relative">
-              <span className="  text-black px-4 py-2 rounded-xl shadow-md bg-opacity-50 bg-white">
+              <span className="  text-black px-4 py-2 rounded-xl shadow-md bg-opacity-80 bg-white">
                 Projets            </span>
             </h2>
           </div>
@@ -352,7 +352,7 @@ const Home = () => {
               {data.projects.map((projectData, index) => (
                 <div
                   key={projectData._id}
-                  className={`relative flex flex-col sm:flex-col md:flex-col items-center rounded-lg gap-8 justify-center py-8 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms] px-2 ease-in-out lg:ml-10 ${index % 2 === 0 ? ' my-2' : 'text-white bg-[#243873]  bg-opacity-80  '
+                  className={`relative w-full flex flex-col sm:flex-col md:flex-col items-center rounded-lg gap-8 justify-center py-8 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms]  ease-in-out lg:ml-10 ${index % 2 === 0 ? '' : 'text-white bg-[#3f6fe6]  bg-opacity-80  '
                     }`}
                   data-scroll
                 >
@@ -372,7 +372,7 @@ const Home = () => {
                       />
                     </div>
                     {/* Project link */}
-                    {projectData.projectUrl && (
+                    {/* {projectData.projectUrl && (
                       <div className="flex justify-center items-center lg:w-1/3 md:w-1/2">
                         <a
                           href={projectData.projectUrl}
@@ -385,13 +385,13 @@ const Home = () => {
                           <span className='text-sm'>Lien vers le projet</span>
                         </a>
                       </div>
-                    )}
+                    )} */}
                     {/* Description and Skills */}
                     <div className='flex flex-col gap-6 w-full sm:w-1/2 h-100 sm:mx-4 text-center justify-around'>
                       <div>
                          <h3 className='text-sm font-semibold my-2'>Description:</h3>
                         <p className='px-4 lg:px-10 text-sm my-2'>{projectData.description}</p>
-                          { projectData.problematic && (
+                          {/* { projectData.problematic && (
                           <>
                             <h3 className='text-sm font-semibold my-2'>Problématique:</h3>
                             <p className='px-4 lg:px-10 text-sm my-2'>{projectData.problematic}</p>
@@ -402,7 +402,7 @@ const Home = () => {
                             <h3 className='text-sm font-semibold my-2'>Solutions:</h3>
                             <p className='px-4 lg:px-10 text-sm my-2'>{projectData.solution}</p>
                           </>
-                        )}
+                        )} */}
                       </div>
                       <div className='flex flex-wrap justify-center mx-2 sm:mx-0 gap-4'>
                         {projectData?.skills?.map((projectSkillsData) => (
@@ -439,7 +439,7 @@ const Home = () => {
           <div className='w-full sm:w-1/2 px-2 sm:px-0 '>
             <form
               onSubmit={handleSubmit}
-              className='bg-[#243873] bg-opacity-50 flex flex-col gap-6 w-full max-w-lg mx-auto shadow-lg rounded-lg p-6 sm:p-8'
+              className='bg-[#3f6fe6] bg-opacity-80 flex flex-col gap-6 w-full max-w-lg mx-auto shadow-lg rounded-lg p-6 sm:p-8'
             >
               <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
                 <div className='flex flex-col'>

@@ -3,7 +3,7 @@ import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
 
 const Footer = () => {
     return (
-        <footer className='flex flex-col items-center justify-center bg-[#243873] text-white py-8 px-4'>
+        <footer className='flex flex-col items-center justify-center bg-[#3f6fe6] text-white py-8 px-4'>
             <div className='w-full max-w-7xl flex flex-col sm:flex-row justify-between items-center sm:items-start gap-6'>
                 <div className='text-center sm:text-left'>
                     <h2 className='text-2xl font-bold'>Kaci HAMROUN</h2>
