@@ -275,7 +275,7 @@ const Home = () => {
         </div>
 
 
-        <div className="flex justify-center" ref={aboutRef}>
+        <div className="flex justify-center m-8" ref={aboutRef}>
           <h2 className="text-4xl font-medium  sm:text-5xl text-black text-center mt-28 mb-4 bg-clip-text text-transparent  relative">
             <span className="  text-black px-4 py-2 rounded-xl shadow-md bg-opacity-50 bg-white">
               À Propos
