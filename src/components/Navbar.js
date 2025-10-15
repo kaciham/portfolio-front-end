@@ -49,14 +49,14 @@ const Navbar = ({ handleScroll, refs }) => {
 
     return (
         <nav
-            className={`h-fit p-2  w-full z-10 fixed top-0 left-0 transition-all duration-300 ${
+            className={`h-fit p-2 w-full max-w-full z-10 fixed top-0 left-0 transition-all duration-300 ${
                 scrollTop ? 'bg-transparent text-black' : 'bg-[#3f6fe6] opacity-70 text-white'
             }`}
             style={{
                 backdropFilter: isOpen ? 'blur(10px)' : 'none', 
             }}
         >
-            <div className="flex w-full justify-between items-center pr-2  ">
+            <div className="flex w-full max-w-7xl mx-auto justify-between items-center pr-2">
                 <div className="flex items-center py-2">
                     {userData.map(data => (
                         <div key={data._id} className="flex items-center mx-2 gap-4">

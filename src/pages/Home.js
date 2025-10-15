@@ -1,8 +1,8 @@
-import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import axios from 'axios';
-import backgroundImg2 from '../assets/images/8550.webp';
+// import backgroundImg2 from '../assets/images/8550.webp';
 // import backgroundImg2 from '../assets/images/flat-lay-blue-monday-paper-with-copy-space.webp';
 import githubLogo from '../assets/icons/github.svg';
 import linkedinLogo from '../assets/icons/linkedin.svg';
@@ -40,7 +40,6 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [isVisible, setIsVisible] = useState(false);
 
   const handleScroll = useCallback((ref) => {
     ref.current.scrollIntoView({ behavior: 'smooth' });
@@ -60,15 +59,12 @@ const Home = () => {
   useEffect(() => {
     let timer;
     if (successMessage || errorMessage) {
-      setIsVisible(true); // Set visible when message appears
-
       timer = setTimeout(() => {
-        setIsVisible(false); // Trigger fade-out transition
         setTimeout(() => {
           setSuccessMessage('');
           setErrorMessage('');
         }, 1000); // Delay hiding message completely to allow fade-out
-      }, 3000); // Show message for 5 seconds
+      }, 3000); // Show message for 3 seconds
     }
     return () => clearTimeout(timer); // Clear timer on unmount or update
   }, [successMessage, errorMessage]);
@@ -207,34 +203,18 @@ const Home = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  const preloadedImages = useMemo(() => {
-    const images = {};
-    if (userData.length > 0) {
-      userData.forEach((data) => {
-        const src = `${apiUrl}${data.profilePic}`;
-        const img = new Image();
-        img.src = src;
-        images[src] = true;
-      });
-    }
-    return images;
-  }, [userData, apiUrl]);
-
   return (
-    <div className='w-full'>
+    <div className='w-full overflow-x-hidden'>
       <Navbar handleScroll={handleScroll} refs={{ homeRef, aboutRef, projetRef, contactRef }} />
-      <div className='w-screen'
+      <div className='w-full min-h-screen'
         style={{
-          background: '#3F6FE6',
-          background: '-webkit-linear-gradient(90deg,rgba(63, 111, 230, 0.5) 0%, rgba(255, 255, 255, 1) 100%)',
-          background: '-moz-linear-gradient(90deg,rgba(63, 111, 230, 0.5) 0%, rgba(255, 255, 255, 1) 100%)',
           background: 'linear-gradient(90deg,rgba(63, 111, 230, 0.5) 0%, rgba(255, 255, 255, 1) 100%)',
           filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#3F6FE6",endColorstr="#FFFFFF",GradientType=1)'
         }}
         >
         <div
           ref={homeRef}
-          className='flex flex-col justify-center items-center  bg-opacity-50 min-h-[100vh] sm:max-h-[90vh] opacity-0 translate-y-10 transition-transform duration-[1500ms] ease relative w-screen'
+          className='flex flex-col justify-center items-center bg-opacity-50 min-h-[100vh] sm:min-h-[90vh] opacity-0 translate-y-10 transition-transform duration-[1500ms] ease relative w-full max-w-none'
           data-animate
         >
           {userData !== null ? userData.map((data) => (
@@ -303,9 +283,8 @@ const Home = () => {
           </h2>
         </div>
         <div
-          className='bg-[#3f6fe6]  bg-opacity-80 flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center rounded-xl mx-6'
+          className='bg-[#3f6fe6] bg-opacity-80 flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center rounded-xl mx-4 sm:mx-auto  max-w-7xl w-full self-center'
           data-scroll
-
         >
           {userData.map((data) => (
             <div key={data._id} className='flex w-full max-w-7xl min-h-[40vh] flex-col sm:flex-row my-4 justify-around  gap-10 items-center'>
@@ -339,7 +318,7 @@ const Home = () => {
         </div>
         <div
           ref={projetRef}
-          className='w-full flex flex-col min-h-[70vh] opacity-0 translate-y-10 transition-all duration-[1500ms] ease-in-out '
+          className='w-full max-w-7xl mx-auto px-4 sm:px-6 flex flex-col min-h-[70vh] opacity-0 translate-y-10 transition-all duration-[1500ms] ease-in-out'
           data-scroll
         >
           <div className="flex justify-center" >
@@ -353,7 +332,7 @@ const Home = () => {
               {data.projects.map((projectData, index) => (
                 <div
                   key={projectData._id}
-                  className={`relative w-full flex flex-col sm:flex-col md:flex-col items-center rounded-lg gap-8 justify-center py-8 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms]  ease-in-out lg:ml-10 ${index % 2 === 0 ? 'shadow-md' : 'text-white shadow-lg  bg-[#3f6fe6]  bg-opacity-80  '
+                  className={`relative w-full max-w-6xl mx-auto my-8 flex flex-col sm:flex-col md:flex-col items-center rounded-lg gap-8 justify-center py-8 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms] ease-in-out px-4 sm:px-6 ${index % 2 === 0 ? 'shadow-md' : 'text-white shadow-lg bg-[#3f6fe6] bg-opacity-80'
                     }`}
                   data-scroll
                 >
@@ -363,7 +342,7 @@ const Home = () => {
                   </div>
 
                   {/* Flex Container for Image and Description */}
-                  <div className={`flex flex-col sm:flex-row w-full     gap-8 sm:px-6 ${index % 2 === 0 ? ' sm:flex-row-reverse' : 'sm:flex-row'}`}>
+                  <div className={`flex flex-col sm:flex-row w-full max-w-5xl gap-8 ${index % 2 === 0 ? 'sm:flex-row-reverse' : 'sm:flex-row'}`}>
                     {/* Image (side by side with description on desktop) */}
                     <div className='relative flex items-center justify-center w-full md:min-h-[50vh] sm:max-h-[40vh] rounded-lg overflow-hidden shadow-lg border-8 group'>
                       <ImageComponent
@@ -390,8 +369,8 @@ const Home = () => {
                     {/* Description and Skills */}
                     <div className='flex flex-col gap-6 w-full sm:w-1/2 h-100 sm:mx-4 text-center justify-around'>
                       <div>
-                         <h3 className='text-sm font-semibold my-2'>Description:</h3>
-                        <p className='px-4 lg:px-10 text-sm my-2'>{projectData.description}</p>
+                         <h3 className='text-lg font-semibold my-2'>Description:</h3>
+                        <p className='text-justify px-4 lg:px-10 text-sm my-2'>{projectData.description}</p>
                           {/* { projectData.problematic && (
                           <>
                             <h3 className='text-sm font-semibold my-2'>Problématique:</h3>
@@ -424,7 +403,7 @@ const Home = () => {
           ))}
         </div>
         <div
-          className='flex flex-col justify-center my-4 min-h-[50vh] items-center gap-4 w-full translate-y-10 transition-all duration-[2000ms] ease-in-out mt-4'
+          className='flex flex-col justify-center my-4 min-h-[50vh] items-center gap-4 w-full max-w-7xl mx-auto px-4 sm:px-6 translate-y-10 transition-all duration-[2000ms] ease-in-out mt-4'
           data-scroll
           ref={contactRef}
         >
@@ -437,7 +416,7 @@ const Home = () => {
           <div className='flex gap-12 justify-center items-center my-2'>
             <h2 className='text-xl sm:text-xl font-semibold text-center px-4' class="projet">Un projet ? Une idée ? Prenons contact !</h2>
           </div>
-          <div className='w-full sm:w-1/2 px-2 sm:px-0 '>
+          <div className='w-full max-w-lg px-2 sm:px-0'>
             <form
               onSubmit={handleSubmit}
               className='bg-[#3f6fe6] bg-opacity-80 flex flex-col gap-6 w-full max-w-lg mx-auto shadow-lg rounded-lg p-6 sm:p-8'
