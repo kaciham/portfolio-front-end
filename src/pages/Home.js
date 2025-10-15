@@ -283,7 +283,7 @@ const Home = () => {
           </h2>
         </div>
         <div
-          className='bg-[#3f6fe6] bg-opacity-80 flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out mt-2 justify-center items-center rounded-xl mx-4 sm:mx-auto  max-w-7xl w-full self-center'
+          className='bg-[#3f6fe6] bg-opacity-80 px-4 flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out justify-center items-center sm:mx-auto w-full self-center'
           data-scroll
         >
           {userData.map((data) => (
