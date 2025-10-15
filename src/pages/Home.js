@@ -223,13 +223,14 @@ const Home = () => {
   return (
     <div className='w-full'>
       <Navbar handleScroll={handleScroll} refs={{ homeRef, aboutRef, projetRef, contactRef }} />
-      <div className='w-screen bg-slate-100'
-        // style={{
-        //   backgroundImage: `url(${backgroundImg2})`,
-        //   backgroundSize: 'cover',
-        //   backgroundPosition: 'center',
-        //   backgroundAttachment: 'fixed',
-        // }} >
+      <div className='w-screen'
+        style={{
+          background: '#3F6FE6',
+          background: '-webkit-linear-gradient(90deg,rgba(63, 111, 230, 0.5) 0%, rgba(255, 255, 255, 1) 100%)',
+          background: '-moz-linear-gradient(90deg,rgba(63, 111, 230, 0.5) 0%, rgba(255, 255, 255, 1) 100%)',
+          background: 'linear-gradient(90deg,rgba(63, 111, 230, 0.5) 0%, rgba(255, 255, 255, 1) 100%)',
+          filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#3F6FE6",endColorstr="#FFFFFF",GradientType=1)'
+        }}
         >
         <div
           ref={homeRef}
@@ -352,7 +353,7 @@ const Home = () => {
               {data.projects.map((projectData, index) => (
                 <div
                   key={projectData._id}
-                  className={`relative w-full flex flex-col sm:flex-col md:flex-col items-center rounded-lg gap-8 justify-center py-8 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms]  ease-in-out lg:ml-10 ${index % 2 === 0 ? '' : 'text-white bg-[#3f6fe6]  bg-opacity-80  '
+                  className={`relative w-full flex flex-col sm:flex-col md:flex-col items-center rounded-lg gap-8 justify-center py-8 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms]  ease-in-out lg:ml-10 ${index % 2 === 0 ? 'shadow-md' : 'text-white shadow-lg  bg-[#3f6fe6]  bg-opacity-80  '
                     }`}
                   data-scroll
                 >
