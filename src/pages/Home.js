@@ -411,7 +411,7 @@ const Home = () => {
                           src={optimizedImageUrl || fallbackImage}
                           fallbackSrc={fallbackImage}
                           alt={`Logo de ${skillsData.name} - Compétence technique`}
-                          className='w-10 h-10 sm:w-14 sm:h-14 rounded-xl border-4 border-white shadow-lg transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2 hover:shadow-xl'
+                          className='w-10 h-10 sm:w-14 sm:h-14 shadow-lg transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2 hover:shadow-xl'
                           title={skillsData.name}
                           loading="lazy"
                         />
