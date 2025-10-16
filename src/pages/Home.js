@@ -513,7 +513,7 @@ const Home = () => {
                                 src={optimizedImageUrl || fallbackImage}
                                 fallbackSrc={fallbackImage}
                                 alt={`Logo de ${projectSkillsData.name} - Technologie utilisée dans le projet`}
-                                className='w-8 h-8 sm:w-12 sm:h-12 rounded-xl border-4 border-white shadow-md hover:animate-bounce transition-all duration-300'
+                                className='w-8 h-8 sm:w-12 sm:h-12  shadow-md hover:animate-bounce transition-all duration-300'
                                 title={projectSkillsData.name}
                                 loading="lazy"
                               />
