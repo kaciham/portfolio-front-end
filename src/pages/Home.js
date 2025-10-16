@@ -411,12 +411,12 @@ const Home = () => {
                           src={optimizedImageUrl || fallbackImage}
                           fallbackSrc={fallbackImage}
                           alt={`Logo de ${skillsData.name} - Compétence technique`}
-                          className='w-10 h-10 sm:w-14 sm:h-14 shadow-lg transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2 hover:shadow-xl'
+                          className='w-10 h-10 sm:w-14 sm:h-14 shadow-lg transition-transform duration-300 ease-in-out'
                           title={skillsData.name}
                           loading="lazy"
                         />
                         {/* Tooltip on hover */}
-                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-non z-10">
                           {skillsData.name}
                         </div>
                       </div>
@@ -518,7 +518,7 @@ const Home = () => {
                                 loading="lazy"
                               />
                               {/* Tooltip on hover */}
-                              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+                              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-200 pointer-events-none z-10">
                                 {projectSkillsData.name}
                               </div>
                             </div>
