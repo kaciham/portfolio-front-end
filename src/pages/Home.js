@@ -464,7 +464,7 @@ const Home = () => {
                       <ImageComponent
                         src={`${apiUrl}${projectData.imageUrl}`}
                         alt={projectData.title}
-                        className='w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110'
+                        className='w-full h-full object-cover '
                       />
                     </div>
                     {/* Project link */}
@@ -513,7 +513,7 @@ const Home = () => {
                                 src={optimizedImageUrl || fallbackImage}
                                 fallbackSrc={fallbackImage}
                                 alt={`Logo de ${projectSkillsData.name} - Technologie utilisée dans le projet`}
-                                className='w-8 h-8 sm:w-12 sm:h-12  shadow-md hover:animate-bounce transition-all duration-300'
+                                className='w-8 h-8 sm:w-12 sm:h-12 '
                                 title={projectSkillsData.name}
                                 loading="lazy"
                               />
