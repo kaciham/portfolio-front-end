@@ -16,6 +16,7 @@ import TopIcon from '../components/TopIcon';
 import Loader from '../components/Loader';
 import { useMultipleLoading } from '../hooks/useLoading';
 import { getUserData, sendContactForm } from '../api/apiCalls';
+import { getSkillFallbackImage, getOptimizedImageUrl, preloadImages } from '../utils/imageHelpers';
 
 const Home = () => {
 
@@ -138,6 +139,19 @@ const Home = () => {
   useEffect(() => {
     fetchProjects();
   }, [fetchProjects]);
+
+  // Preload critical skill images when userData is available
+  useEffect(() => {
+    if (userData.length > 0 && userData[0].skills) {
+      const skillImageUrls = userData[0].skills
+        .map(skill => skill.logo ? getOptimizedImageUrl(apiUrl, skill.logo, { width: 56, height: 56 }) : null)
+        .filter(Boolean);
+      
+      if (skillImageUrls.length > 0) {
+        preloadImages(skillImageUrls);
+      }
+    }
+  }, [userData, apiUrl]);
 
   useEffect(() => {
     if (jobs.length === 0) return;
@@ -385,15 +399,29 @@ const Home = () => {
                   <h2 className=' px-4 text-xl sm:text-2xl md:text-3xl font-bold text-white'>Stack</h2>
                 </div>
                 <div className='flex flex-row flex-wrap gap-4 sm:gap-4 items-center justify-center px-8 sm:px-14'>
-                  {data.skills.map((skillsData) => (
-                    <ImageComponent
-                      key={skillsData._id}
-                      src={`${apiUrl}${skillsData.logo}`}
-                      alt={skillsData.name}
-                      className='w-10 h-10 sm:w-14 sm:h-14 rounded-xl border-4 transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2'
-                      title={skillsData.name}
-                    />
-                  ))}
+                  {data.skills.map((skillsData) => {
+                    const optimizedImageUrl = skillsData.logo 
+                      ? getOptimizedImageUrl(apiUrl, skillsData.logo, { width: 56, height: 56 })
+                      : null;
+                    const fallbackImage = getSkillFallbackImage(skillsData.name);
+                    
+                    return (
+                      <div key={skillsData._id} className="relative group">
+                        <ImageComponent
+                          src={optimizedImageUrl || fallbackImage}
+                          fallbackSrc={fallbackImage}
+                          alt={`Logo de ${skillsData.name} - Compétence technique`}
+                          className='w-10 h-10 sm:w-14 sm:h-14 rounded-xl border-4 border-white shadow-lg transition-transform duration-300 ease-in-out hover:delay-200 hover:-translate-y-2 hover:shadow-xl'
+                          title={skillsData.name}
+                          loading="lazy"
+                        />
+                        {/* Tooltip on hover */}
+                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+                          {skillsData.name}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -473,15 +501,29 @@ const Home = () => {
                         )} */}
                       </div>
                       <div className='flex flex-wrap justify-center mx-2 sm:mx-0 gap-4'>
-                        {projectData?.skills?.map((projectSkillsData) => (
-                          <ImageComponent
-                            key={projectSkillsData._id}
-                            src={`${apiUrl}${projectSkillsData.logo}`}
-                            alt={projectSkillsData.name}
-                            className='w-8 h-8 sm:w-12 sm:h-12 rounded-xl border-4 hover:animate-bounce'
-                            title={projectSkillsData.name}
-                          />
-                        ))}
+                        {projectData?.skills?.map((projectSkillsData) => {
+                          const optimizedImageUrl = projectSkillsData.logo 
+                            ? getOptimizedImageUrl(apiUrl, projectSkillsData.logo, { width: 48, height: 48 })
+                            : null;
+                          const fallbackImage = getSkillFallbackImage(projectSkillsData.name);
+                          
+                          return (
+                            <div key={projectSkillsData._id} className="relative group">
+                              <ImageComponent
+                                src={optimizedImageUrl || fallbackImage}
+                                fallbackSrc={fallbackImage}
+                                alt={`Logo de ${projectSkillsData.name} - Technologie utilisée dans le projet`}
+                                className='w-8 h-8 sm:w-12 sm:h-12 rounded-xl border-4 border-white shadow-md hover:animate-bounce transition-all duration-300'
+                                title={projectSkillsData.name}
+                                loading="lazy"
+                              />
+                              {/* Tooltip on hover */}
+                              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+                                {projectSkillsData.name}
+                              </div>
+                            </div>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
