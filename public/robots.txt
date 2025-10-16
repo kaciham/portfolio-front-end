@@ -1,3 +1,12 @@
-# Allow all web crawlers to access everything
+# Robots.txt pour Kaci Hamroun - Développeur Full-Stack & Automatisation IA
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: *.pdf$
+
+# Sitemap
+Sitemap: https://www.kacihamroun.com/sitemap.xml
+
+# Crawl-delay pour optimiser la charge serveur
+Crawl-delay: 1

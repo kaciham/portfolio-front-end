@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import axios from 'axios';
 // import backgroundImg2 from '../assets/images/8550.webp';
 // import backgroundImg2 from '../assets/images/flat-lay-blue-monday-paper-with-copy-space.webp';
@@ -212,12 +213,66 @@ const Home = () => {
     }));
   }, []);
 
+  // Generate dynamic SEO data based on user data
+  const generateSEOData = useCallback(() => {
+    if (userData.length === 0) return {};
+    
+    const data = userData[0];
+    const fullName = `${data.firstName} ${data.lastName}`;
+    const skills = data.skills?.map(skill => skill.name).join(', ') || '';
+    
+    return {
+      title: `${fullName} - Développeur Full-Stack & Automatisation IA | Lille 59000`,
+      description: `${fullName}, développeur full-stack spécialisé en automatisation IA à Lille. Expert en ${skills}. ${data.bio?.substring(0, 100)}...`,
+      keywords: `développeur full-stack, automatisation IA, ${skills}, développeur web Lille, ${data.firstName} ${data.lastName}, freelance développeur Lille`,
+      canonical: "https://www.kacihamroun.com",
+      ogImage: data.profilePic ? `https://www.kacihamroun.com${data.profilePic}` : "https://www.kacihamroun.com/images/kaci-hamroun-og.jpg",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": fullName,
+        "givenName": data.firstName,
+        "familyName": data.lastName,
+        "jobTitle": "Développeur Full-Stack & Spécialiste Automatisation IA",
+        "description": data.bio,
+        "url": "https://www.kacihamroun.com",
+        "image": data.profilePic ? `https://www.kacihamroun.com${data.profilePic}` : "https://www.kacihamroun.com/images/kaci-hamroun-profile.jpg",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Lille",
+          "postalCode": "59000",
+          "addressRegion": "Hauts-de-France",
+          "addressCountry": "FR"
+        },
+        "sameAs": [
+          data.linkedinUrl,
+          data.githubUrl
+        ].filter(Boolean),
+        "knowsAbout": data.skills?.map(skill => skill.name) || [],
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Freelance"
+        }
+      }
+    };
+  }, [userData]);
+
+  const seoData = generateSEOData();
+
   const toTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   return (
     <div className='w-full overflow-x-hidden'>
+      <SEO 
+        title={seoData.title}
+        description={seoData.description}
+        keywords={seoData.keywords}
+        canonical={seoData.canonical}
+        ogImage={seoData.ogImage}
+        jsonLd={seoData.jsonLd}
+      />
       <Navbar handleScroll={handleScroll} refs={{ homeRef, aboutRef, projetRef, contactRef }} />
       <div className='w-full min-h-screen'
         style={{

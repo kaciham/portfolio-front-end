@@ -19,7 +19,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate-sitemap": "node scripts/generateSitemap.js",
+    "seo-audit": "lighthouse https://www.kacihamroun.com --output=html --output-path=./seo-audit.html --chrome-flags=\"--headless\"",
+    "build-production": "npm run build && npm run generate-sitemap",
+    "analyze-bundle": "npm run build && npx webpack-bundle-analyzer build/static/js/*.js"
   },
   "eslintConfig": {
     "extends": [

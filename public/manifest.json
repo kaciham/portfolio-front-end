@@ -1,6 +1,7 @@
 {
-  "short_name": "portfolio kaci hamroun",
-  "name": "portfolio kaci hamroun",
+  "short_name": "Kaci Hamroun - Dev IA",
+  "name": "Kaci Hamroun - Développeur Full-Stack & Automatisation IA",
+  "description": "Portfolio de Kaci Hamroun, développeur full-stack spécialisé en automatisation IA à Lille. Expert React, Node.js, Python et intelligence artificielle.",
   "icons": [
     {
       "src": "favicon.ico",
