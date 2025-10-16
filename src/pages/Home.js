@@ -416,7 +416,7 @@ const Home = () => {
                           loading="lazy"
                         />
                         {/* Tooltip on hover */}
-                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-non z-10">
+                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 z-10">
                           {skillsData.name}
                         </div>
                       </div>
