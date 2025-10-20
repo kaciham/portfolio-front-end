@@ -3,6 +3,10 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /private/
+Disallow: /services/
+Disallow: /blog
+Disallow: /mentions-legales
+Disallow: /politique-confidentialite
 Disallow: *.pdf$
 
 # Sitemap

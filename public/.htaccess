@@ -9,6 +9,20 @@ RewriteRule ^(.*)$ https://www.kacihamroun.com%{REQUEST_URI} [L,R=301]
 RewriteCond %{HTTP_HOST} ^kacihamroun\.com [NC]
 RewriteRule ^(.*)$ https://www.kacihamroun.com/$1 [L,R=301]
 
+# Redirect old sitemap URLs with 301 permanent redirects
+RewriteRule ^services/developpement-web-lille/?$ / [R=301,L]
+RewriteRule ^services/automatisation-ia/?$ / [R=301,L]
+RewriteRule ^services/react-nodejs-development/?$ / [R=301,L]
+RewriteRule ^services/python-machine-learning/?$ / [R=301,L]
+RewriteRule ^blog/?$ / [R=301,L]
+RewriteRule ^mentions-legales/?$ / [R=301,L]
+RewriteRule ^politique-confidentialite/?$ / [R=301,L]
+
+# Handle client-side routing for React SPA
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
+
 # Compression GZIP
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/plain
@@ -30,6 +44,8 @@ RewriteRule ^(.*)$ https://www.kacihamroun.com/$1 [L,R=301]
     ExpiresByType image/jpeg "access plus 1 month"
     ExpiresByType image/gif "access plus 1 month"
     ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
     ExpiresByType text/css "access plus 1 month"
     ExpiresByType application/pdf "access plus 1 month"
     ExpiresByType text/javascript "access plus 1 month"
@@ -49,9 +65,6 @@ RewriteRule ^(.*)$ https://www.kacihamroun.com/$1 [L,R=301]
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 </IfModule>
-
-# Redirections SEO spécifiques (si nécessaire)
-# RedirectPermanent /old-page /new-page
 
 # Empêcher l'accès aux fichiers sensibles
 <Files "*.log">

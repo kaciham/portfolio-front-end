@@ -10,6 +10,9 @@ const SEO = ({
 }) => {
   
   useEffect(() => {
+    // Ensure canonical URL is always the root domain for this SPA
+    const normalizedCanonical = "https://www.kacihamroun.com";
+    
     // Update document title
     document.title = title;
     
@@ -25,11 +28,21 @@ const SEO = ({
       metaKeywords.setAttribute('content', keywords);
     }
     
-    // Update canonical URL
-    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    // Update canonical URL - always set to root for SPA
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
     if (canonicalLink) {
-      canonicalLink.setAttribute('href', canonical);
+      canonicalLink.setAttribute('href', normalizedCanonical);
+    } else {
+      // Create canonical link if it doesn't exist
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      canonicalLink.setAttribute('href', normalizedCanonical);
+      document.head.appendChild(canonicalLink);
     }
+    
+    // Remove any alternate link tags that might confuse Google
+    const alternateLinks = document.querySelectorAll('link[rel="alternate"]');
+    alternateLinks.forEach(link => link.remove());
     
     // Update Open Graph tags
     const ogTitle = document.querySelector('meta[property="og:title"]');
@@ -49,7 +62,7 @@ const SEO = ({
     
     const ogUrl = document.querySelector('meta[property="og:url"]');
     if (ogUrl) {
-      ogUrl.setAttribute('content', canonical);
+      ogUrl.setAttribute('content', normalizedCanonical);
     }
     
     // Update Twitter Card tags
