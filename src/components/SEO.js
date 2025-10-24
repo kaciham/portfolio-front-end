@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { isValidUrl } from '../utils/seoHelpers';
 
 const SEO = ({ 
   title = "Kaci Hamroun - Développeur Full-Stack & Automatisation IA | Lille 59000",
@@ -10,8 +11,20 @@ const SEO = ({
 }) => {
   
   useEffect(() => {
-    // Ensure canonical URL is always the root domain for this SPA
-    const normalizedCanonical = "https://www.kacihamroun.com";
+    // Determine canonical URL: prefer valid `canonical` prop, otherwise use current location
+    const getNormalizedCanonical = () => {
+      try {
+        if (canonical && isValidUrl(canonical)) return canonical;
+
+        const loc = window.location;
+        // Build absolute URL without query/search params or hash
+        return `${loc.origin}${loc.pathname}`;
+      } catch (err) {
+        return "https://www.kacihamroun.com";
+      }
+    };
+
+    const normalizedCanonical = getNormalizedCanonical();
     
     // Update document title
     document.title = title;
