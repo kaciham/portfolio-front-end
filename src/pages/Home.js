@@ -464,7 +464,7 @@ const Home = () => {
                       <ImageComponent
                         src={`${apiUrl}${projectData.imageUrl}`}
                         alt={projectData.title}
-                        className='w-full h-full object-cover '
+                        className='w-full h-full object-cover hover:scale-110 transition-transform duration-300 ease-in-out'
                       />
                     </div>
                     {/* Project link */}
