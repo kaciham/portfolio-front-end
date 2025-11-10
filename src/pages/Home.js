@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
-import axios from 'axios';
 // import backgroundImg2 from '../assets/images/8550.webp';
 // import backgroundImg2 from '../assets/images/flat-lay-blue-monday-paper-with-copy-space.webp';
 import githubLogo from '../assets/icons/github.svg';
@@ -23,12 +22,10 @@ const Home = () => {
   const apiUrl = process.env.REACT_APP_SERVER_PROD;
   
   // Loading states management
-  const { 
-    startLoading, 
-    stopLoading, 
-    isLoading: isMultiLoading, 
-    getMessage, 
-    withLoading 
+  const {
+    isLoading: isMultiLoading,
+    getMessage,
+    withLoading
   } = useMultipleLoading();
 
   const homeRef = useRef(null);
@@ -193,7 +190,7 @@ const Home = () => {
     }
 
     try {
-      const result = await withLoading('contactForm', async () => {
+      await withLoading('contactForm', async () => {
         const response = await sendContactForm(formData);
         if (response.error) {
           throw new Error(response.error);
