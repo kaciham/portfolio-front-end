@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import axios from "axios";
+import { getUserData } from '../api/apiCalls';
 
 const Navbar = ({ handleScroll, refs }) => {
 
-    const apiUrl = process.env.REACT_APP_SERVER_PROD;
+    const apiUrl = process.env.REACT_APP_API_BASE_URL || process.env.REACT_APP_SERVER_PROD;
 
     const [isOpen, setIsOpen] = useState(false); // Menu toggle state
     const [userData, setUserData] = useState([]);
@@ -16,17 +16,22 @@ const Navbar = ({ handleScroll, refs }) => {
 
     useEffect(() => {
         // Fetch user data from backend
-    const fetchProjects = async () => {
-        try {
-            const response = await axios.get(`${apiUrl}api/kaci`); // Replace with your actual backend URL
-            const dataFetched = response.data;
-            setUserData([dataFetched]);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-        fetchProjects(); // Fetch user data on component mount
-    },[apiUrl]);
+        const fetchUserData = async () => {
+            try {
+                const response = await getUserData();
+                if (response.error) {
+                    console.error('Error fetching navbar data:', response.error);
+                    return;
+                }
+                if (response.data) {
+                    setUserData([response.data]);
+                }
+            } catch (error) {
+                console.error('Error fetching navbar data:', error);
+            }
+        };
+        fetchUserData(); // Fetch user data on component mount
+    }, []);
 
     // Track scroll position to update navbar style
     useEffect(() => {
@@ -58,11 +63,19 @@ const Navbar = ({ handleScroll, refs }) => {
         >
             <div className="flex w-full max-w-7xl mx-auto justify-between items-center pr-2">
                 <div className="flex items-center py-2">
-                    {userData.map(data => (
-                        <div key={data._id} className="flex items-center mx-2 gap-4">
-                            <img className='w-12 md:w-14 rounded-full sm:hover:scale-110 transition-transform duration-100' src={`${apiUrl}${data.profilePic}`} alt={`${data.firstName} ${data.lastName.toUpperCase()} profile`} />
-                            <h2 className='sm:hover:scale-110 transition-transform duration-100 text-xl font-medium'>{`${data.firstName} ${data.lastName.toUpperCase()}`}</h2>
-                        </div>
+                    {userData.length > 0 && userData.map(data => (
+                        data && data.firstName && data.lastName ? (
+                            <div key={data._id} className="flex items-center mx-2 gap-4">
+                                <img
+                                    className='w-12 md:w-14 rounded-full sm:hover:scale-110 transition-transform duration-100'
+                                    src={`${apiUrl}${data.profilePic}`}
+                                    alt={`${data.firstName} ${data.lastName.toUpperCase()} profile`}
+                                />
+                                <h2 className='sm:hover:scale-110 transition-transform duration-100 text-xl font-medium'>
+                                    {`${data.firstName} ${data.lastName.toUpperCase()}`}
+                                </h2>
+                            </div>
+                        ) : null
                     ))}
                 </div>
 
