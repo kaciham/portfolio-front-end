@@ -72,7 +72,7 @@ const Navbar = ({ handleScroll, refs }) => {
                                     alt={`${data.firstName} ${data.lastName} profile`}
                                 />
                                 <h2 className='sm:hover:scale-110 transition-transform duration-100 text-xl font-medium'>
-                                    {`${data.firstName} ${data.lastName.toUpperCase()}`}
+                                    {`${data.firstName} ${data.lastName}`}
                                 </h2>
                             </div>
                         ) : null

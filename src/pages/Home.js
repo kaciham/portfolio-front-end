@@ -308,7 +308,7 @@ const Home = () => {
                   className="text-center text-7xl md:text-5xl h-18 m-8 weo mainTitle"
                   class="mainTitle"
                 >
-                  {data.firstName + ' ' + data.lastName.toUpperCase()}
+                  {data.firstName + ' ' + data.lastName}
                 </h1>
               </div>
               <div className='flex justify-center rounded-full p-1 m-3 gap-4 my-6'>
