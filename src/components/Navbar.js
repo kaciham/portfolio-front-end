@@ -69,7 +69,7 @@ const Navbar = ({ handleScroll, refs }) => {
                                 <img
                                     className='w-12 md:w-14 rounded-full sm:hover:scale-110 transition-transform duration-100'
                                     src={`${apiUrl}${data.profilePic}`}
-                                    alt={`${data.firstName} ${data.lastName.toUpperCase()} profile`}
+                                    alt={`${data.firstName} ${data.lastName} profile`}
                                 />
                                 <h2 className='sm:hover:scale-110 transition-transform duration-100 text-xl font-medium'>
                                     {`${data.firstName} ${data.lastName.toUpperCase()}`}
