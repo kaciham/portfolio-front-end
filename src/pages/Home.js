@@ -512,7 +512,7 @@ const Home = () => {
                     <div className='flex flex-col gap-6 w-full sm:w-1/2 h-100 sm:mx-4 text-center justify-around'>
                       <div>
                          <h3 className='text-lg font-semibold my-2'>Description:</h3>
-                        <p className='text-justify px-4 lg:px-10 text-sm my-2'>{projectData.description}</p>
+                        <p className='text-justify px-4 lg:px-10 text-sm my-2' dangerouslySetInnerHTML={{ __html: projectData.description }}></p>
                           {/* { projectData.problematic && (
                           <>
                             <h3 className='text-sm font-semibold my-2'>Problématique:</h3>
