@@ -4,14 +4,21 @@ import axiosInstance from './axiosInstance';
 export const apiCall = async (config, onLoadingChange = null) => {
   try {
     if (onLoadingChange) onLoadingChange(true);
-    
+
     const response = await axiosInstance(config);
     return { data: response.data, error: null };
   } catch (error) {
     console.error('API call error:', error);
-    return { 
-      data: null, 
-      error: error.response?.data?.message || error.message || 'Une erreur est survenue' 
+
+    // Use custom error message from interceptor if available
+    const errorMessage = error.customMessage ||
+                         error.response?.data?.message ||
+                         error.message ||
+                         'An error occurred. Please try again.';
+
+    return {
+      data: null,
+      error: errorMessage
     };
   } finally {
     if (onLoadingChange) onLoadingChange(false);

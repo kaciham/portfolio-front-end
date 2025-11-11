@@ -14,19 +14,24 @@ import ImageComponent from '../components/ImageComponent';
 import TopIcon from '../components/TopIcon';
 import Loader from '../components/Loader';
 import { useMultipleLoading } from '../hooks/useLoading';
+import { useNetworkStatus } from '../hooks/useNetworkStatus';
 import { getUserData, sendContactForm } from '../api/apiCalls';
 import { getSkillFallbackImage, getOptimizedImageUrl, preloadImages } from '../utils/imageHelpers';
+import { API_BASE_URL } from '../config/apiConfig';
 
 const Home = () => {
 
-  const apiUrl = process.env.REACT_APP_SERVER_PROD;
-  
+  const apiUrl = API_BASE_URL;
+
   // Loading states management
   const {
     isLoading: isMultiLoading,
     getMessage,
     withLoading
   } = useMultipleLoading();
+
+  // Network status detection
+  const isOnline = useNetworkStatus();
 
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
@@ -120,18 +125,35 @@ const Home = () => {
         return response.data;
       }, 'Chargement des données...');
 
-      setUserData([result]);
+      // Extract the first portfolio from the portfolios array
+      if (result.portfolios && result.portfolios.length > 0) {
+        setUserData([result.portfolios[0]]);
 
-      if (result.jobs) {
-        setJobs(result.jobs.map((job) => job.title));
+        if (result.portfolios[0].jobs) {
+          setJobs(result.portfolios[0].jobs.map((job) => job.title));
+        } else {
+          console.warn('Jobs data not found in portfolio');
+        }
       } else {
-        console.warn('Jobs data not found in response');
+        console.warn('No portfolios found in response');
       }
     } catch (error) {
       console.error('Error fetching data:', error);
       setErrorMessage('Erreur lors du chargement des données');
     }
   }, [withLoading]);
+
+  // Handle network status changes
+  useEffect(() => {
+    if (!isOnline) {
+      setErrorMessage('No internet connection. Please check your network.');
+    } else {
+      // Retry fetching data when connection is restored
+      if (userData.length === 0) {
+        fetchProjects();
+      }
+    }
+  }, [isOnline, userData.length, fetchProjects]);
 
   useEffect(() => {
     fetchProjects();
@@ -175,6 +197,13 @@ const Home = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check network status first
+    if (!isOnline) {
+      setErrorMessage('No internet connection. Please check your network and try again.');
+      contactRef.current.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
 
     const newErrors = {};
     if (!formData.firstName.trim()) newErrors.firstName = 'Le prénom est requis';

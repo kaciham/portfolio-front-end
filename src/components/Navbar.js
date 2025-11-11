@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { getUserData } from '../api/apiCalls';
+import { API_BASE_URL } from '../config/apiConfig';
 
 const Navbar = ({ handleScroll, refs }) => {
 
-    const apiUrl = process.env.REACT_APP_API_BASE_URL || process.env.REACT_APP_SERVER_PROD;
+    const apiUrl = API_BASE_URL;
 
     const [isOpen, setIsOpen] = useState(false); // Menu toggle state
     const [userData, setUserData] = useState([]);
@@ -23,8 +24,11 @@ const Navbar = ({ handleScroll, refs }) => {
                     console.error('Error fetching navbar data:', response.error);
                     return;
                 }
-                if (response.data) {
-                    setUserData([response.data]);
+                if (response.data && response.data.portfolios && response.data.portfolios.length > 0) {
+                    // Extract the first portfolio from the portfolios array
+                    setUserData([response.data.portfolios[0]]);
+                } else {
+                    console.warn('No portfolios found in response');
                 }
             } catch (error) {
                 console.error('Error fetching navbar data:', error);
