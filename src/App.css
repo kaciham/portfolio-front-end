@@ -1,10 +1,12 @@
-/* Web3 Modern Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap');
 
 * {
-    font-family: "Inter", sans-serif;
+    font-family: "roboto", sans-serif;
     font-optical-sizing: auto;
 }
 
@@ -27,23 +29,19 @@
 }
 
 .mainTitle {
-  font-family: "Orbitron", sans-serif;
+  font-family: "Passion One", sans-serif;
   font-size: 3.5rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
   text-align: center;
 }
 
 .subTitle {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Passion One", sans-serif;
   font-size: 2rem;
-  font-weight: 600;
 }
 
 .projet {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Passion One", sans-serif;
   font-size: 2rem;
-  font-weight: 600;
   padding-left: 1rem;
   padding-right: 1rem;
   text-align: center;

@@ -571,7 +571,7 @@ const Home = () => {
               </span>
             </h2>
           </div>
-          <div className='flex gap-12 justify-center items-center my-2'>
+          <div className='flex gap-18 justify-center items-center my-2'>
             <h2 className='text-xl sm:text-xl font-semibold text-center px-4 text-white projet'>Un projet ? Une idée ? Prenons contact !</h2>
           </div>
           <div className='w-full max-w-lg px-2 sm:px-0'>
@@ -675,7 +675,7 @@ const Home = () => {
 
       {showTopIcon && (
         <div
-          className='w-14 h-14 sm:w-18 sm:h-18 fixed bottom-5 rounded-full right-5 bg-web3-card border-2 border-web3-accent/30 hover:border-web3-accent p-2 shadow-neon cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-neon-lg backdrop-blur-sm'
+          className='w-14 h-14 sm:w-18 sm:h-18 fixed bottom-5 rounded-full right-5 bg-web3-card border-2 border-web3-accent/30 hover:border-web3-accent p-2 shadow-neon cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-neon-lg backdrop-blur-sm bg-white'
           onClick={toTop}
         >
           <TopIcon iconSource={upArrow} onClick={toTop} />
