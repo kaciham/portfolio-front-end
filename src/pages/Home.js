@@ -343,30 +343,30 @@ const Home = () => {
                 </h1>
               </div>
               <div className='flex justify-center rounded-full p-1 m-3 gap-4 my-6'>
-                <div className='bg-web3-card hover:bg-web3-cardHover border border-web3-accent/30 rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-neon'>
+                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-300 ease-in-out hover:-translate-y-2'>
                   <a href={data.linkedinUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={linkedinLogo} className="w-8 invert" alt="logo LinkedIn" title="Profil LinkedIn" />
+                    <ImageComponent src={linkedinLogo} className="w-8" alt="logo LinkedIn" title="Profil LinkedIn" />
                   </a>
                 </div>
-                <div className='bg-web3-card hover:bg-web3-cardHover border border-web3-accent/30 rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-neon'>
+                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-300 ease-in-out hover:-translate-y-2'>
                   <a href={data.githubUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={githubLogo} className="w-8 invert" alt="logo Github" title="Profil Github" />
+                    <ImageComponent src={githubLogo} className="w-8" alt="logo Github" title="Profil Github" />
                   </a>
                 </div>
-                <div className='bg-web3-card hover:bg-web3-cardHover border border-web3-accent/30 rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-neon'>
+                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-300 ease-in-out hover:-translate-y-2'>
                   <a href={`${apiUrl}${data.resumePdf}`} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={cvLogo} className="w-7 invert" alt="logo Resume" title="CV" />
+                    <ImageComponent src={cvLogo} className="w-7" alt="logo Resume" title="CV" />
                   </a>
                 </div>
-                <div className='bg-web3-card hover:bg-web3-cardHover border border-web3-accent/30 rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-neon'>
+                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-300 ease-in-out hover:-translate-y-2'>
                   <a href={data.scheduleUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={calendarLogo} className="w-7 invert" alt="logo Appointment" title="Prenons Rendez-vous !" />
+                    <ImageComponent src={calendarLogo} className="w-7" alt="logo Appointment" title="Prenons Rendez-vous !" />
                   </a>
                 </div>
-                <div className='bg-web3-card hover:bg-web3-cardHover border border-web3-accent/30 rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-neon'>
+                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer transition-transform duration-300 ease-in-out hover:-translate-y-2'>
                   <button onClick={() => handleScroll(contactRef)}>
                     <span className='hidden'>Contact</span>
-                    <ImageComponent src={contactLogo} className="w-7 invert" alt="logo Contact" title="Contact"/>
+                    <ImageComponent src={contactLogo} className="w-7" alt="logo Contact" title="Contact"/>
                   </button>
                 </div>
               </div>
