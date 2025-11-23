@@ -433,18 +433,16 @@ const Home = () => {
 
                     return (
                       <div key={skillsData._id} className="relative group">
-                        <div className="bg-web3-darker border border-web3-accent/20 p-2 rounded-xl hover:border-web3-accent hover:shadow-neon transition-all duration-300">
-                          <ImageComponent
-                            src={optimizedImageUrl || fallbackImage}
-                            fallbackSrc={fallbackImage}
-                            alt={`Logo de ${skillsData.name} - Compétence technique`}
-                            className='w-10 h-10 sm:w-14 sm:h-14 transition-transform duration-300 ease-in-out group-hover:scale-110'
-                            title={skillsData.name}
-                            loading="lazy"
-                          />
-                        </div>
+                        <ImageComponent
+                          src={optimizedImageUrl || fallbackImage}
+                          fallbackSrc={fallbackImage}
+                          alt={`Logo de ${skillsData.name} - Compétence technique`}
+                          className='w-10 h-10 sm:w-14 sm:h-14 shadow-lg transition-transform duration-300 ease-in-out'
+                          title={skillsData.name}
+                          loading="lazy"
+                        />
                         {/* Tooltip on hover */}
-                        <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-web3-card border border-web3-accent text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 whitespace-nowrap">
+                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 z-10">
                           {skillsData.name}
                         </div>
                       </div>
@@ -538,18 +536,16 @@ const Home = () => {
 
                           return (
                             <div key={projectSkillsData._id} className="relative group">
-                              <div className="bg-web3-darker border border-web3-accent/20 p-2 rounded-lg hover:border-web3-accent hover:shadow-neon transition-all duration-300">
-                                <ImageComponent
-                                  src={optimizedImageUrl || fallbackImage}
-                                  fallbackSrc={fallbackImage}
-                                  alt={`Logo de ${projectSkillsData.name} - Technologie utilisée dans le projet`}
-                                  className='w-8 h-8 sm:w-12 sm:h-12 group-hover:scale-110 transition-transform duration-300'
-                                  title={projectSkillsData.name}
-                                  loading="lazy"
-                                />
-                              </div>
+                              <ImageComponent
+                                src={optimizedImageUrl || fallbackImage}
+                                fallbackSrc={fallbackImage}
+                                alt={`Logo de ${projectSkillsData.name} - Technologie utilisée dans le projet`}
+                                className='w-8 h-8 sm:w-12 sm:h-12'
+                                title={projectSkillsData.name}
+                                loading="lazy"
+                              />
                               {/* Tooltip on hover */}
-                              <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-web3-card border border-web3-accent text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 whitespace-nowrap">
+                              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-200 pointer-events-none z-10">
                                 {projectSkillsData.name}
                               </div>
                             </div>
