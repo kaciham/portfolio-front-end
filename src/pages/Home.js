@@ -414,7 +414,7 @@ const Home = () => {
 
               <div className='w-full sm:w-1/2 gap-4 md:px-4 flex flex-col justify-center items-center text-center'>
                 <div>
-                  <h2 className='text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-web3-accent to-web3-purple bg-clip-text text-transparent'>Bio</h2>
+                  <h2 className='text-sm sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-web3-accent to-web3-purple bg-clip-text text-transparent'>Bio</h2>
                 </div>
                 <div>
                   <p className='text-gray-300 px-4 text-sm sm:text-lg leading-relaxed'>{data.bio}</p>
@@ -422,7 +422,7 @@ const Home = () => {
               </div>
               <div className='w-full sm:w-1/2 gap-4 flex flex-col justify-center items-center text-center'>
                 <div>
-                  <h2 className='px-4 text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-web3-cyan to-web3-accent bg-clip-text text-transparent'>Stack</h2>
+                  <h2 className='px-4 text-sm sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-web3-cyan to-web3-accent bg-clip-text text-transparent'>Stack</h2>
                 </div>
                 <div className='flex flex-row flex-wrap gap-4 sm:gap-4 items-center justify-center px-8 sm:px-14'>
                   {data.skills.map((skillsData) => {
@@ -480,7 +480,7 @@ const Home = () => {
                 >
                   {/* Title (always on top in both mobile and desktop view) */}
                   <div className='w-full text-center mb-4'>
-                    <h2 className='text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-web3-accent via-web3-purple to-web3-cyan bg-clip-text text-transparent'>{projectData.title}</h2>
+                    <h2 className='text-sm sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-web3-accent via-web3-purple to-web3-cyan bg-clip-text text-transparent'>{projectData.title}</h2>
                   </div>
 
                   {/* Flex Container for Image and Description */}
@@ -572,7 +572,7 @@ const Home = () => {
             </h2>
           </div>
           <div className='flex gap-18 justify-center items-center my-2'>
-            <h2 className='text-xl sm:text-xl font-semibold text-center px-4 text-white projet'>Un projet ? Une idée ? Prenons contact !</h2>
+            <h2 className='text-sm sm:text-sm font-semibold text-center px-4 text-white projet'>Un projet ? Une idée ? Prenons contact !</h2>
           </div>
           <div className='w-full max-w-lg px-2 sm:px-0'>
             <form
