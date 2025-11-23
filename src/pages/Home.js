@@ -316,13 +316,6 @@ const Home = () => {
       <Navbar handleScroll={handleScroll} refs={{ homeRef, aboutRef, projetRef, contactRef }} />
       <div className='w-full min-h-screen bg-gradient-to-br from-web3-dark via-web3-darker to-web3-dark relative overflow-hidden'
         >
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-web3-accent rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-web3-purple rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float" style={{animationDelay: '2s'}}></div>
-          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-web3-cyan rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float" style={{animationDelay: '4s'}}></div>
-        </div>
-
         <div
           ref={homeRef}
           className='flex flex-col justify-center items-center min-h-[100vh] sm:min-h-[90vh] opacity-0 translate-y-10 transition-transform duration-[1500ms] ease relative w-full max-w-none z-10'
@@ -571,7 +564,7 @@ const Home = () => {
               </span>
             </h2>
           </div>
-          <div className='flex gap-18 justify-center items-center my-2'>
+          <div className='flex gap-18 justify-center items-center my-8 '>
             <h2 className='text-sm sm:text-sm font-semibold text-center px-4 text-white projet'>Un projet ? Une idée ? Prenons contact !</h2>
           </div>
           <div className='w-full max-w-lg px-2 sm:px-0'>
