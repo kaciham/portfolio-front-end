@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { isValidUrl } from '../utils/seoHelpers';
 
 const SEO = ({ 
-  title = "Kaci Hamroun - Développeur Full-Stack & Automatisation IA | Lille 59000",
+  title = "Kaci Hamroun - Développeur Full-Stack & Automatisation IA",
   description = "Kaci Hamroun, développeur full-stack spécialisé en automatisation IA à Lille. Expert React, Node.js, Python, intelligence artificielle et solutions d'automatisation sur mesure.",
   keywords = "développeur full-stack, automatisation IA, intelligence artificielle, React, Node.js, Python, développeur web Lille, automatisation processus, machine learning, développeur frontend backend, Kaci Hamroun, freelance développeur Lille",
   canonical = "https://www.kacihamroun.com",

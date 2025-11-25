@@ -486,7 +486,7 @@ const Home = () => {
                     <div className='flex flex-col gap-6 w-full sm:w-1/2 h-100 sm:mx-4 text-center justify-around'>
                       <div>
                          <h3 className='text-lg font-semibold my-2'>Description:</h3>
-                        <p className='text-justify px-4 lg:px-10 text-sm my-2'>{projectData.description}</p>
+                        <p className='text-center px-4 lg:px-10 text-sm my-2'>{projectData.description}</p>
                           {/* { projectData.problematic && (
                           <>
                             <h3 className='text-sm font-semibold my-2'>Problématique:</h3>
@@ -543,7 +543,7 @@ const Home = () => {
                 Contact</span>
             </h2>
           </div>
-          <div className='flex gap-12 justify-center items-center my-2'>
+          <div className='flex gap-8 justify-center items-center my-6'>
             <h2 className='text-xl sm:text-xl font-semibold text-center px-4' class="projet">Un projet ? Une idée ? Prenons contact !</h2>
           </div>
           <div className='w-full max-w-lg px-2 sm:px-0'>
@@ -610,12 +610,11 @@ const Home = () => {
                   className='border rounded-lg py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400'
                   name='text'
                   rows={5}
-                  placeholder='Entrez votre message'
+                  placeholder='Détaillez votre demande ici...'
                   id='text'
                 />
                 {errors.text && <p className='text-red-500 text-sm mt-1'>{errors.text}</p>}
               </div>
-
               <div className='flex justify-end mt-6'>
                 <button
                   className='bg-white text-center hover:bg-gray-200 focus:bg-gray-200 w-full sm:w-1/3 h-12 flex justify-center items-center text-[#6793e0] font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
