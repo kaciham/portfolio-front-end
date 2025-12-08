@@ -527,7 +527,7 @@ const Home = () => {
                           <ImageComponent
                             src={`${apiUrl}${projectData.imageUrl}`}
                             alt={projectData.title}
-                            className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out cursor-pointer'
+                            className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-900 ease-in-out cursor-pointer'
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-web3-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </a>
@@ -536,7 +536,7 @@ const Home = () => {
                           <ImageComponent
                             src={`${apiUrl}${projectData.imageUrl}`}
                             alt={projectData.title}
-                            className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out'
+                            className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-900 ease-in-out'
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-web3-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </>
