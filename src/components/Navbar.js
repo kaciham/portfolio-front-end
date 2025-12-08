@@ -59,7 +59,7 @@ const Navbar = ({ handleScroll, refs }) => {
     return (
         <nav
             className={`h-fit p-2 w-full max-w-full z-50 fixed top-0 left-0 transition-all duration-300 backdrop-blur-md ${
-                scrollTop ? 'bg-web3-dark/30 text-white' : 'bg-web3-dark/80 border-b border-web3-accent/20 text-white'
+                scrollTop ? 'bg-web3-dark/30 text-white' : 'bg-web3-dark/80  text-white'
             }`}
         >
             <div className="flex w-full max-w-7xl mx-auto justify-between items-center pr-2">

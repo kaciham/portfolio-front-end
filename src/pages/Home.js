@@ -517,14 +517,31 @@ const Home = () => {
                   <div className={`flex flex-col sm:flex-row w-full max-w-5xl gap-8 ${index % 2 === 0 ? 'sm:flex-row-reverse' : 'sm:flex-row'}`}>
                     {/* Image (side by side with description on desktop) */}
                     <div className='relative flex items-center justify-center w-full md:min-h-[50vh] sm:max-h-[40vh] rounded-xl overflow-hidden border-2 border-web3-accent/30 hover:border-web3-accent group'>
-                      <ImageComponent
-                        src={`${apiUrl}${projectData.imageUrl}`}
-                        alt={projectData.title}
-                        className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out'
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-web3-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    {/* Project link */}
+                      {projectData.projectUrl ? (
+                        <a
+                          href={projectData.projectUrl}
+                          target='_blank'
+                          rel='noreferrer'
+                          className='w-full h-full'
+                        >
+                          <ImageComponent
+                            src={`${apiUrl}${projectData.imageUrl}`}
+                            alt={projectData.title}
+                            className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-900 ease-in-out cursor-pointer'
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-web3-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+                      ) : (
+                        <>
+                          <ImageComponent
+                            src={`${apiUrl}${projectData.imageUrl}`}
+                            alt={projectData.title}
+                            className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-900 ease-in-out'
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-web3-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </>
+                      )}
+                    </div>}
                     {/* {projectData.projectUrl && (
                       <div className="flex justify-center items-center lg:w-1/3 md:w-1/2">
                         <a
