@@ -315,7 +315,7 @@ const Home = () => {
         jsonLd={seoData.jsonLd}
       />
       <Navbar handleScroll={handleScroll} refs={{ homeRef, aboutRef, projetRef, contactRef }} />
-      <div className='w-full min-h-screen bg-gradient-to-br from-web3-dark via-web3-darker to-web3-dark relative overflow-hidden'
+      <div className='w-full min-h-screen bg-midnight-gradient relative overflow-hidden'
         >
         <div
           ref={homeRef}
@@ -336,31 +336,31 @@ const Home = () => {
                   {data.firstName + ' ' + data.lastName}
                 </h1>
               </div>
-              <div className='flex justify-center rounded-full p-1 m-3 gap-4 my-6'>
-                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-300 ease-in-out hover:-translate-y-2'>
-                  <a href={data.linkedinUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={linkedinLogo} className="w-8" alt="logo LinkedIn" title="Profil LinkedIn" />
+              <div className='flex justify-center rounded-full p-1 m-3 gap-3 sm:gap-4 my-6 flex-wrap'>
+                <div className='bg-gradient-to-br from-white to-gray-100 rounded-full w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-lg shadow-md border border-web3-accent/20 hover:border-web3-accent'>
+                  <a href={data.linkedinUrl} target='_blank' rel='noreferrer' className='w-full h-full flex items-center justify-center'>
+                    <ImageComponent src={linkedinLogo} className="w-7 sm:w-8 object-contain" alt="logo LinkedIn" title="Profil LinkedIn" loading="eager" />
                   </a>
                 </div>
-                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-300 ease-in-out hover:-translate-y-2'>
-                  <a href={data.githubUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={githubLogo} className="w-8" alt="logo Github" title="Profil Github" />
+                <div className='bg-gradient-to-br from-white to-gray-100 rounded-full w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-lg shadow-md border border-web3-accent/20 hover:border-web3-accent'>
+                  <a href={data.githubUrl} target='_blank' rel='noreferrer' className='w-full h-full flex items-center justify-center'>
+                    <ImageComponent src={githubLogo} className="w-7 sm:w-8 object-contain" alt="logo Github" title="Profil Github" loading="eager" />
                   </a>
                 </div>
-                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-300 ease-in-out hover:-translate-y-2'>
-                  <a href={getImageUrl(apiUrl, data.resumePdf)} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={cvLogo} className="w-7" alt="logo Resume" title="CV" />
+                <div className='bg-gradient-to-br from-white to-gray-100 rounded-full w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-lg shadow-md border border-web3-accent/20 hover:border-web3-accent'>
+                  <a href={getImageUrl(apiUrl, data.resumePdf)} target='_blank' rel='noreferrer' className='w-full h-full flex items-center justify-center'>
+                    <ImageComponent src={cvLogo} className="w-6 sm:w-7 object-contain" alt="logo Resume" title="CV" loading="eager" />
                   </a>
                 </div>
-                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-300 ease-in-out hover:-translate-y-2'>
-                  <a href={data.scheduleUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={calendarLogo} className="w-7" alt="logo Appointment" title="Prenons Rendez-vous !" />
+                <div className='bg-gradient-to-br from-white to-gray-100 rounded-full w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-lg shadow-md border border-web3-accent/20 hover:border-web3-accent'>
+                  <a href={data.scheduleUrl} target='_blank' rel='noreferrer' className='w-full h-full flex items-center justify-center'>
+                    <ImageComponent src={calendarLogo} className="w-6 sm:w-7 object-contain" alt="logo Appointment" title="Prenons Rendez-vous !" loading="eager" />
                   </a>
                 </div>
-                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer transition-transform duration-300 ease-in-out hover:-translate-y-2'>
-                  <button onClick={() => handleScroll(contactRef)}>
+                <div className='bg-gradient-to-br from-white to-gray-100 rounded-full w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-lg shadow-md border border-web3-accent/20 hover:border-web3-accent'>
+                  <button onClick={() => handleScroll(contactRef)} className='w-full h-full flex items-center justify-center'>
                     <span className='hidden'>Contact</span>
-                    <ImageComponent src={contactLogo} className="w-7" alt="logo Contact" title="Contact"/>
+                    <ImageComponent src={contactLogo} className="w-6 sm:w-7 object-contain" alt="logo Contact" title="Contact" loading="eager"/>
                   </button>
                 </div>
               </div>
@@ -418,7 +418,7 @@ const Home = () => {
                 <div>
                   <h2 className='px-4 text-sm sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-web3-cyan to-web3-accent bg-clip-text text-transparent'>Stack</h2>
                 </div>
-                <div className='flex flex-row flex-wrap gap-4 sm:gap-4 items-center justify-center px-8 sm:px-14'>
+                <div className='flex flex-row flex-wrap gap-4 sm:gap-6 items-center justify-center px-8 sm:px-14'>
                   {data.skills.map((skillsData) => {
                     const optimizedImageUrl = skillsData.logo
                       ? getOptimizedImageUrl(apiUrl, skillsData.logo, { width: 56, height: 56 })
@@ -427,16 +427,19 @@ const Home = () => {
 
                     return (
                       <div key={skillsData._id} className="relative group">
-                        <ImageComponent
-                          src={optimizedImageUrl || fallbackImage}
-                          fallbackSrc={fallbackImage}
-                          alt={`Logo de ${skillsData.name} - Compétence technique`}
-                          className='w-10 h-10 sm:w-14 sm:h-14 shadow-lg transition-transform duration-300 ease-in-out'
-                          title={skillsData.name}
-                          loading="lazy"
-                        />
+                        <div className="p-2 rounded-xl bg-web3-darker/50 border border-web3-accent/20 hover:border-web3-accent hover:bg-web3-deepBlue/30 transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                          <ImageComponent
+                            src={optimizedImageUrl || fallbackImage}
+                            fallbackSrc={fallbackImage}
+                            alt={`Logo de ${skillsData.name} - Compétence technique`}
+                            className='w-10 h-10 sm:w-12 sm:h-12 object-contain'
+                            title={skillsData.name}
+                            loading="lazy"
+                            sizes="(max-width: 640px) 40px, 48px"
+                          />
+                        </div>
                         {/* Tooltip on hover */}
-                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 z-10">
+                        <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-web3-navy border border-web3-accent/50 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 whitespace-nowrap shadow-lg">
                           {skillsData.name}
                         </div>
                       </div>
@@ -516,29 +519,31 @@ const Home = () => {
                   {/* Flex Container for Image and Description */}
                   <div className={`flex flex-col sm:flex-row w-full max-w-5xl gap-8 ${index % 2 === 0 ? 'sm:flex-row-reverse' : 'sm:flex-row'}`}>
                     {/* Image (side by side with description on desktop) */}
-                    <div className='relative flex items-center justify-center w-full md:min-h-[50vh] sm:max-h-[40vh] rounded-xl overflow-hidden border-2 border-web3-accent/30 hover:border-web3-accent group'>
+                    <div className='relative flex items-center justify-center w-full sm:w-1/2 aspect-video sm:aspect-square md:aspect-video rounded-xl overflow-hidden border-2 border-web3-accent/30 hover:border-web3-accent group shadow-lg hover:shadow-2xl transition-all duration-300'>
                       {projectData.projectUrl ? (
                         <a
                           href={projectData.projectUrl}
                           target='_blank'
                           rel='noreferrer'
-                          className='w-full h-full'
+                          className='w-full h-full block'
                         >
                           <ImageComponent
                             src={getImageUrl(apiUrl, projectData.imageUrl)}
                             alt={projectData.title}
-                            className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-900 ease-in-out cursor-pointer'
+                            className='w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-in-out cursor-pointer'
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-web3-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          <div className="absolute inset-0 bg-gradient-to-t from-web3-navy/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </a>
                       ) : (
                         <>
                           <ImageComponent
                             src={getImageUrl(apiUrl, projectData.imageUrl)}
                             alt={projectData.title}
-                            className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-900 ease-in-out'
+                            className='w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-in-out'
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-web3-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          <div className="absolute inset-0 bg-gradient-to-t from-web3-navy/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </>
                       )}
                     </div>
@@ -574,7 +579,7 @@ const Home = () => {
                           </>
                         )} */}
                       </div>
-                      <div className='flex flex-wrap justify-center mx-2 sm:mx-0 gap-4'>
+                      <div className='flex flex-wrap justify-center mx-2 sm:mx-0 gap-3 sm:gap-4'>
                         {projectData?.skills?.map((projectSkillsData) => {
                           const optimizedImageUrl = projectSkillsData.logo
                             ? getOptimizedImageUrl(apiUrl, projectSkillsData.logo, { width: 48, height: 48 })
@@ -583,16 +588,19 @@ const Home = () => {
 
                           return (
                             <div key={projectSkillsData._id} className="relative group">
-                              <ImageComponent
-                                src={optimizedImageUrl || fallbackImage}
-                                fallbackSrc={fallbackImage}
-                                alt={`Logo de ${projectSkillsData.name} - Technologie utilisée dans le projet`}
-                                className='w-8 h-8 sm:w-12 sm:h-12'
-                                title={projectSkillsData.name}
-                                loading="lazy"
-                              />
+                              <div className="p-1.5 sm:p-2 rounded-lg bg-web3-darker/50 border border-web3-accent/20 hover:border-web3-accent hover:bg-web3-deepBlue/30 transition-all duration-300 hover:scale-110">
+                                <ImageComponent
+                                  src={optimizedImageUrl || fallbackImage}
+                                  fallbackSrc={fallbackImage}
+                                  alt={`Logo de ${projectSkillsData.name} - Technologie utilisée dans le projet`}
+                                  className='w-8 h-8 sm:w-10 sm:h-10 object-contain'
+                                  title={projectSkillsData.name}
+                                  loading="lazy"
+                                  sizes="(max-width: 640px) 32px, 40px"
+                                />
+                              </div>
                               {/* Tooltip on hover */}
-                              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-200 pointer-events-none z-10">
+                              <div className="absolute -top-9 left-1/2 transform -translate-x-1/2 bg-web3-navy border border-web3-accent/50 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 whitespace-nowrap shadow-lg">
                                 {projectSkillsData.name}
                               </div>
                             </div>
