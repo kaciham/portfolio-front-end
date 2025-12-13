@@ -82,6 +82,27 @@ export const getOptimizedImageUrl = (baseUrl, imagePath, options = {}) => {
 };
 
 /**
+ * Constructs the full image URL, handling both Cloudinary URLs and relative paths
+ * @param {string} baseUrl - The base API URL
+ * @param {string} imagePath - The image path (can be full URL or relative path)
+ * @returns {string} - Full image URL
+ */
+export const getImageUrl = (baseUrl, imagePath) => {
+  if (!imagePath) return null;
+
+  // If the imagePath is already a full URL (Cloudinary, etc.), return as is
+  if (imagePath.startsWith('http://') || imagePath.startsWith('https://') || imagePath.startsWith('data:')) {
+    return imagePath;
+  }
+
+  // For relative paths, combine with baseUrl
+  const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+  const cleanImagePath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+
+  return `${cleanBaseUrl}${cleanImagePath}`;
+};
+
+/**
  * Preloads critical images for better performance
  * @param {Array<string>} imageUrls - Array of image URLs to preload
  */

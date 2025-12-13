@@ -1,0 +1,16 @@
+# Robots.txt pour Kaci Hamroun - Développeur Full-Stack & Automatisation IA
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /services/
+Disallow: /blog
+Disallow: /mentions-legales
+Disallow: /politique-confidentialite
+Disallow: *.pdf$
+
+# Sitemap
+Sitemap: https://www.kacihamroun.com/sitemap.xml
+
+# Crawl-delay pour optimiser la charge serveur
+Crawl-delay: 1

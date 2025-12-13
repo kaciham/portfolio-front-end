@@ -16,7 +16,7 @@ import Loader from '../components/Loader';
 import { useMultipleLoading } from '../hooks/useLoading';
 import { useNetworkStatus } from '../hooks/useNetworkStatus';
 import { getUserData, sendContactForm } from '../api/apiCalls';
-import { getSkillFallbackImage, getOptimizedImageUrl, preloadImages } from '../utils/imageHelpers';
+import { getSkillFallbackImage, getOptimizedImageUrl, preloadImages, getImageUrl } from '../utils/imageHelpers';
 import { API_BASE_URL } from '../config/apiConfig';
 
 const Home = () => {
@@ -267,7 +267,7 @@ const Home = () => {
       description: `${fullName}, développeur full-stack spécialisé en automatisation IA à Lille. Expert en ${skills}. ${data.bio?.substring(0, 100)}...`,
       keywords: `développeur full-stack, automatisation IA, ${skills}, développeur web Lille, ${data.firstName} ${data.lastName}, freelance développeur Lille`,
       canonical: "https://www.kacihamroun.com",
-      ogImage: data.profilePic ? `https://www.kacihamroun.com${data.profilePic}` : "https://www.kacihamroun.com/images/kaci-hamroun-og.jpg",
+      ogImage: data.profilePic ? (data.profilePic.startsWith('http') ? data.profilePic : `https://www.kacihamroun.com${data.profilePic}`) : "https://www.kacihamroun.com/images/kaci-hamroun-og.jpg",
       jsonLd: {
         "@context": "https://schema.org",
         "@type": "Person",
@@ -277,7 +277,7 @@ const Home = () => {
         "jobTitle": "Développeur Full-Stack & Spécialiste Automatisation IA",
         "description": data.bio,
         "url": "https://www.kacihamroun.com",
-        "image": data.profilePic ? `https://www.kacihamroun.com${data.profilePic}` : "https://www.kacihamroun.com/images/kaci-hamroun-profile.jpg",
+        "image": data.profilePic ? (data.profilePic.startsWith('http') ? data.profilePic : `https://www.kacihamroun.com${data.profilePic}`) : "https://www.kacihamroun.com/images/kaci-hamroun-profile.jpg",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Lille",
@@ -348,7 +348,7 @@ const Home = () => {
                   </a>
                 </div>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-300 ease-in-out hover:-translate-y-2'>
-                  <a href={`${apiUrl}${data.resumePdf}`} target='_blank' rel='noreferrer'>
+                  <a href={getImageUrl(apiUrl, data.resumePdf)} target='_blank' rel='noreferrer'>
                     <ImageComponent src={cvLogo} className="w-7" alt="logo Resume" title="CV" />
                   </a>
                 </div>
@@ -525,7 +525,7 @@ const Home = () => {
                           className='w-full h-full'
                         >
                           <ImageComponent
-                            src={`${apiUrl}${projectData.imageUrl}`}
+                            src={getImageUrl(apiUrl, projectData.imageUrl)}
                             alt={projectData.title}
                             className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-900 ease-in-out cursor-pointer'
                           />
@@ -534,7 +534,7 @@ const Home = () => {
                       ) : (
                         <>
                           <ImageComponent
-                            src={`${apiUrl}${projectData.imageUrl}`}
+                            src={getImageUrl(apiUrl, projectData.imageUrl)}
                             alt={projectData.title}
                             className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-900 ease-in-out'
                           />
