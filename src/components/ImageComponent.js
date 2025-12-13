@@ -74,7 +74,7 @@ const ImageComponent = ({ src, alt, className, title, onClick, fallbackSrc, ...p
   };
 
   return (
-    <div ref={imgRef} className={`relative ${className}`}>
+    <div ref={imgRef} className="relative inline-block">
       {!isLoaded && isInView && !hasError && (
         <div className={`absolute inset-0 bg-gray-200 animate-pulse rounded ${className}`} aria-label="Image en cours de chargement" />
       )}

@@ -53,27 +53,31 @@ export const validateImageUrl = (imageUrl) => {
  */
 export const getOptimizedImageUrl = (baseUrl, imagePath, options = {}) => {
   if (!imagePath) return null;
-  
+
   const { width, height, format = 'webp', quality = 80 } = options;
-  
+
   // If the imagePath is already a full URL, return as is
   if (imagePath.startsWith('http') || imagePath.startsWith('data:')) {
     return imagePath;
   }
-  
-  let url = `${baseUrl}${imagePath}`;
-  
+
+  // Ensure baseUrl doesn't end with slash and imagePath starts with slash
+  const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+  const cleanImagePath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+
+  let url = `${cleanBaseUrl}${cleanImagePath}`;
+
   // Add optimization parameters if supported by your backend
   const params = new URLSearchParams();
   if (width) params.append('w', width);
   if (height) params.append('h', height);
   if (format) params.append('f', format);
   if (quality) params.append('q', quality);
-  
+
   if (params.toString()) {
     url += `?${params.toString()}`;
   }
-  
+
   return url;
 };
 
