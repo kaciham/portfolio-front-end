@@ -51,34 +51,26 @@ export const validateImageUrl = (imageUrl) => {
  * @param {Object} options - Options for image optimization
  * @returns {string} - Optimized image URL
  */
-export const getOptimizedImageUrl = (baseUrl, imagePath, options = {}) => {
-  if (!imagePath) return null;
-
-  const { width, height, format = 'webp', quality = 80 } = options;
-
-  // If the imagePath is already a full URL, return as is
-  if (imagePath.startsWith('http') || imagePath.startsWith('data:')) {
+export const getOptimizedImageUrl = (apiUrl, imagePath, options = {}) => {
+  // Si l'image est déjà une URL Cloudinary complète, la retourner telle quelle
+  if (imagePath?.startsWith('http://') || imagePath?.startsWith('https://')) {
     return imagePath;
   }
-
-  // Ensure baseUrl doesn't end with slash and imagePath starts with slash
-  const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
-  const cleanImagePath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
-
-  let url = `${cleanBaseUrl}${cleanImagePath}`;
-
-  // Add optimization parameters if supported by your backend
+  
+  // Sinon, construire l'URL avec les paramètres d'optimisation
+  if (!imagePath) return null;
+  
+  const { width, height, quality = 80 } = options;
   const params = new URLSearchParams();
+  
   if (width) params.append('w', width);
   if (height) params.append('h', height);
-  if (format) params.append('f', format);
   if (quality) params.append('q', quality);
-
-  if (params.toString()) {
-    url += `?${params.toString()}`;
-  }
-
-  return url;
+  
+  const queryString = params.toString();
+  const baseUrl = `${apiUrl}${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
+  
+  return queryString ? `${baseUrl}?${queryString}` : baseUrl;
 };
 
 /**
@@ -87,19 +79,15 @@ export const getOptimizedImageUrl = (baseUrl, imagePath, options = {}) => {
  * @param {string} imagePath - The image path (can be full URL or relative path)
  * @returns {string} - Full image URL
  */
-export const getImageUrl = (baseUrl, imagePath) => {
-  if (!imagePath) return null;
-
-  // If the imagePath is already a full URL (Cloudinary, etc.), return as is
-  if (imagePath.startsWith('http://') || imagePath.startsWith('https://') || imagePath.startsWith('data:')) {
+export const getImageUrl = (apiUrl, imagePath) => {
+  // Si l'image commence déjà par http:// ou https://, retourner telle quelle (URL Cloudinary)
+  if (imagePath?.startsWith('http://') || imagePath?.startsWith('https://')) {
     return imagePath;
   }
-
-  // For relative paths, combine with baseUrl
-  const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
-  const cleanImagePath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
-
-  return `${cleanBaseUrl}${cleanImagePath}`;
+  
+  // Sinon, ajouter le préfixe de l'API (anciennes images locales)
+  if (!imagePath) return null;
+  return `${apiUrl}${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
 };
 
 /**
