@@ -339,28 +339,28 @@ const Home = () => {
               <div className='flex items-center justify-center rounded-full p-1 m-3 gap-4 my-6'>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
                   <a href={data.linkedinUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={linkedinLogo} className="w-8 mt-4" alt="logo LinkedIn" title="Profil LinkedIn" />
+                    <ImageComponent src={linkedinLogo} className="w-8 mt-2" alt="logo LinkedIn" title="Profil LinkedIn" />
                   </a>
                 </div>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
                   <a href={data.githubUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={githubLogo} className="w-8 mt-4" alt="logo Github" title="Profil Github" />
+                    <ImageComponent src={githubLogo} className="w-8 mt-2" alt="logo Github" title="Profil Github" />
                   </a>
                 </div>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
                   <a href={getImageUrl(apiUrl, data.resumePdf)} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={cvLogo} className="w-7 mt-4" alt="logo Resume" title="CV" />
+                    <ImageComponent src={cvLogo} className="w-7 mt-2" alt="logo Resume" title="CV" />
                   </a>
                 </div>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
                   <a href={data.scheduleUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={calendarLogo} className="w-7 mt-4" alt="logo Appointment" title="Prenons Rendez-vous !" />
+                    <ImageComponent src={calendarLogo} className="w-7 mt-2" alt="logo Appointment" title="Prenons Rendez-vous !" />
                   </a>
                 </div>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer transition-transform duration-500 ease-in-out hover:-translate-y-1'>
                   <button onClick={() => handleScroll(contactRef)}>
                     <span className='hidden'>Contact</span>
-                    <ImageComponent src={contactLogo} className="w-7 mt-4" alt="logo Contact" title="Contact"/>
+                    <ImageComponent src={contactLogo} className="w-7 mt-2" alt="logo Contact" title="Contact"/>
                   </button>
                 </div>
               </div>
@@ -623,7 +623,7 @@ const Home = () => {
             </h2>
           </div>
           <div className='flex gap-18 justify-center items-center my-8 '>
-            <h2 className='text-sm sm:text-sm font-semibold text-center px-4 text-white projet'>Un projet ? Une idée ? Prenons contact !</h2>
+            <h2 className='text-sm sm:text-sm font-normal text-center px-4 text-white projet'>Un projet ? Une idée ? Prenons contact !</h2>
           </div>
           <div className='w-full max-w-lg px-2 sm:px-0'>
             <form
