@@ -176,3 +176,8 @@
     color: #6b7280;
     text-align: center;
   }
+
+  /* Custom scale for subtle hover effects */
+  .group:hover .group-hover\:scale-103 {
+    transform: scale(1.03);
+  }
