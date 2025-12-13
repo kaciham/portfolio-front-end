@@ -60,7 +60,7 @@ const Navbar = ({ handleScroll, refs }) => {
     return (
         <nav
             className={`h-fit p-2 w-full max-w-full z-50 fixed top-0 left-0 transition-all duration-300 backdrop-blur-md ${
-                scrollTop ? 'bg-web3-dark/30 text-white' : 'bg-web3-dark/80  text-white'
+                scrollTop ? 'bg-web3-dark/30 text-white' : 'bg-web3-dark/80 text-white'
             }`}
         >
             <div className="flex w-full max-w-7xl mx-auto justify-between items-center pr-2">
@@ -75,7 +75,7 @@ const Navbar = ({ handleScroll, refs }) => {
                                     loading="eager"
                                     decoding="async"
                                 />
-                                <h2 className='sm:hover:scale-110 transition-transform duration-300 text-xl font-medium bg-gradient-to-r from-web3-accent via-white to-web3-cyan bg-clip-text text-transparent'>
+                                <h2 className='sm:hover:scale-110 transition-transform duration-300 text-xl font-medium text-white'>
                                     {`${data.firstName} ${data.lastName}`}
                                 </h2>
                             </div>
@@ -93,19 +93,19 @@ const Navbar = ({ handleScroll, refs }) => {
                 <div className="hidden md:flex">
                     {/* Navigation menu */}
                     <ul className='flex gap-2'>
-                        <li className='mx-1 text-lg font-medium cursor-pointer hover:text-web3-accent transition-all duration-300 relative group' onClick={() => handleScroll(refs.homeRef)}>
+                        <li className='mx-1 text-lg font-medium text-white cursor-pointer hover:text-web3-accent transition-all duration-300 relative group' onClick={() => handleScroll(refs.homeRef)}>
                             Accueil
                             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-web3-accent group-hover:w-full transition-all duration-300"></span>
                         </li>
-                        <li className='mx-1 text-lg font-medium cursor-pointer hover:text-web3-accent transition-all duration-300 relative group' onClick={() => handleScroll(refs.aboutRef)}>
+                        <li className='mx-1 text-lg font-medium text-white cursor-pointer hover:text-web3-accent transition-all duration-300 relative group' onClick={() => handleScroll(refs.aboutRef)}>
                             À Propos
                             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-web3-accent group-hover:w-full transition-all duration-300"></span>
                         </li>
-                        <li className='mx-1 text-lg font-medium cursor-pointer hover:text-web3-accent transition-all duration-300 relative group' onClick={() => handleScroll(refs.projetRef)}>
+                        <li className='mx-1 text-lg font-medium text-white cursor-pointer hover:text-web3-accent transition-all duration-300 relative group' onClick={() => handleScroll(refs.projetRef)}>
                             Projets
                             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-web3-accent group-hover:w-full transition-all duration-300"></span>
                         </li>
-                        <li className='mx-1 text-lg font-medium cursor-pointer hover:text-web3-accent transition-all duration-300 relative group' onClick={() => handleScroll(refs.contactRef)}>
+                        <li className='mx-1 text-lg font-medium text-white cursor-pointer hover:text-web3-accent transition-all duration-300 relative group' onClick={() => handleScroll(refs.contactRef)}>
                             Contact
                             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-web3-accent group-hover:w-full transition-all duration-300"></span>
                         </li>
@@ -116,10 +116,10 @@ const Navbar = ({ handleScroll, refs }) => {
             {/* Mobile menu */}
             <div className={`md:hidden flex sticky z-10 flex-col ${isOpen ? 'block' : 'hidden'} backdrop-blur-lg bg-web3-dark/90 rounded-b-2xl border-b border-web3-accent/20`}>
                 <ul className='flex flex-col justify-center items-end p-4'>
-                    <li className='mr-5 my-2 text-2xl cursor-pointer hover:text-web3-accent transition-all duration-300' onClick={() => handleMenuClick(refs.homeRef)}>Accueil</li>
-                    <li className='mr-5 my-2 text-2xl cursor-pointer hover:text-web3-accent transition-all duration-300' onClick={() => handleMenuClick(refs.aboutRef)}>À Propos</li>
-                    <li className='mr-5 my-2 text-2xl cursor-pointer hover:text-web3-accent transition-all duration-300' onClick={() => handleMenuClick(refs.projetRef)}>Projets</li>
-                    <li className='mr-5 my-2 text-2xl cursor-pointer hover:text-web3-accent transition-all duration-300' onClick={() => handleMenuClick(refs.contactRef)}>Contact</li>
+                    <li className='mr-5 my-2 text-2xl text-white cursor-pointer hover:text-web3-accent transition-all duration-300' onClick={() => handleMenuClick(refs.homeRef)}>Accueil</li>
+                    <li className='mr-5 my-2 text-2xl text-white cursor-pointer hover:text-web3-accent transition-all duration-300' onClick={() => handleMenuClick(refs.aboutRef)}>À Propos</li>
+                    <li className='mr-5 my-2 text-2xl text-white cursor-pointer hover:text-web3-accent transition-all duration-300' onClick={() => handleMenuClick(refs.projetRef)}>Projets</li>
+                    <li className='mr-5 my-2 text-2xl text-white cursor-pointer hover:text-web3-accent transition-all duration-300' onClick={() => handleMenuClick(refs.contactRef)}>Contact</li>
                 </ul>
             </div>
         </nav>

@@ -336,7 +336,7 @@ const Home = () => {
                   {data.firstName + ' ' + data.lastName}
                 </h1>
               </div>
-              <div className='flex justify-center rounded-full p-1 m-3 gap-4 my-6'>
+              <div className='flex items-center justify-center rounded-full p-1 m-3 gap-4 my-6'>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
                   <a href={data.linkedinUrl} target='_blank' rel='noreferrer'>
                     <ImageComponent src={linkedinLogo} className="w-8" alt="logo LinkedIn" title="Profil LinkedIn" />
