@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getUserData } from '../api/apiCalls';
 import { API_BASE_URL } from '../config/apiConfig';
+import { getImageUrl } from '../utils/imageHelpers';
 
 const Navbar = ({ handleScroll, refs }) => {
 
@@ -69,7 +70,7 @@ const Navbar = ({ handleScroll, refs }) => {
                             <div key={data._id} className="flex items-center mx-2 gap-4">
                                 <img
                                     className='w-12 md:w-14 rounded-full border-2 border-web3-accent/30 hover:border-web3-accent sm:hover:scale-110 transition-all duration-300'
-                                    src={`${apiUrl}${data.profilePic}`}
+                                    src={getImageUrl(apiUrl, data.profilePic)}
                                     alt={`${data.firstName} ${data.lastName} profile`}
                                 />
                                 <h2 className='sm:hover:scale-110 transition-transform duration-300 text-xl font-medium bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent'>
