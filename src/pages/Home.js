@@ -623,7 +623,7 @@ const Home = () => {
             </h2>
           </div>
           <div className='flex gap-18 justify-center items-center my-8 '>
-            <h2 className='text-sm sm:text-sm font-normal text-center px-4 text-white projet'>Un projet ? Une idée ? Prenons contact !</h2>
+            <h2 className='text-sm sm:text-sm font-normal leading-9 text-center px-4 text-white projet'>Un projet ? Une idée ? Prenons contact !</h2>
           </div>
           <div className='w-full max-w-lg px-2 sm:px-0'>
             <form
@@ -689,7 +689,7 @@ const Home = () => {
                   className='bg-web3-darker border border-web3-accent/30 rounded-lg py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-web3-accent focus:border-transparent transition-all duration-300'
                   name='text'
                   rows={5}
-                  placeholder='Détaillez votre demande ici...'
+                  placeholder='Détaillez votre projet ici'
                   id='text'
                 />
                 {errors.text && <p className='text-red-400 text-sm mt-1'>{errors.text}</p>}
