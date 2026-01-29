@@ -18,8 +18,6 @@ import { useNetworkStatus } from '../hooks/useNetworkStatus';
 import { getUserData, sendContactForm } from '../api/apiCalls';
 import { getSkillFallbackImage, getOptimizedImageUrl, preloadImages, getImageUrl } from '../utils/imageHelpers';
 import { API_BASE_URL } from '../config/apiConfig';
-import { ReactLenis } from 'lenis/react';
-import { useTransform, motion, useScroll } from 'motion/react';
 
 const Home = () => {
 
@@ -302,429 +300,437 @@ const Home = () => {
 
   const seoData = generateSEOData();
 
-  const { scrollYProgress } = useScroll({
-    target: projetRef,
-    offset: ['start start', 'end end'],
-  });
-
   const toTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   return (
-    <ReactLenis root>
-      <div className='w-full overflow-x-hidden bg-web3-dark'>
-        <SEO
-          title={seoData.title}
-          description={seoData.description}
-          keywords={seoData.keywords}
-          canonical={seoData.canonical}
-          ogImage={seoData.ogImage}
-          jsonLd={seoData.jsonLd}
-        />
-        <Navbar handleScroll={handleScroll} refs={{ homeRef, aboutRef, projetRef, contactRef }} />
-        <div className='w-full min-h-screen bg-midnight-gradient relative overflow-hidden'
-          >
-          <div
-            ref={homeRef}
-            className='flex flex-col justify-center items-center min-h-[100vh] sm:min-h-[90vh] opacity-0 translate-y-10 transition-transform duration-[1500ms] ease relative w-full max-w-none z-10'
-            data-animate
-          >
-            {isMultiLoading('userData') ? (
-              <div className="flex flex-col items-center justify-center min-h-[50vh]">
-                <Loader type="spinner" size="large" color="blue" />
-                <p className="mt-4 text-lg text-gray-400">{getMessage('userData') || 'Chargement en cours...'}</p>
+    <div className='w-full overflow-x-hidden bg-web3-dark'>
+      <SEO
+        title={seoData.title}
+        description={seoData.description}
+        keywords={seoData.keywords}
+        canonical={seoData.canonical}
+        ogImage={seoData.ogImage}
+        jsonLd={seoData.jsonLd}
+      />
+      <Navbar handleScroll={handleScroll} refs={{ homeRef, aboutRef, projetRef, contactRef }} />
+      <div className='w-full min-h-screen bg-midnight-gradient relative overflow-hidden'
+        >
+        <div
+          ref={homeRef}
+          className='flex flex-col justify-center items-center min-h-[100vh] sm:min-h-[90vh] opacity-0 translate-y-10 transition-transform duration-[1500ms] ease relative w-full max-w-none z-10'
+          data-animate
+        >
+          {isMultiLoading('userData') ? (
+            <div className="flex flex-col items-center justify-center min-h-[50vh]">
+              <Loader type="spinner" size="large" color="blue" />
+              <p className="mt-4 text-lg text-gray-400">{getMessage('userData') || 'Chargement en cours...'}</p>
+            </div>
+          ) : userData.length > 0 ? userData.map((data) => (
+            <div key={data._id}>
+              <div className='my-12 md:my-12'>
+                <h1
+                  className="text-center text-7xl md:text-5xl h-18 m-8 mainTitle bg-gradient-to-r from-web3-accent via-web3-purple to-web3-cyan bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]"
+                >
+                  {data.firstName + ' ' + data.lastName}
+                </h1>
               </div>
-            ) : userData.length > 0 ? userData.map((data) => (
-              <div key={data._id}>
-                <div className='my-12 md:my-12'>
-                  <h1
-                    className="text-center text-7xl md:text-5xl h-18 m-8 mainTitle bg-gradient-to-r from-web3-accent via-web3-purple to-web3-cyan bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]"
-                  >
-                    {data.firstName + ' ' + data.lastName}
-                  </h1>
+              <div className='flex items-center justify-center rounded-full p-1 m-3 gap-4 my-6'>
+                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
+                  <a href={data.linkedinUrl} target='_blank' rel='noreferrer'>
+                    <ImageComponent src={linkedinLogo} className="w-8 mt-2" alt="logo LinkedIn" title="Profil LinkedIn" />
+                  </a>
                 </div>
-                <div className='flex items-center justify-center rounded-full p-1 m-3 gap-4 my-6'>
-                  <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
-                    <a href={data.linkedinUrl} target='_blank' rel='noreferrer'>
-                      <ImageComponent src={linkedinLogo} className="w-8 mt-2" alt="logo LinkedIn" title="Profil LinkedIn" />
-                    </a>
-                  </div>
-                  <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
-                    <a href={data.githubUrl} target='_blank' rel='noreferrer'>
-                      <ImageComponent src={githubLogo} className="w-8 mt-2" alt="logo Github" title="Profil Github" />
-                    </a>
-                  </div>
-                  <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
-                    <a href={getImageUrl(apiUrl, data.resumePdf)} target='_blank' rel='noreferrer'>
-                      <ImageComponent src={cvLogo} className="w-7 mt-2" alt="logo Resume" title="CV" />
-                    </a>
-                  </div>
-                  <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
-                    <a href={data.scheduleUrl} target='_blank' rel='noreferrer'>
-                      <ImageComponent src={calendarLogo} className="w-7 mt-2" alt="logo Appointment" title="Prenons Rendez-vous !" />
-                    </a>
-                  </div>
-                  <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer transition-transform duration-500 ease-in-out hover:-translate-y-1'>
-                    <button onClick={() => handleScroll(contactRef)}>
-                      <span className='hidden'>Contact</span>
-                      <ImageComponent src={contactLogo} className="w-7 mt-2" alt="logo Contact" title="Contact"/>
-                    </button>
-                  </div>
+                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
+                  <a href={data.githubUrl} target='_blank' rel='noreferrer'>
+                    <ImageComponent src={githubLogo} className="w-8 mt-2" alt="logo Github" title="Profil Github" />
+                  </a>
                 </div>
-                <div className='h-56 lg:h-60'>
-                  <div className='flex flex-col justify-center items-center'>
-                    <h2 className='text-3xl sm:text-4xl md:text-4xl font-bold my-6 subTitle text-white'>
-                      {displayedText}
-                    </h2>
-                  </div>
+                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
+                  <a href={getImageUrl(apiUrl, data.resumePdf)} target='_blank' rel='noreferrer'>
+                    <ImageComponent src={cvLogo} className="w-7 mt-2" alt="logo Resume" title="CV" />
+                  </a>
                 </div>
-                <div className="flex justify-center items-center h-10">
-                  <div className="animate-bounce cursor-pointer" onClick={()=> handleScroll(aboutRef)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" className="stroke-web3-accent" />
-                    </svg>
-                  </div>
+                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
+                  <a href={data.scheduleUrl} target='_blank' rel='noreferrer'>
+                    <ImageComponent src={calendarLogo} className="w-7 mt-2" alt="logo Appointment" title="Prenons Rendez-vous !" />
+                  </a>
+                </div>
+                <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer transition-transform duration-500 ease-in-out hover:-translate-y-1'>
+                  <button onClick={() => handleScroll(contactRef)}>
+                    <span className='hidden'>Contact</span>
+                    <ImageComponent src={contactLogo} className="w-7 mt-2" alt="logo Contact" title="Contact"/>
+                  </button>
                 </div>
               </div>
-            )) : (
-              <div className="flex flex-col items-center justify-center min-h-[50vh]">
-                <Loader type="spinner" size="large" color="blue" />
+              <div className='h-56 lg:h-60'>
+                <div className='flex flex-col justify-center items-center'>
+                  <h2 className='text-3xl sm:text-4xl md:text-4xl font-bold my-6 subTitle text-white'>
+                    {displayedText}
+                  </h2>
+                </div>
               </div>
-            )}
-          </div>
+              <div className="flex justify-center items-center h-10">
+                <div className="animate-bounce cursor-pointer" onClick={()=> handleScroll(aboutRef)}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" className="stroke-web3-accent" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          )) : (
+            <div className="flex flex-col items-center justify-center min-h-[50vh]">
+              <Loader type="spinner" size="large" color="blue" />
+            </div>
+          )}
+        </div>
 
 
-          <div className="flex justify-center m-8" ref={aboutRef}>
+        <div className="flex justify-center m-8" ref={aboutRef}>
+          <h2 className="text-4xl font-medium sm:text-5xl text-center mt-28 mb-4 relative">
+            <span className="text-white px-6 py-3 rounded-xl bg-web3-card border border-web3-accent/30 shadow-card hover:shadow-card-hover transition-all duration-300">
+              À Propos
+            </span>
+          </h2>
+        </div>
+        <div
+          className='bg-web3-card border border-web3-accent/20 rounded-3xl px-4 flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out justify-center items-center mx-4 sm:mx-auto w-auto max-w-7xl self-center backdrop-blur-sm'
+          data-scroll
+        >
+          {isMultiLoading('userData') ? (
+            <div className="flex flex-col items-center justify-center">
+              <Loader type="dots" size="medium" />
+              <p className="mt-4 text-gray-300">{getMessage('userData') || 'Chargement des informations...'}</p>
+            </div>
+          ) : userData.map((data) => (
+            <div key={data._id} className='flex w-full max-w-7xl min-h-[40vh] flex-col sm:flex-row my-4 justify-around gap-10 items-center'>
+
+              <div className='w-full sm:w-1/2 gap-4 md:px-4 flex flex-col justify-center items-center text-center'>
+                <div>
+                  <h2 className='text-sm sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-web3-accent to-web3-purple bg-clip-text text-transparent'>Bio</h2>
+                </div>
+                <div>
+                  <p className='text-gray-300 px-4 text-sm sm:text-lg leading-relaxed'>{data.bio}</p>
+                </div>
+              </div>
+              <div className='w-full sm:w-1/2 gap-4 flex flex-col justify-center items-center text-center'>
+                <div>
+                  <h2 className='px-4 text-sm sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-web3-cyan to-web3-accent bg-clip-text text-transparent'>Stack</h2>
+                </div>
+                <div className='flex flex-row flex-wrap gap-4 sm:gap-4 items-center justify-center px-8 sm:px-14'>
+                  {data.skills.map((skillsData) => {
+                    const optimizedImageUrl = skillsData.logo
+                      ? getOptimizedImageUrl(apiUrl, skillsData.logo, { width: 56, height: 56 })
+                      : null;
+                    const fallbackImage = getSkillFallbackImage(skillsData.name);
+
+                    return (
+                      <div key={skillsData._id} className="relative group">
+                        <ImageComponent
+                          src={optimizedImageUrl || fallbackImage}
+                          fallbackSrc={fallbackImage}
+                          alt={`Logo de ${skillsData.name} - Compétence technique`}
+                          className='w-10 h-10 sm:w-14 sm:h-14 shadow-lg transition-all duration-500 ease-in-out group-hover:scale-105'
+                          title={skillsData.name}
+                          loading="lazy"
+                        />
+                        {/* Tooltip on hover */}
+                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 z-10">
+                          {skillsData.name}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div
+          ref={projetRef}
+          className='w-full max-w-7xl mx-auto px-4 sm:px-6 flex flex-col min-h-[70vh] opacity-0 translate-y-10 transition-all duration-[1500ms] ease-in-out'
+          data-scroll
+        >
+          <div className="flex flex-col justify-center items-center gap-6">
             <h2 className="text-4xl font-medium sm:text-5xl text-center mt-28 mb-4 relative">
               <span className="text-white px-6 py-3 rounded-xl bg-web3-card border border-web3-accent/30 shadow-card hover:shadow-card-hover transition-all duration-300">
-                À Propos
+                Projets
+              </span>
+            </h2>
+
+            {/* AI Projects Filter Switch */}
+            <div className="flex items-center gap-3 bg-web3-card border border-web3-accent/30 px-6 py-3 rounded-xl shadow-card backdrop-blur-sm">
+              <span className="text-sm sm:text-base font-medium text-gray-300">
+                Tous les projets
+              </span>
+              <button
+                onClick={() => setShowOnlyAI(!showOnlyAI)}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-web3-accent focus:ring-offset-2 focus:ring-offset-web3-dark ${
+                  showOnlyAI ? 'bg-gradient-to-r from-web3-accent to-web3-purple' : 'bg-gray-600'
+                }`}
+                role="switch"
+                aria-checked={showOnlyAI}
+                aria-label="Filtrer les projets IA uniquement"
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-lg transition-transform duration-300 ${
+                    showOnlyAI ? 'translate-x-6' : 'translate-x-1'
+                  }`}
+                />
+              </button>
+              <span className="text-sm sm:text-base font-medium bg-gradient-to-r from-web3-accent to-web3-purple bg-clip-text text-transparent">
+                Projets IA
+              </span>
+            </div>
+          </div>
+          {isMultiLoading('userData') ? (
+            <div className="flex flex-col items-center justify-center min-h-[30vh]">
+              <Loader type="pulse" size="large" />
+              <p className="mt-4 text-lg text-gray-300">{getMessage('userData') || 'Chargement des projets...'}</p>
+            </div>
+          ) : userData.map((data) => {
+            // Filter projects based on AI toggle
+            const filteredProjects = showOnlyAI
+              ? data.projects.filter(project => project.isAi === true)
+              : data.projects;
+
+            return (
+            <div key={data._id}>
+              {filteredProjects.length === 0 ? (
+                <div className="flex flex-col items-center justify-center min-h-[30vh] my-12">
+                  <p className="text-lg text-gray-300">Aucun projet IA trouvé</p>
+                </div>
+              ) : (
+                filteredProjects.map((projectData, index) => (
+                <div
+                  key={projectData._id}
+                  className={`relative w-full max-w-6xl mx-auto my-8 flex flex-col sm:flex-col md:flex-col items-center rounded-2xl gap-8 justify-center py-8 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms] ease-in-out px-4 sm:px-6 bg-web3-card border border-web3-accent/20 shadow-card hover:shadow-card-hover hover:border-web3-accent/40 text-white`}
+                  data-scroll
+                >
+                  {/* Title (always on top in both mobile and desktop view) */}
+                  <div className='w-full text-center mb-4'>
+                    <h2 className='text-sm sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-web3-accent via-web3-purple to-web3-cyan bg-clip-text text-transparent'>{projectData.title}</h2>
+                  </div>
+
+                  {/* Flex Container for Image and Description */}
+                  <div className={`flex flex-col sm:flex-row w-full max-w-5xl gap-8 ${index % 2 === 0 ? 'sm:flex-row-reverse' : 'sm:flex-row'}`}>
+                    {/* Image (side by side with description on desktop) */}
+                    <div className='relative flex items-center justify-center w-full sm:w-1/2 aspect-video sm:aspect-square md:aspect-video rounded-xl overflow-hidden border-2 border-web3-accent/30 hover:border-web3-accent/60 group transition-all duration-500'>
+                      {projectData.projectUrl ? (
+                        <a
+                          href={projectData.projectUrl}
+                          target='_blank'
+                          rel='noreferrer'
+                          className='w-full h-full block'
+                        >
+                          <ImageComponent
+                            src={getImageUrl(apiUrl, projectData.imageUrl)}
+                            alt={projectData.title}
+                            className='w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-900 ease-in-out cursor-pointer'
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-web3-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        </a>
+                      ) : (
+                        <>
+                          <ImageComponent
+                            src={getImageUrl(apiUrl, projectData.imageUrl)}
+                            alt={projectData.title}
+                            className='w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-900 ease-in-out'
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-web3-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        </>
+                      )}
+                    </div>
+                    {/* {projectData.projectUrl && (
+                      <div className="flex justify-center items-center lg:w-1/3 md:w-1/2">
+                        <a
+                          href={projectData.projectUrl}
+                          target='_blank'
+                          rel='noreferrer'
+                          className=' 
+                          text-black hover:border border-black pl-4 pr-5 
+                          hover:border-2 cursor-pointer text-[10px] font-semibold flex items-center justify-center gap-2 bg-white text-[#6793e0] m-2 rounded-lg shadow-md transition-transform duration-300 ease-in-out hover:scale-105 text-center s-m:w-1/2 w-full sm:h-10 h-8'
+                        >
+                          <span className='text-sm'>Lien vers le projet</span>
+                        </a>
+                      </div>
+                    )} */}
+                    {/* Description and Skills */}
+                    <div className='flex flex-col gap-6 w-full sm:w-1/2 h-100 sm:mx-4 text-center justify-around'>
+                      <div>
+                         <h3 className='text-lg font-semibold my-2 text-web3-cyan'>Description:</h3>
+                        <p className='text-left px-4 lg:px-4 text-sm my-2 text-gray-300 leading-relaxed' dangerouslySetInnerHTML={{ __html: projectData.description }}></p>
+                          {/* { projectData.problematic && (
+                          <>
+                            <h3 className='text-sm font-semibold my-2'>Problématique:</h3>
+                            <p className='px-4 lg:px-10 text-sm my-2'>{projectData.problematic}</p>
+                          </>
+                        )}
+                        {projectData.solution && (
+                          <>
+                            <h3 className='text-sm font-semibold my-2'>Solutions:</h3>
+                            <p className='px-4 lg:px-10 text-sm my-2'>{projectData.solution}</p>
+                          </>
+                        )} */}
+                      </div>
+                      <div className='flex flex-wrap justify-center mx-2 sm:mx-0 gap-4'>
+                        {projectData?.skills?.map((projectSkillsData) => {
+                          const optimizedImageUrl = projectSkillsData.logo
+                            ? getOptimizedImageUrl(apiUrl, projectSkillsData.logo, { width: 48, height: 48 })
+                            : null;
+                          const fallbackImage = getSkillFallbackImage(projectSkillsData.name);
+
+                          return (
+                            <div key={projectSkillsData._id} className="relative group">
+                              <ImageComponent
+                                src={optimizedImageUrl || fallbackImage}
+                                fallbackSrc={fallbackImage}
+                                alt={`Logo de ${projectSkillsData.name} - Technologie utilisée dans le projet`}
+                                className='w-8 h-8 sm:w-12 sm:h-12 transition-all duration-500 ease-in-out group-hover:scale-105'
+                                title={projectSkillsData.name}
+                                loading="lazy"
+                              />
+                              {/* Tooltip on hover */}
+                              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-200 pointer-events-none z-10">
+                                {projectSkillsData.name}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+              )}
+            </div>
+            );
+          })}
+        </div>
+        <div
+          className='flex flex-col justify-center my-4 min-h-[50vh] items-center gap-4 w-full max-w-7xl mx-auto px-4 sm:px-6 translate-y-10 transition-all duration-[2000ms] ease-in-out mt-4'
+          data-scroll
+          ref={contactRef}
+        >
+          <div className="flex justify-center">
+            <h2 className="text-4xl font-medium sm:text-5xl text-center mt-28 mb-4 relative">
+              <span className="text-white px-6 py-3 rounded-xl bg-web3-card border border-web3-accent/30 shadow-card hover:shadow-card-hover transition-all duration-300">
+                Contact
               </span>
             </h2>
           </div>
-          <div
-            className='bg-web3-card border border-web3-accent/20 rounded-3xl px-4 flex flex-col opacity-0 translate-y-10 transition-all duration-[1500ms] min-h-[50vh] ease-in-out justify-center items-center mx-4 sm:mx-auto w-auto max-w-7xl self-center backdrop-blur-sm'
-            data-scroll
-          >
-            {isMultiLoading('userData') ? (
-              <div className="flex flex-col items-center justify-center">
-                <Loader type="dots" size="medium" />
-                <p className="mt-4 text-gray-300">{getMessage('userData') || 'Chargement des informations...'}</p>
-              </div>
-            ) : userData.map((data) => (
-              <div key={data._id} className='flex w-full max-w-7xl min-h-[40vh] flex-col sm:flex-row my-4 justify-around gap-10 items-center'>
-
-                <div className='w-full sm:w-1/2 gap-4 md:px-4 flex flex-col justify-center items-center text-center'>
-                  <div>
-                    <h2 className='text-sm sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-web3-accent to-web3-purple bg-clip-text text-transparent'>Bio</h2>
-                  </div>
-                  <div>
-                    <p className='text-gray-300 px-4 text-sm sm:text-lg leading-relaxed'>{data.bio}</p>
-                  </div>
-                </div>
-                <div className='w-full sm:w-1/2 gap-4 flex flex-col justify-center items-center text-center'>
-                  <div>
-                    <h2 className='px-4 text-sm sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-web3-cyan to-web3-accent bg-clip-text text-transparent'>Stack</h2>
-                  </div>
-                  <div className='flex flex-row flex-wrap gap-4 sm:gap-4 items-center justify-center px-8 sm:px-14'>
-                    {data.skills.map((skillsData) => {
-                      const optimizedImageUrl = skillsData.logo
-                        ? getOptimizedImageUrl(apiUrl, skillsData.logo, { width: 56, height: 56 })
-                        : null;
-                      const fallbackImage = getSkillFallbackImage(skillsData.name);
-
-                      return (
-                        <div key={skillsData._id} className="relative group">
-                          <ImageComponent
-                            src={optimizedImageUrl || fallbackImage}
-                            fallbackSrc={fallbackImage}
-                            alt={`Logo de ${skillsData.name} - Compétence technique`}
-                            className='w-10 h-10 sm:w-14 sm:h-14 shadow-lg transition-all duration-500 ease-in-out group-hover:scale-105'
-                            title={skillsData.name}
-                            loading="lazy"
-                          />
-                          {/* Tooltip on hover */}
-                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 z-10">
-                            {skillsData.name}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div className='flex gap-18 justify-center items-center my-8 '>
+            <h2 className='text-sm sm:text-sm font-normal leading-9 text-center px-4 text-white projet'>Un projet ? Une idée ? Prenons contact !</h2>
           </div>
-          <div
-            ref={projetRef}
-            className='w-full max-w-7xl mx-auto px-4 sm:px-6 flex flex-col min-h-[70vh] opacity-0 translate-y-10 transition-all duration-[1500ms] ease-in-out'
-            data-scroll
-          >
-            <div className="flex flex-col justify-center items-center gap-6">
-              <h2 className="text-4xl font-medium sm:text-5xl text-center mt-28 mb-4 relative">
-                <span className="text-white px-6 py-3 rounded-xl bg-web3-card border border-web3-accent/30 shadow-card hover:shadow-card-hover transition-all duration-300">
-                  Projets
-                </span>
-              </h2>
-
-              {/* AI Projects Filter Switch */}
-              <div className="flex items-center gap-3 bg-web3-card border border-web3-accent/30 px-6 py-3 rounded-xl shadow-card backdrop-blur-sm">
-                <span className="text-sm sm:text-base font-medium text-gray-300">
-                  Tous les projets
-                </span>
-                <button
-                  onClick={() => setShowOnlyAI(!showOnlyAI)}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-web3-accent focus:ring-offset-2 focus:ring-offset-web3-dark ${
-                    showOnlyAI ? 'bg-gradient-to-r from-web3-accent to-web3-purple' : 'bg-gray-600'
-                  }`}
-                  role="switch"
-                  aria-checked={showOnlyAI}
-                  aria-label="Filtrer les projets IA uniquement"
-                >
-                  <span
-                    className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-lg transition-transform duration-300 ${
-                      showOnlyAI ? 'translate-x-6' : 'translate-x-1'
-                    }`}
-                  />
-                </button>
-                <span className="text-sm sm:text-base font-medium bg-gradient-to-r from-web3-accent to-web3-purple bg-clip-text text-transparent">
-                  Projets IA
-                </span>
-              </div>
-            </div>
-            {isMultiLoading('userData') ? (
-              <div className="flex flex-col items-center justify-center min-h-[30vh]">
-                <Loader type="pulse" size="large" color="blue" />
-                <p className="mt-4 text-lg text-gray-300">{getMessage('userData') || 'Chargement des projets...'}</p>
-              </div>
-            ) : userData.map((data) => {
-              // Filter projects based on AI toggle
-              const filteredProjects = showOnlyAI
-                ? data.projects.filter(project => project.isAi === true)
-                : data.projects;
-
-              return (
-              <div key={data._id}>
-                {filteredProjects.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center min-h-[30vh] my-12">
-                    <p className="text-lg text-gray-300">Aucun projet IA trouvé</p>
-                  </div>
-                ) : (
-                  <section className="text-white w-full">
-                    {
-                      filteredProjects.map((project, i) => {
-                        const targetScale = 1 - (filteredProjects.length - i) * 0.05;
-                        return (
-                          <Card
-                            key={`p_${i}`}
-                            i={i}
-                            {...project}
-                            progress={scrollYProgress}
-                            range={[i * 0.25, 1]}
-                            targetScale={targetScale}
-                            apiUrl={apiUrl}
-                          />
-                        );
-                      })
-                    }
-                  </section>
-                )}
-              </div>
-              );
-            })}
-          </div>
-          <div
-            className='flex flex-col justify-center my-4 min-h-[50vh] items-center gap-4 w-full max-w-7xl mx-auto px-4 sm:px-6 translate-y-10 transition-all duration-[2000ms] ease-in-out mt-4'
-            data-scroll
-            ref={contactRef}
-          >
-            <div className="flex justify-center">
-              <h2 className="text-4xl font-medium sm:text-5xl text-center mt-28 mb-4 relative">
-                <span className="text-white px-6 py-3 rounded-xl bg-web3-card border border-web3-accent/30 shadow-card hover:shadow-card-hover transition-all duration-300">
-                  Contact
-                </span>
-              </h2>
-            </div>
-            <div className='flex gap-18 justify-center items-center my-8 '>
-              <h2 className='text-sm sm:text-sm font-normal leading-9 text-center px-4 text-white projet'>Un projet ? Une idée ? Prenons contact !</h2>
-            </div>
-            <div className='w-full max-w-lg px-2 sm:px-0'>
-              <form
-                onSubmit={handleSubmit}
-                className='bg-web3-card border border-web3-accent/20 flex flex-col gap-6 w-full max-w-lg mx-auto shadow-card rounded-2xl p-6 sm:p-8 backdrop-blur-sm'
-              >
-                <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
-                  <div className='flex flex-col'>
-                    <label htmlFor='firstName' className='text-gray-300 text-sm sm:text-lg mb-1'>
-                      Prénom
-                    </label>
-                    <input
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      className='bg-web3-darker border border-web3-accent/30 rounded-lg py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-web3-accent focus:border-transparent transition-all duration-300'
-                      type='text'
-                      name='firstName'
-                      placeholder='Entrez votre prénom'
-                      id='firstName'
-                    />
-                    {errors.firstName && <p className='text-red-400 text-sm mt-1'>{errors.firstName}</p>}
-                  </div>
-                  <div className='flex flex-col'>
-                    <label htmlFor='lastName' className='text-gray-300 text-sm sm:text-lg mb-1'>
-                      Nom
-                    </label>
-                    <input
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      className='bg-web3-darker border border-web3-accent/30 rounded-lg py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-web3-accent focus:border-transparent transition-all duration-300'
-                      type='text'
-                      name='lastName'
-                      placeholder='Entrez votre nom'
-                      id='lastName'
-                    />
-                    {errors.lastName && <p className='text-red-400 text-sm mt-1'>{errors.lastName}</p>}
-                  </div>
-                </div>
-
-                <div className='flex flex-col mt-4'>
-                  <label htmlFor='contactSecondMail' className='text-gray-300 text-sm sm:text-lg mb-1'>
-                    Email de contact
+          <div className='w-full max-w-lg px-2 sm:px-0'>
+            <form
+              onSubmit={handleSubmit}
+              className='bg-web3-card border border-web3-accent/20 flex flex-col gap-6 w-full max-w-lg mx-auto shadow-card rounded-2xl p-6 sm:p-8 backdrop-blur-sm'
+            >
+              <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
+                <div className='flex flex-col'>
+                  <label htmlFor='firstName' className='text-gray-300 text-sm sm:text-lg mb-1'>
+                    Prénom
                   </label>
                   <input
-                    value={formData.contactSecondMail}
+                    value={formData.firstName}
                     onChange={handleChange}
                     className='bg-web3-darker border border-web3-accent/30 rounded-lg py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-web3-accent focus:border-transparent transition-all duration-300'
-                    type='email'
-                    name='contactSecondMail'
-                    placeholder='Entrez votre email'
-                    id='contactSecondMail'
+                    type='text'
+                    name='firstName'
+                    placeholder='Entrez votre prénom'
+                    id='firstName'
                   />
-                  {errors.contactSecondMail && <p className='text-red-400 text-sm mt-1'>{errors.contactSecondMail}</p>}
+                  {errors.firstName && <p className='text-red-400 text-sm mt-1'>{errors.firstName}</p>}
                 </div>
-
-                <div className='flex flex-col mt-4'>
-                  <label htmlFor='text' className='text-gray-300 text-sm sm:text-lg mb-1'>
-                    Votre message
+                <div className='flex flex-col'>
+                  <label htmlFor='lastName' className='text-gray-300 text-sm sm:text-lg mb-1'>
+                    Nom
                   </label>
-                  <textarea
-                    value={formData.text}
+                  <input
+                    value={formData.lastName}
                     onChange={handleChange}
                     className='bg-web3-darker border border-web3-accent/30 rounded-lg py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-web3-accent focus:border-transparent transition-all duration-300'
-                    name='text'
-                    rows={5}
-                    placeholder='Détaillez votre projet ici'
-                    id='text'
+                    type='text'
+                    name='lastName'
+                    placeholder='Entrez votre nom'
+                    id='lastName'
                   />
-                  {errors.text && <p className='text-red-400 text-sm mt-1'>{errors.text}</p>}
+                  {errors.lastName && <p className='text-red-400 text-sm mt-1'>{errors.lastName}</p>}
                 </div>
-                <div className='flex justify-end mt-6'>
-                  <button
-                    className='bg-gradient-to-r from-web3-accent to-web3-purple text-center hover:from-web3-accentHover hover:to-web3-purple hover:shadow-neon w-full sm:w-1/3 h-12 flex justify-center items-center text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-web3-accent transition-all duration-300'
-                    type='submit'
-                    disabled={isMultiLoading('contactForm')}
-                  >
-                    {isMultiLoading('contactForm') ? <Loader type="spinner" size="small" color="blue" /> : 'Envoyer'}
-                  </button>
-                </div>
+              </div>
 
-                {/* Display Success Message */}
-                {successMessage && (
-                  <div className='mt-4 p-4 text-sm text-web3-green border border-web3-green rounded-lg bg-web3-green/10'>
-                    <strong>Succès :</strong> {successMessage}
-                  </div>
-                )}
-
-                {/* Display Error Message */}
-                {errorMessage && (
-                  <div className='mt-4 p-4 text-sm text-red-400 border border-red-500 rounded-lg bg-red-500/10'>
-                    <strong>Erreur :</strong> {errorMessage}
-                  </div>
-                )}
-              </form>
-            </div>
-          </div>
-          <Footer />
-        </div>
-
-        {showTopIcon && (
-          <div
-            className='w-14 h-14 sm:w-18 sm:h-18 fixed bottom-5 rounded-full right-5 bg-web3-card border-2 border-web3-accent/30 hover:border-web3-accent p-2 shadow-neon cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-neon-lg  bg-white'
-            onClick={toTop}
-          >
-            <TopIcon iconSource={upArrow} onClick={toTop} />
-          </div>
-        )}
-      </div>
-    </ReactLenis>
-  );
-};
-
-const Card = ({ i, title, description, imageUrl, projectUrl, progress, range, targetScale, apiUrl }) => {
-  const container = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ['start end', 'start start'],
-  });
-  const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
-  const scale = useTransform(progress, range, [1, targetScale]);
-  
-  // Assign a random color from a predefined palette
-  const colors = ['#5196fd', '#8f89ff', '#13006c', '#ed649e', '#fd521a'];
-  const color = colors[i % colors.length];
-
-  return (
-    <div
-      ref={container}
-      className="h-screen flex items-center justify-center sticky top-0"
-    >
-      <motion.div
-        style={{
-          backgroundColor: color,
-          scale,
-          top: `calc(-5vh + ${i * 25}px)`,
-        }}
-        className={`flex flex-col relative -top-[25%] h-[450px] w-[70%] rounded-md lg:p-10 sm:p-4 p-2 origin-top`}
-      >
-        <h2 className="text-2xl text-center font-semibold">{title}</h2>
-        <div className={`flex h-full mt-5 gap-10`}>
-          <div className={`w-[40%] relative top-[10%]`}>
-            <p className="text-sm">{description.length > 300 ? `${description.substring(0, 300)}...` : description}</p>
-            <span className="flex items-center gap-2 pt-2">
-              <a
-                href={projectUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline cursor-pointer"
-              >
-                See more
-              </a>
-              <svg
-                width="22"
-                height="12"
-                viewBox="0 0 22 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M21.5303 6.53033C21.8232 6.23744 21.8232 5.76256 21.5303 5.46967L16.7574 0.696699C16.4645 0.403806 15.9896 0.403806 15.6967 0.696699C15.4038 0.989592 15.4038 1.46447 15.6967 1.75736L19.9393 6L15.6967 10.2426C15.4038 10.5355 15.4038 11.0104 15.6967 11.3033C15.9896 11.5962 16.4645 11.5962 16.7574 11.3033L21.5303 6.53033ZM0 6.75L21 6.75V5.25L0 5.25L0 6.75Z"
-                  fill="white"
+              <div className='flex flex-col mt-4'>
+                <label htmlFor='contactSecondMail' className='text-gray-300 text-sm sm:text-lg mb-1'>
+                  Email de contact
+                </label>
+                <input
+                  value={formData.contactSecondMail}
+                  onChange={handleChange}
+                  className='bg-web3-darker border border-web3-accent/30 rounded-lg py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-web3-accent focus:border-transparent transition-all duration-300'
+                  type='email'
+                  name='contactSecondMail'
+                  placeholder='Entrez votre email'
+                  id='contactSecondMail'
                 />
-              </svg>
-            </span>
-          </div>
+                {errors.contactSecondMail && <p className='text-red-400 text-sm mt-1'>{errors.contactSecondMail}</p>}
+              </div>
 
-          <div
-            className={`relative w-[60%] h-full rounded-lg overflow-hidden `}
-          >
-            <motion.div
-              className={`w-full h-full`}
-              style={{ scale: imageScale }}
-            >
-              <img src={getImageUrl(apiUrl, imageUrl)} alt={title} className="object-cover w-full h-full" />
-            </motion.div>
+              <div className='flex flex-col mt-4'>
+                <label htmlFor='text' className='text-gray-300 text-sm sm:text-lg mb-1'>
+                  Votre message
+                </label>
+                <textarea
+                  value={formData.text}
+                  onChange={handleChange}
+                  className='bg-web3-darker border border-web3-accent/30 rounded-lg py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-web3-accent focus:border-transparent transition-all duration-300'
+                  name='text'
+                  rows={5}
+                  placeholder='Détaillez votre projet ici'
+                  id='text'
+                />
+                {errors.text && <p className='text-red-400 text-sm mt-1'>{errors.text}</p>}
+              </div>
+              <div className='flex justify-end mt-6'>
+                <button
+                  className='bg-gradient-to-r from-web3-accent to-web3-purple text-center hover:from-web3-accentHover hover:to-web3-purple hover:shadow-neon w-full sm:w-1/3 h-12 flex justify-center items-center text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-web3-accent transition-all duration-300'
+                  type='submit'
+                  disabled={isMultiLoading('contactForm')}
+                >
+                  {isMultiLoading('contactForm') ? <Loader type="spinner" size="small" color="blue" /> : 'Envoyer'}
+                </button>
+              </div>
+
+              {/* Display Success Message */}
+              {successMessage && (
+                <div className='mt-4 p-4 text-sm text-web3-green border border-web3-green rounded-lg bg-web3-green/10'>
+                  <strong>Succès :</strong> {successMessage}
+                </div>
+              )}
+
+              {/* Display Error Message */}
+              {errorMessage && (
+                <div className='mt-4 p-4 text-sm text-red-400 border border-red-500 rounded-lg bg-red-500/10'>
+                  <strong>Erreur :</strong> {errorMessage}
+                </div>
+              )}
+            </form>
           </div>
         </div>
-      </motion.div>
+        <Footer />
+      </div>
+
+      {showTopIcon && (
+        <div
+          className='w-14 h-14 sm:w-18 sm:h-18 fixed bottom-5 rounded-full right-5 bg-web3-card border-2 border-web3-accent/30 hover:border-web3-accent p-2 shadow-neon cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-neon-lg  bg-white'
+          onClick={toTop}
+        >
+          <TopIcon iconSource={upArrow} onClick={toTop} />
+        </div>
+      )}
     </div>
   );
 };
