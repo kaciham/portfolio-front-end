@@ -300,6 +300,78 @@ const Home = () => {
 
   const seoData = generateSEOData();
 
+// StackingProjects: lightweight scroll-driven stacking cards (no external libs)
+const StackingProjects = ({ projects, apiUrl }) => {
+  const containerRef = React.useRef(null);
+
+  const Card = ({ project, i, total }) => {
+    const ref = React.useRef(null);
+    const [progress, setProgress] = React.useState(0);
+
+    React.useEffect(() => {
+      let rafId = null;
+
+      const onFrame = () => {
+        if (!ref.current) return;
+        const rect = ref.current.getBoundingClientRect();
+        const mid = window.innerHeight / 2;
+        const cardCenter = rect.top + rect.height / 2;
+        const dist = Math.abs(cardCenter - mid);
+        const max = window.innerHeight;
+        const t = 1 - Math.min(dist / max, 1);
+        setProgress(t);
+      };
+
+      const loop = () => {
+        onFrame();
+        rafId = requestAnimationFrame(loop);
+      };
+
+      rafId = requestAnimationFrame(loop);
+      return () => cancelAnimationFrame(rafId);
+    }, []);
+
+    const baseScale = 1 - (total - i) * 0.04;
+    const scale = baseScale + progress * 0.08;
+    const y = -i * 28 + (1 - progress) * 60; // lift when centered
+
+    const imageSrc = project.imageUrl ? getImageUrl(apiUrl, project.imageUrl) : project.projectUrl || '';
+
+    return (
+      <div ref={ref} className="h-screen flex items-center justify-center sticky top-0 pointer-events-none">
+        <div
+          style={{ transform: `translateY(${y}px) scale(${scale})`, zIndex: 1000 - i }}
+          className="pointer-events-auto w-[80%] max-w-5xl rounded-md p-6 bg-white/5 backdrop-blur-md text-white"
+        >
+          <h3 className="text-2xl text-center font-semibold mb-4">{project.title}</h3>
+          <div className="flex gap-6 items-stretch">
+            <div className="w-1/2">
+              <p className="text-sm text-gray-200">{project.description}</p>
+              <div className="mt-3">
+                {project.projectUrl ? (
+                  <a href={project.projectUrl} target="_blank" rel="noreferrer" className="underline">Voir le projet</a>
+                ) : null}
+              </div>
+            </div>
+            <div className="w-1/2 rounded-lg overflow-hidden h-56 bg-gray-800">
+              <img src={imageSrc} alt={project.title} className="w-full h-full object-cover" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  if (!projects || projects.length === 0) return null;
+
+  return (
+    <div ref={containerRef} className="w-full">
+      {projects.map((p, idx) => (
+        <Card key={p._id || idx} project={p} i={idx} total={projects.length} />
+      ))}
+    </div>
+  );
+};
   const toTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
@@ -502,109 +574,7 @@ const Home = () => {
                   <p className="text-lg text-gray-300">Aucun projet IA trouvé</p>
                 </div>
               ) : (
-                filteredProjects.map((projectData, index) => (
-                <div
-                  key={projectData._id}
-                  className={`relative w-full max-w-6xl mx-auto my-8 flex flex-col sm:flex-col md:flex-col items-center rounded-2xl gap-8 justify-center py-8 overflow-hidden opacity-0 translate-y-10 transition-all duration-[1500ms] ease-in-out px-4 sm:px-6 bg-web3-card border border-web3-accent/20 shadow-card hover:shadow-card-hover hover:border-web3-accent/40 text-white`}
-                  data-scroll
-                >
-                  {/* Title (always on top in both mobile and desktop view) */}
-                  <div className='w-full text-center mb-4'>
-                    <h2 className='text-sm sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-web3-accent via-web3-purple to-web3-cyan bg-clip-text text-transparent'>{projectData.title}</h2>
-                  </div>
-
-                  {/* Flex Container for Image and Description */}
-                  <div className={`flex flex-col sm:flex-row w-full max-w-5xl gap-8 ${index % 2 === 0 ? 'sm:flex-row-reverse' : 'sm:flex-row'}`}>
-                    {/* Image (side by side with description on desktop) */}
-                    <div className='relative flex items-center justify-center w-full sm:w-1/2 aspect-video sm:aspect-square md:aspect-video rounded-xl overflow-hidden border-2 border-web3-accent/30 hover:border-web3-accent/60 group transition-all duration-500'>
-                      {projectData.projectUrl ? (
-                        <a
-                          href={projectData.projectUrl}
-                          target='_blank'
-                          rel='noreferrer'
-                          className='w-full h-full block'
-                        >
-                          <ImageComponent
-                            src={getImageUrl(apiUrl, projectData.imageUrl)}
-                            alt={projectData.title}
-                            className='w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-900 ease-in-out cursor-pointer'
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-web3-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        </a>
-                      ) : (
-                        <>
-                          <ImageComponent
-                            src={getImageUrl(apiUrl, projectData.imageUrl)}
-                            alt={projectData.title}
-                            className='w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-900 ease-in-out'
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-web3-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        </>
-                      )}
-                    </div>
-                    {/* {projectData.projectUrl && (
-                      <div className="flex justify-center items-center lg:w-1/3 md:w-1/2">
-                        <a
-                          href={projectData.projectUrl}
-                          target='_blank'
-                          rel='noreferrer'
-                          className=' 
-                          text-black hover:border border-black pl-4 pr-5 
-                          hover:border-2 cursor-pointer text-[10px] font-semibold flex items-center justify-center gap-2 bg-white text-[#6793e0] m-2 rounded-lg shadow-md transition-transform duration-300 ease-in-out hover:scale-105 text-center s-m:w-1/2 w-full sm:h-10 h-8'
-                        >
-                          <span className='text-sm'>Lien vers le projet</span>
-                        </a>
-                      </div>
-                    )} */}
-                    {/* Description and Skills */}
-                    <div className='flex flex-col gap-6 w-full sm:w-1/2 h-100 sm:mx-4 text-center justify-around'>
-                      <div>
-                         <h3 className='text-lg font-semibold my-2 text-web3-cyan'>Description:</h3>
-                        <p className='text-left px-4 lg:px-4 text-sm my-2 text-gray-300 leading-relaxed' dangerouslySetInnerHTML={{ __html: projectData.description }}></p>
-                          {/* { projectData.problematic && (
-                          <>
-                            <h3 className='text-sm font-semibold my-2'>Problématique:</h3>
-                            <p className='px-4 lg:px-10 text-sm my-2'>{projectData.problematic}</p>
-                          </>
-                        )}
-                        {projectData.solution && (
-                          <>
-                            <h3 className='text-sm font-semibold my-2'>Solutions:</h3>
-                            <p className='px-4 lg:px-10 text-sm my-2'>{projectData.solution}</p>
-                          </>
-                        )} */}
-                      </div>
-                      <div className='flex flex-wrap justify-center mx-2 sm:mx-0 gap-4'>
-                        {projectData?.skills?.map((projectSkillsData) => {
-                          const optimizedImageUrl = projectSkillsData.logo
-                            ? getOptimizedImageUrl(apiUrl, projectSkillsData.logo, { width: 48, height: 48 })
-                            : null;
-                          const fallbackImage = getSkillFallbackImage(projectSkillsData.name);
-
-                          return (
-                            <div key={projectSkillsData._id} className="relative group">
-                              <ImageComponent
-                                src={optimizedImageUrl || fallbackImage}
-                                fallbackSrc={fallbackImage}
-                                alt={`Logo de ${projectSkillsData.name} - Technologie utilisée dans le projet`}
-                                className='w-8 h-8 sm:w-12 sm:h-12 transition-all duration-500 ease-in-out group-hover:scale-105'
-                                title={projectSkillsData.name}
-                                loading="lazy"
-                              />
-                              {/* Tooltip on hover */}
-                              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity duration-200 pointer-events-none z-10">
-                                {projectSkillsData.name}
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))
+                <StackingProjects projects={filteredProjects} apiUrl={apiUrl} />
               )}
             </div>
             );
