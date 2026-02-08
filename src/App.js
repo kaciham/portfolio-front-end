@@ -1,9 +1,12 @@
 import './App.css';
 import RouteIndex from './routes/RouteIndex';
+import CookieConsent from './components/CookieConsent';
 
 function App() {
   return (
-    <RouteIndex />
+    <CookieConsent>
+      <RouteIndex />
+    </CookieConsent>
   );
 }
 
