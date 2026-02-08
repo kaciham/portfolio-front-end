@@ -234,8 +234,24 @@ const CookieConsent = ({ children }) => {
   const consentStatus = getConsentStatus();
   const isCookieManagementVisible = consentStatus && isVisible === false && showSettings === false;
 
+  // Si l'utilisateur a consenti, afficher le contenu normal avec le bandeau de gestion
   if (!isVisible && !showSettings) {
-    return null;
+    return (
+      <>
+        {children}
+        {/* Cookie Management Button (visible when consent is given) */}
+        {isCookieManagementVisible && (
+          <div className="fixed bottom-20 right-4 z-50">
+            <button
+              onClick={() => setShowSettings(true)}
+              className="bg-web3-card border border-web3-accent/50 text-web3-cyan hover:bg-web3-cyan hover:text-web3-dark font-medium py-2 px-4 rounded-lg transition-all duration-300 ease-in-out shadow-lg hover:shadow-neon focus:outline-none focus:ring-2 focus:ring-web3-cyan focus:ring-offset-2 focus:ring-offset-web3-dark"
+            >
+              Gérer les cookies
+            </button>
+          </div>
+        )}
+      </>
+    );
   }
 
   return (
