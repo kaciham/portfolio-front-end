@@ -128,21 +128,6 @@ const CookieConsent = ({ children }) => {
     setShowSettings(false);
   };
 
-  const handleDeclineAll = () => {
-    const consentData = {
-      consent: 'none',
-      preferences: {
-        necessary: true, // Toujours activé
-        performance: false,
-        functionality: false
-      },
-      timestamp: new Date().toISOString(),
-      version: '1.0'
-    };
-    localStorage.setItem('cookieConsent', JSON.stringify(consentData));
-    setIsVisible(false);
-    setShowSettings(false);
-  };
 
   const handleCustomAccept = () => {
     const consentData = {
@@ -163,20 +148,6 @@ const CookieConsent = ({ children }) => {
       [type]: !prev[type]
     }));
   };
-
-  const getConsentStatus = () => {
-    const consentData = localStorage.getItem('cookieConsent');
-    if (!consentData) return null;
-    
-    try {
-      return JSON.parse(consentData);
-    } catch (error) {
-      return null;
-    }
-  };
-
-  const consentStatus = getConsentStatus();
-  const isCookieManagementVisible = consentStatus && isVisible === false && showSettings === false;
 
   // Si l'utilisateur a consenti, afficher le contenu normal
   if (!isVisible && !showSettings) {
