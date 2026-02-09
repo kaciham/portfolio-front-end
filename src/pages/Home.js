@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { useState } from 'react';
 import SEO from '../components/SEO';
 // import backgroundImg2 from '../assets/images/8550.webp';
 // import backgroundImg2 from '../assets/images/flat-lay-blue-monday-paper-with-copy-space.webp';
