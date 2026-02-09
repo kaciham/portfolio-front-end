@@ -720,7 +720,7 @@ const Home = () => {
             </form>
           </div>
         </div>
-        <Footer onCookieSettings={() => setShowSettings(true)} />
+        <Footer onCookieSettings={() => {}} />
       </div>
 
       {showTopIcon && (
