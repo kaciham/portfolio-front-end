@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
 const CookieConsent = ({ children }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
-  const [cookiePreferences, setCookiePreferences] = useState({
+  const defaultPreferences = {
     necessary: true, // Toujours activé, ne peut pas être désactivé
     performance: true,
     functionality: true
-  });
+  };
+
+  const [isVisible, setIsVisible] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [cookiePreferences, setCookiePreferences] = useState(defaultPreferences);
 
   useEffect(() => {
     // Vérifie si l'utilisateur a déjà accepté les cookies
@@ -20,6 +22,11 @@ const CookieConsent = ({ children }) => {
         const now = new Date();
         const consentDate = new Date(parsedData.timestamp);
         const sixMonthsInMs = 6 * 30 * 24 * 60 * 60 * 1000; // 6 mois en millisecondes
+        
+        // Load saved preferences into state
+        if (parsedData.preferences) {
+          setCookiePreferences(parsedData.preferences);
+        }
         
         // Vérifie si le consentement a expiré (plus de 6 mois)
         if (now - consentDate > sixMonthsInMs) {
@@ -60,24 +67,27 @@ const CookieConsent = ({ children }) => {
                       version: '1.0'
                     };
                     localStorage.setItem('cookieConsent', JSON.stringify(consentData));
+                    setShowSettings(true);
                     setIsVisible(false);
                   }}
                   className="bg-gradient-to-r from-web3-accent to-web3-purple text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 ease-in-out shadow-lg hover:shadow-neon focus:outline-none focus:ring-2 focus:ring-web3-accent focus:ring-offset-2 focus:ring-offset-web3-dark"
                 >
-                  Accepter ma sélection
+                  Personnaliser
                 </button>
                 <button
                   onClick={() => {
+                    const preferences = {
+                      necessary: true,
+                      performance: true,
+                      functionality: true
+                    };
                     const consentData = {
                       consent: 'all',
-                      preferences: {
-                        necessary: true,
-                        performance: true,
-                        functionality: true
-                      },
+                      preferences: preferences,
                       timestamp: new Date().toISOString(),
                       version: '1.0'
                     };
+                    setCookiePreferences(preferences);
                     localStorage.setItem('cookieConsent', JSON.stringify(consentData));
                     setIsVisible(false);
                   }}
@@ -87,16 +97,18 @@ const CookieConsent = ({ children }) => {
                 </button>
                 <button
                   onClick={() => {
+                    const preferences = {
+                      necessary: true,
+                      performance: false,
+                      functionality: false
+                    };
                     const consentData = {
                       consent: 'none',
-                      preferences: {
-                        necessary: true, // Toujours activé
-                        performance: false,
-                        functionality: false
-                      },
+                      preferences: preferences,
                       timestamp: new Date().toISOString(),
                       version: '1.0'
                     };
+                    setCookiePreferences(preferences);
                     localStorage.setItem('cookieConsent', JSON.stringify(consentData));
                     setIsVisible(false);
                   }}
@@ -113,16 +125,36 @@ const CookieConsent = ({ children }) => {
   }
 
   const handleAcceptAll = () => {
+    const preferences = {
+      necessary: true,
+      performance: true,
+      functionality: true
+    };
     const consentData = {
       consent: 'all',
-      preferences: {
-        necessary: true,
-        performance: true,
-        functionality: true
-      },
+      preferences: preferences,
       timestamp: new Date().toISOString(),
       version: '1.0'
     };
+    setCookiePreferences(preferences);
+    localStorage.setItem('cookieConsent', JSON.stringify(consentData));
+    setIsVisible(false);
+    setShowSettings(false);
+  };
+
+  const handleRefuseOptional = () => {
+    const preferences = {
+      necessary: true,
+      performance: false,
+      functionality: false
+    };
+    const consentData = {
+      consent: 'none',
+      preferences: preferences,
+      timestamp: new Date().toISOString(),
+      version: '1.0'
+    };
+    setCookiePreferences(preferences);
     localStorage.setItem('cookieConsent', JSON.stringify(consentData));
     setIsVisible(false);
     setShowSettings(false);
@@ -236,6 +268,12 @@ const CookieConsent = ({ children }) => {
                   className="flex-1 bg-web3-darker border border-web3-accent/50 text-gray-300 hover:text-white hover:border-web3-accent font-medium py-2 px-6 rounded-lg transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-web3-accent focus:ring-offset-2 focus:ring-offset-web3-dark"
                 >
                   Accepter tout
+                </button>
+                <button
+                  onClick={handleRefuseOptional}
+                  className="flex-1 bg-transparent border border-red-500 text-red-400 hover:bg-red-500 hover:text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-web3-dark"
+                >
+                  Refuser les optionnels
                 </button>
               </div>
             </div>
