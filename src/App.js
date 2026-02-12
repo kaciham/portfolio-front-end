@@ -6,6 +6,7 @@ function App() {
   return (
     <CookieConsent>
       <RouteIndex />
+      <elevenlabs-convai agent-id="agent_3101kd5vhaaqfrtszfpcpsz0wcw8"></elevenlabs-convai>
     </CookieConsent>
   );
 }
