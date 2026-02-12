@@ -149,19 +149,11 @@ const CookieConsent = ({ children }) => {
     }));
   };
 
-  // Si l'utilisateur a consenti, afficher le contenu normal avec accès aux paramètres
+  // Si l'utilisateur a consenti, afficher le contenu normal
   if (!isVisible && !showSettings) {
     return (
       <>
         {children}
-        {/* Floating Cookie Settings Button */}
-        <button
-          onClick={() => setShowSettings(true)}
-          className="fixed bottom-6 right-6 bg-web3-accent hover:bg-web3-purple text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 ease-in-out shadow-lg hover:shadow-neon focus:outline-none focus:ring-2 focus:ring-web3-accent focus:ring-offset-2 focus:ring-offset-web3-dark z-40"
-          title="Gérer les paramètres des cookies"
-        >
-          🍪 Gérer les cookies
-        </button>
       </>
     );
   }

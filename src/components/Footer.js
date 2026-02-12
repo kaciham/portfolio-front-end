@@ -36,9 +36,9 @@ const Footer = ({ onCookieSettings }) => {
                 <div className='flex items-center gap-4'>
                     <button
                         onClick={onCookieSettings}
-                        className="bg-web3-card border border-web3-accent/50 text-web3-cyan hover:bg-web3-cyan hover:text-web3-dark font-medium py-2 px-4 rounded-lg transition-all duration-300 ease-in-out shadow-lg hover:shadow-neon focus:outline-none focus:ring-2 focus:ring-web3-cyan focus:ring-offset-2 focus:ring-offset-web3-darker"
+                        className="bg-web3-accent hover:bg-web3-purple text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 ease-in-out shadow-lg hover:shadow-neon focus:outline-none focus:ring-2 focus:ring-web3-accent focus:ring-offset-2 focus:ring-offset-web3-darker"
                     >
-                        Gérer les cookies
+                        🍪 Gérer les cookies
                     </button>
                     <span className='text-xs text-gray-500'>|</span>
                     <a 
