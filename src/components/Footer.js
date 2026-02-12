@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
 
-const Footer = () => {
+const Footer = ({ onCookieSettings }) => {
     return (
         <footer className='flex flex-col items-center justify-center bg-web3-darker border-t border-web3-accent/20 text-white py-8 px-4 mt-12'>
             <div className='w-full max-w-7xl flex flex-col sm:flex-row justify-between items-center sm:items-start gap-6'>
@@ -31,8 +31,23 @@ const Footer = () => {
                 </div>
             </div>
 
-            {/* Copyright Section */}
-            <div className='w-full text-center mt-6 border-t border-web3-accent/20 pt-4'>
+            {/* Cookie Management and Copyright Section */}
+            <div className='w-full flex flex-col sm:flex-row justify-between items-center mt-6 border-t border-web3-accent/20 pt-4 gap-4'>
+                <div className='flex items-center gap-4'>
+                    <button
+                        onClick={onCookieSettings}
+                        className="bg-web3-card border border-web3-accent/50 text-web3-cyan hover:bg-web3-cyan hover:text-web3-dark font-medium py-2 px-4 rounded-lg transition-all duration-300 ease-in-out shadow-lg hover:shadow-neon focus:outline-none focus:ring-2 focus:ring-web3-cyan focus:ring-offset-2 focus:ring-offset-web3-darker"
+                    >
+                        Gérer les cookies
+                    </button>
+                    <span className='text-xs text-gray-500'>|</span>
+                    <a 
+                        href="/politique-confidentialite" 
+                        className="text-sm text-gray-400 hover:text-web3-cyan transition-colors"
+                    >
+                        Politique de confidentialité
+                    </a>
+                </div>
                 <p className='text-sm text-gray-400'>© {new Date().getFullYear()} Kaci HAMROUN. Tous droits réservés.</p>
             </div>
         </footer>
