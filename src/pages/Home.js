@@ -19,6 +19,28 @@ import { getUserData, sendContactForm } from '../api/apiCalls';
 import { getSkillFallbackImage, getOptimizedImageUrl, preloadImages, getImageUrl } from '../utils/imageHelpers';
 import { API_BASE_URL } from '../config/apiConfig';
 
+
+// Composant Wave animé en SVG
+const AnimatedWave = () => (
+  <div className="wave-bg-container" aria-hidden="true">
+    <svg className="wave-svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path
+        d="M0,160L60,170.7C120,181,240,203,360,197.3C480,192,600,160,720,154.7C840,149,960,171,1080,186.7C1200,203,1320,213,1380,218.7L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
+        fill="#3b82f6"
+        fillOpacity="0.5">
+        <animate
+          attributeName="d"
+          dur="8s"
+          repeatCount="indefinite"
+          values="M0,160L60,170.7C120,181,240,203,360,197.3C480,192,600,160,720,154.7C840,149,960,171,1080,186.7C1200,203,1320,213,1380,218.7L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z;
+          M0,180L60,160C120,140,240,100,360,120C480,140,600,220,720,220C840,220,960,140,1080,120C1200,100,1320,140,1380,160L1440,180L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z;
+          M0,160L60,170.7C120,181,240,203,360,197.3C480,192,600,160,720,154.7C840,149,960,171,1080,186.7C1200,203,1320,213,1380,218.7L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
+        />
+      </path>
+    </svg>
+  </div>
+);
+
 const Home = () => {
 
   const apiUrl = API_BASE_URL;
@@ -305,7 +327,8 @@ const Home = () => {
   }, []);
 
   return (
-    <div className='w-full overflow-x-hidden bg-web3-dark'>
+    <div className='w-full overflow-x-hidden bg-web3-dark relative'>
+      <AnimatedWave />
       <SEO
         title={seoData.title}
         description={seoData.description}

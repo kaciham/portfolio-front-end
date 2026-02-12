@@ -1,3 +1,19 @@
+/* --- Animated Wave Background --- */
+.wave-bg-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 320px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.wave-svg {
+  width: 100vw;
+  height: 320px;
+  display: block;
+}
 /* Consolidated Google Fonts - Single request for better performance */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Passion+One:wght@400;700;900&display=swap');
 
