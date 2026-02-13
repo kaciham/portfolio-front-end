@@ -338,13 +338,19 @@ const Home = () => {
         jsonLd={seoData.jsonLd}
       />
       <Navbar handleScroll={handleScroll} refs={{ homeRef, aboutRef, projetRef, contactRef }} />
-      <div className='w-full min-h-screen bg-midnight-gradient relative overflow-hidden'
-        >
+      <main className='w-full min-h-screen bg-midnight-gradient relative overflow-hidden'>
         <div
           ref={homeRef}
           className='flex flex-col justify-center items-center min-h-[100vh] sm:min-h-[90vh] opacity-0 translate-y-10 transition-transform duration-[1500ms] ease relative w-full max-w-none z-10'
           data-animate
         >
+          <div className='my-12 md:my-12'>
+            <h1
+              className="text-center text-7xl md:text-5xl h-18 m-8 mainTitle bg-gradient-to-r from-web3-accent via-web3-purple to-web3-cyan bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]"
+            >
+              {userData.length > 0 ? (userData[0]?.firstName + ' ' + userData[0]?.lastName) : 'Developer Portfolio'}
+            </h1>
+          </div>
           {isMultiLoading('userData') ? (
             <div className="flex flex-col items-center justify-center min-h-[50vh]">
               <Loader type="spinner" size="large" color="blue" />
@@ -352,38 +358,31 @@ const Home = () => {
             </div>
           ) : userData.length > 0 ? userData.map((data) => (
             <div key={data._id}>
-              <div className='my-12 md:my-12'>
-                <h1
-                  className="text-center text-7xl md:text-5xl h-18 m-8 mainTitle bg-gradient-to-r from-web3-accent via-web3-purple to-web3-cyan bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]"
-                >
-                  {data.firstName + ' ' + data.lastName}
-                </h1>
-              </div>
               <div className='flex items-center justify-center rounded-full p-1 m-3 gap-4 my-6'>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
-                  <a href={data.linkedinUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={linkedinLogo} className="w-8 mt-2" alt="logo LinkedIn" title="Profil LinkedIn" />
+                  <a href={data.linkedinUrl} target='_blank' rel='noreferrer' aria-label="Visit LinkedIn profile">
+                    <ImageComponent src={linkedinLogo} className="w-8 mt-2" alt="LinkedIn" title="Profil LinkedIn" width={32} height={32} />
                   </a>
                 </div>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
-                  <a href={data.githubUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={githubLogo} className="w-8 mt-2" alt="logo Github" title="Profil Github" />
+                  <a href={data.githubUrl} target='_blank' rel='noreferrer' aria-label="Visit GitHub profile">
+                    <ImageComponent src={githubLogo} className="w-8 mt-2" alt="GitHub" title="Profil Github" width={32} height={32} />
                   </a>
                 </div>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
-                  <a href={getImageUrl(apiUrl, data.resumePdf)} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={cvLogo} className="w-7 mt-2" alt="logo Resume" title="CV" />
+                  <a href={getImageUrl(apiUrl, data.resumePdf)} target='_blank' rel='noreferrer' aria-label="Download resume">
+                    <ImageComponent src={cvLogo} className="w-7 mt-2" alt="Resume" title="CV" width={28} height={28} />
                   </a>
                 </div>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1'>
-                  <a href={data.scheduleUrl} target='_blank' rel='noreferrer'>
-                    <ImageComponent src={calendarLogo} className="w-7 mt-2" alt="logo Appointment" title="Prenons Rendez-vous !" />
+                  <a href={data.scheduleUrl} target='_blank' rel='noreferrer' aria-label="Schedule a meeting">
+                    <ImageComponent src={calendarLogo} className="w-7 mt-2" alt="Schedule appointment" title="Prenons Rendez-vous !" width={28} height={28} />
                   </a>
                 </div>
                 <div className='bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer transition-transform duration-500 ease-in-out hover:-translate-y-1'>
-                  <button onClick={() => handleScroll(contactRef)}>
+                  <button onClick={() => handleScroll(contactRef)} aria-label="Scroll to contact section">
                     <span className='hidden'>Contact</span>
-                    <ImageComponent src={contactLogo} className="w-7 mt-2" alt="logo Contact" title="Contact"/>
+                    <ImageComponent src={contactLogo} className="w-7 mt-2" alt="Contact" title="Contact" width={28} height={28}/>
                   </button>
                 </div>
               </div>
@@ -408,9 +407,9 @@ const Home = () => {
             </div>
           )}
         </div>
+      </main>
 
-
-        <div className="flex justify-center m-8" ref={aboutRef}>
+      <div className="flex justify-center m-8" ref={aboutRef}>
           <h2 className="text-4xl font-medium sm:text-5xl text-center mt-28 mb-4 relative">
             <span className="text-white px-6 py-3 rounded-xl bg-web3-card border border-web3-accent/30 shadow-card hover:shadow-card-hover transition-all duration-300">
               À Propos

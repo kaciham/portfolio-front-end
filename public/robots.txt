@@ -7,7 +7,6 @@ Disallow: /services/
 Disallow: /blog
 Disallow: /mentions-legales
 Disallow: /politique-confidentialite
-Disallow: *.pdf$
 
 # Sitemap
 Sitemap: https://www.kacihamroun.com/sitemap.xml

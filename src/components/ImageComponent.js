@@ -1,7 +1,7 @@
 // components/ImageComponent.js
 import React, { useState, useRef, useEffect } from 'react';
 
-const ImageComponent = ({ src, alt, className, title, onClick, fallbackSrc, sizes, srcSet, ...props }) => {
+const ImageComponent = ({ src, alt, className, title, onClick, fallbackSrc, sizes, srcSet, width, height, ...props }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -86,6 +86,8 @@ const ImageComponent = ({ src, alt, className, title, onClick, fallbackSrc, size
           title={title}
           sizes={sizes}
           srcSet={srcSet}
+          width={width}
+          height={height}
           className={`${className} ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}
           onLoad={handleLoad}
           onError={handleError}
