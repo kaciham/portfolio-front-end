@@ -72,6 +72,8 @@ const Navbar = ({ handleScroll, refs }) => {
                                     className='w-12 md:w-14 rounded-full border-2 border-web3-accent/50 hover:border-web3-accent sm:hover:scale-110 transition-all duration-300 shadow-md hover:shadow-lg object-cover'
                                     src={getImageUrl(apiUrl, data.profilePic)}
                                     alt={`${data.firstName} ${data.lastName} profile`}
+                                    width={56}
+                                    height={56}
                                     loading="eager"
                                     decoding="async"
                                 />

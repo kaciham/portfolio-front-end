@@ -455,6 +455,8 @@ const Home = () => {
                           alt={`Logo de ${skillsData.name} - Compétence technique`}
                           className='w-10 h-10 sm:w-14 sm:h-14 shadow-lg transition-all duration-500 ease-in-out group-hover:scale-105'
                           title={skillsData.name}
+                          width={56}
+                          height={56}
                           loading="lazy"
                         />
                         {/* Tooltip on hover */}
@@ -551,6 +553,8 @@ const Home = () => {
                             alt={projectData.title}
                             className='w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-900 ease-in-out cursor-pointer'
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                            width={400}
+                            height={300}
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-web3-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </a>
@@ -561,6 +565,8 @@ const Home = () => {
                             alt={projectData.title}
                             className='w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-900 ease-in-out'
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                            width={400}
+                            height={300}
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-web3-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </>
