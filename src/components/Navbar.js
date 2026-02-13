@@ -83,12 +83,17 @@ const Navbar = ({ handleScroll, refs }) => {
                     ))}
                 </div>
 
-                <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
+                <button
+                    className="md:hidden cursor-pointer p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-web3-accent transition-all duration-300"
+                    onClick={toggleMenu}
+                    aria-label={isOpen ? 'Fermer le menu de navigation' : 'Ouvrir le menu de navigation'}
+                    aria-expanded={isOpen}
+                >
                     {/* Hamburger menu */}
                     <div className={`w-10 h-0.5 my-1 transition-transform duration-300 bg-web3-accent ${isOpen ? 'rotate-45 translate-y-1.5' : ''}`}></div>
                     <div className={`w-10 h-0.5 my-1 transition-opacity duration-300 bg-web3-accent ${isOpen ? 'opacity-0' : ''}`}></div>
                     <div className={`w-10 h-0.5 my-1 transition-transform duration-300 bg-web3-accent ${isOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></div>
-                </div>
+                </button>
 
                 <div className="hidden md:flex">
                     {/* Navigation menu */}

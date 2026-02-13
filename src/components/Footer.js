@@ -14,10 +14,10 @@ const Footer = ({ onCookieSettings }) => {
                 <div className='flex flex-col items-center'>
                     <h3 className='text-lg font-semibold text-gray-300'>Suivez-moi</h3>
                     <div className='flex mt-2 space-x-4 justify-center'>
-                        <a href='https://www.linkedin.com/in/kaci-hamroun/' className='text-2xl text-gray-400 hover:text-web3-accent transition-all duration-300 hover:scale-110' target='_blank' rel='noreferrer'>
+                        <a href='https://www.linkedin.com/in/kaci-hamroun/' aria-label='Visitez mon profil LinkedIn' className='text-2xl text-gray-400 hover:text-web3-accent transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-web3-accent rounded-lg p-1' target='_blank' rel='noreferrer'>
                             <FaLinkedinIn />
                         </a>
-                        <a href='https://github.com/kaciham' className='text-2xl text-gray-400 hover:text-web3-accent transition-all duration-300 hover:scale-110' target='_blank' rel='noreferrer'>
+                        <a href='https://github.com/kaciham' aria-label='Visitez mon profil GitHub' className='text-2xl text-gray-400 hover:text-web3-accent transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-web3-accent rounded-lg p-1' target='_blank' rel='noreferrer'>
                             <FaGithub />
                         </a>
                     </div>
@@ -37,6 +37,7 @@ const Footer = ({ onCookieSettings }) => {
                     <button
                         onClick={onCookieSettings}
                         className="bg-web3-accent hover:bg-web3-purple text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 ease-in-out shadow-lg hover:shadow-neon focus:outline-none focus:ring-2 focus:ring-web3-accent focus:ring-offset-2 focus:ring-offset-web3-darker"
+                        aria-label="Gérer les paramètres de cookies du site"
                     >
                         🍪 Gérer les cookies
                     </button>
