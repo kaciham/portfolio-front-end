@@ -193,3 +193,11 @@
   .group:hover .group-hover\:scale-103 {
     transform: scale(1.03);
   }
+
+/* Position ElevenLabs widget at same vertical height as TopIcon (Tailwind `bottom-5`) */
+elevenlabs-convai {
+  position: fixed;
+  bottom: 1.25rem; /* matches Tailwind bottom-5 */
+  left: 1.25rem; /* matches Tailwind left-5 */
+  z-index: 9999;
+}
