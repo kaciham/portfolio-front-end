@@ -749,9 +749,8 @@ const Home = () => {
           </div>
         </div>
         <Footer onCookieSettings={() => {}} />
-      </div>
-
-      {showTopIcon && (
+   
+{showTopIcon && (
         <div
           className='w-14 h-14 sm:w-18 sm:h-18 fixed bottom-5 rounded-full right-5 bg-web3-card border-2 border-web3-accent/30 hover:border-web3-accent p-2 shadow-neon cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-neon-lg  bg-white'
           onClick={toTop}
