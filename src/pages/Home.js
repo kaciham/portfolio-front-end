@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
+import Cal, { getCalApi } from "@calcom/embed-react";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
@@ -136,6 +137,16 @@ const Home = () => {
     return () => {
       window.removeEventListener('scroll', handleScrollDisplay);
     };
+  }, []);
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace: "30min" });
+      cal("ui", {
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      });
+    })();
   }, []);
 
   const fetchProjects = useCallback(async () => {
@@ -653,10 +664,18 @@ const Home = () => {
           <div className='flex gap-18 justify-center items-center my-8 '>
             <h2 className='text-sm sm:text-sm font-normal leading-9 text-center px-4 text-white projet'>Un projet ? Une idée ? Prenons contact !</h2>
           </div>
-          <div className='w-full max-w-lg px-2 sm:px-0'>
+          <div className='w-full max-w-4xl px-2 sm:px-0 my-8'>
+            <Cal
+              namespace="30min"
+              calLink="kacihamroun/30min"
+              style={{ width: "100%", height: "100%", overflow: "scroll" }}
+              config={{ layout: "month_view", useSlotsViewOnSmallScreen: "true" }}
+            />
+          </div>
+          <div className='w-full max-w-4xl px-2 sm:px-0'>
             <form
               onSubmit={handleSubmit}
-              className='bg-web3-card border border-web3-accent/20 flex flex-col gap-6 w-full max-w-lg mx-auto shadow-card rounded-2xl p-6 sm:p-8 backdrop-blur-sm'
+              className='bg-web3-card border border-web3-accent/20 flex flex-col gap-6 w-full max-w-4xl mx-auto shadow-card rounded-2xl p-6 sm:p-8 backdrop-blur-sm'
             >
               <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
                 <div className='flex flex-col'>
