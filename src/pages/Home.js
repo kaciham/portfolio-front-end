@@ -78,6 +78,7 @@ const Home = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showOnlyAI, setShowOnlyAI] = useState(false);
+  const [expandedDescriptions, setExpandedDescriptions] = useState({});
 
   const handleScroll = useCallback((ref) => {
     ref.current.scrollIntoView({ behavior: 'smooth' });
@@ -580,7 +581,13 @@ const Home = () => {
                         <h2 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-web3-accent via-web3-purple to-web3-cyan bg-clip-text text-transparent">
                           {projectData.title}
                         </h2>
-                        <p className="text-sm text-gray-300 leading-relaxed line-clamp-4" dangerouslySetInnerHTML={{ __html: projectData.description }}></p>
+                        <p className={`text-sm text-gray-300 leading-relaxed ${expandedDescriptions[projectData._id] ? '' : 'line-clamp-4'}`} dangerouslySetInnerHTML={{ __html: projectData.description }}></p>
+                        <button
+                          onClick={() => setExpandedDescriptions(prev => ({ ...prev, [projectData._id]: !prev[projectData._id] }))}
+                          className="text-web3-accent hover:text-web3-accentHover text-sm font-medium mt-1 self-start transition-colors duration-300"
+                        >
+                          {expandedDescriptions[projectData._id] ? 'Voir moins' : 'Voir plus'}
+                        </button>
 
                         {/* Skills */}
                         <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-web3-accent/10">
