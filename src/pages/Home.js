@@ -359,7 +359,7 @@ const Home = () => {
             <h1
               className="text-center text-7xl md:text-5xl h-18 m-8 mainTitle bg-gradient-to-r from-web3-accent via-web3-purple to-web3-cyan bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]"
             >
-              {userData.length > 0 ? (userData[0]?.firstName + ' ' + userData[0]?.lastName) : 'Developer Portfolio'}
+              {userData.length > 0 ? (userData[0]?.firstName + ' ' + userData[0]?.lastName) : 'Chargement...'}
             </h1>
           </div>
           {isMultiLoading('userData') ? (
