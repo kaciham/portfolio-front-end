@@ -741,7 +741,7 @@ const Home = () => {
                 />
                 {errors.text && <p className='text-red-400 text-sm mt-1'>{errors.text}</p>}
               </div>
-              <div className='flex justify-end mt-6'>
+              <div className='flex justify-center mt-6'>
                 <button
                   className='bg-gradient-to-r from-web3-accent to-web3-purple text-center hover:from-web3-accentHover hover:to-web3-purple hover:shadow-neon w-full sm:w-1/3 h-12 flex justify-center items-center text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-web3-accent transition-all duration-300'
                   type='submit'
