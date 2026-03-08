@@ -26,15 +26,6 @@ const SectionLabel = ({ children, pulse }) => (
   </div>
 );
 
-// ─── Social Link Button (keeps original SVG logos) ─────────────────
-const SocialButton = ({ href, onClick, icon, label, title }) => {
-  const base = "w-11 h-11 flex items-center justify-center rounded-xl bg-white border border-border shadow-sm hover:shadow-accent hover:-translate-y-0.5 transition-all duration-200 group";
-  if (onClick) {
-    return <button onClick={onClick} aria-label={label} title={title} className={base}>{icon}</button>;
-  }
-  return <a href={href} target="_blank" rel="noreferrer" aria-label={label} title={title} className={base}>{icon}</a>;
-};
-
 // ─── Home ──────────────────────────────────────────────────────────
 const Home = () => {
   const apiUrl = API_BASE_URL;
