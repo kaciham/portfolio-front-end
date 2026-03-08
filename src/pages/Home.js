@@ -252,12 +252,33 @@ const Home = () => {
             </div>
 
             {/* Social links — original SVG logos kept */}
-            <div className="flex items-center gap-3 mt-6">
-              <SocialButton href={data.linkedinUrl} icon={<ImageComponent src={linkedinLogo} className="w-5 h-5" alt="LinkedIn" width={20} height={20} />} label="LinkedIn" title="LinkedIn" />
-              <SocialButton href={data.githubUrl} icon={<ImageComponent src={githubLogo} className="w-5 h-5" alt="GitHub" width={20} height={20} />} label="GitHub" title="GitHub" />
-              <SocialButton href={getImageUrl(apiUrl, data.resumePdf)} icon={<ImageComponent src={cvLogo} className="w-5 h-5" alt="CV" width={20} height={20} />} label="CV" title="Télécharger le CV" />
-              <SocialButton href={data.scheduleUrl} icon={<ImageComponent src={calendarLogo} className="w-5 h-5" alt="Calendrier" width={20} height={20} />} label="Rendez-vous" title="Prendre rendez-vous" />
-              <SocialButton onClick={() => handleScroll(contactRef)} icon={<ImageComponent src={contactLogo} className="w-5 h-5" alt="Contact" width={20} height={20} />} label="Contact" title="Me contacter" />
+            <div className="flex items-center justify-center rounded-full p-1 m-3 gap-4 my-6">
+              <div className="bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
+                <a href={data.linkedinUrl} target="_blank" rel="noreferrer" aria-label="Visit LinkedIn profile">
+                  <ImageComponent src={linkedinLogo} className="w-8 mt-2" alt="LinkedIn" title="Profil LinkedIn" width={32} height={32} />
+                </a>
+              </div>
+              <div className="bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
+                <a href={data.githubUrl} target="_blank" rel="noreferrer" aria-label="Visit GitHub profile">
+                  <ImageComponent src={githubLogo} className="w-8 mt-2" alt="GitHub" title="Profil Github" width={32} height={32} />
+                </a>
+              </div>
+              <div className="bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
+                <a href={getImageUrl(apiUrl, data.resumePdf)} target="_blank" rel="noreferrer" aria-label="Download resume">
+                  <ImageComponent src={cvLogo} className="w-7 mt-2" alt="Resume" title="CV" width={28} height={28} />
+                </a>
+              </div>
+              <div className="bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
+                <a href={data.scheduleUrl} target="_blank" rel="noreferrer" aria-label="Schedule a meeting">
+                  <ImageComponent src={calendarLogo} className="w-7 mt-2" alt="Schedule appointment" title="Prenons Rendez-vous !" width={28} height={28} />
+                </a>
+              </div>
+              <div className="bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer transition-transform duration-500 ease-in-out hover:-translate-y-1">
+                <button onClick={() => handleScroll(contactRef)} aria-label="Scroll to contact section">
+                  <span className="hidden">Contact</span>
+                  <ImageComponent src={contactLogo} className="w-7 mt-2" alt="Contact" title="Contact" width={28} height={28} />
+                </button>
+              </div>
             </div>
 
             {/* Scroll indicator */}
@@ -295,14 +316,23 @@ const Home = () => {
               {/* Stack */}
               <div className="bg-card border border-border rounded-2xl p-8 shadow-card hover:shadow-card-hover transition-all duration-300">
                 <span className="font-mono text-xs uppercase tracking-[0.15em] text-accent mb-4 block">Stack technique</span>
-                <div className="flex flex-wrap gap-3 mt-2">
+                <div className="flex flex-row flex-wrap gap-4 sm:gap-4 items-center justify-center px-8 sm:px-14 mt-2">
                   {data.skills.map((skill) => {
                     const imgUrl = skill.logo ? getOptimizedImageUrl(apiUrl, skill.logo, { width: 56, height: 56 }) : null;
                     const fallback = getSkillFallbackImage(skill.name);
                     return (
-                      <div key={skill._id} className="group relative flex items-center justify-center w-12 h-12 rounded-xl bg-muted border border-border hover:border-accent/30 hover:shadow-sm transition-all duration-200">
-                        <ImageComponent src={imgUrl || fallback} fallbackSrc={fallback} alt={skill.name} className="w-7 h-7" title={skill.name} width={28} height={28} loading="lazy" />
-                        <div className="absolute -top-9 left-1/2 -translate-x-1/2 bg-foreground text-white text-xs px-2.5 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 whitespace-nowrap shadow-lg">
+                      <div key={skill._id} className="relative group">
+                        <ImageComponent
+                          src={imgUrl || fallback}
+                          fallbackSrc={fallback}
+                          alt={`Logo de ${skill.name} - Compétence technique`}
+                          className="w-10 h-10 sm:w-14 sm:h-14 shadow-lg transition-all duration-500 ease-in-out group-hover:scale-105"
+                          title={skill.name}
+                          width={56}
+                          height={56}
+                          loading="lazy"
+                        />
+                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 z-10">
                           {skill.name}
                         </div>
                       </div>

@@ -77,9 +77,9 @@ const Navbar = ({ handleScroll, refs }) => {
                     aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
                     aria-expanded={isOpen}
                 >
-                    <div className={`w-5 h-0.5 bg-foreground transition-all duration-200 ${isOpen ? 'rotate-45 translate-y-[3px]' : ''}`} />
-                    <div className={`w-5 h-0.5 bg-foreground mt-1 transition-all duration-200 ${isOpen ? 'opacity-0' : ''}`} />
-                    <div className={`w-5 h-0.5 bg-foreground mt-1 transition-all duration-200 ${isOpen ? '-rotate-45 -translate-y-[3px]' : ''}`} />
+                    <div className={`w-10 h-0.5 my-1 transition-transform duration-300 bg-accent ${isOpen ? 'rotate-45 translate-y-1.5' : ''}`}></div>
+                    <div className={`w-10 h-0.5 my-1 transition-opacity duration-300 bg-accent ${isOpen ? 'opacity-0' : ''}`}></div>
+                    <div className={`w-10 h-0.5 my-1 transition-transform duration-300 bg-accent ${isOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></div>
                 </button>
 
                 {/* Desktop nav */}
