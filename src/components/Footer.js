@@ -25,7 +25,7 @@ const Footer = ({ onCookieSettings }) => {
                                 className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/10 text-white/70 hover:bg-accent hover:text-white transition-all duration-200 hover:-translate-y-0.5"
                                 target="_blank" rel="noreferrer"
                             >
-                                <FaLinkedinIn size={16} />
+                                <FaLinkedinIn size={22} />
                             </a>
                             <a
                                 href="https://github.com/kaciham"
@@ -33,7 +33,7 @@ const Footer = ({ onCookieSettings }) => {
                                 className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/10 text-white/70 hover:bg-accent hover:text-white transition-all duration-200 hover:-translate-y-0.5"
                                 target="_blank" rel="noreferrer"
                             >
-                                <FaGithub size={16} />
+                                <FaGithub size={22} />
                             </a>
                         </div>
                     </div>
