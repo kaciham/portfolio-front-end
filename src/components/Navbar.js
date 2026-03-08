@@ -1,19 +1,23 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { getUserData } from '../api/apiCalls';
 import { API_BASE_URL } from '../config/apiConfig';
 import { getImageUrl } from '../utils/imageHelpers';
 
 const Navbar = ({ handleScroll, refs }) => {
-    const apiUrl = API_BASE_URL;
-    const [isOpen, setIsOpen] = useState(false);
-    const [userData, setUserData] = useState([]);
-    const [scrolled, setScrolled] = useState(false);
 
-    const toggleMenu = useCallback(() => {
-        setIsOpen(prev => !prev);
-    }, []);
+    const apiUrl = API_BASE_URL;
+
+    const [isOpen, setIsOpen] = useState(false); // Menu toggle state
+    const [userData, setUserData] = useState([]);
+    const [scrollTop, setScrollTop] = useState(true); // Track if the scroll is at the top
+
+    // Toggle menu open and close
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
 
     useEffect(() => {
+        // Fetch user data from backend
         const fetchUserData = async () => {
             try {
                 const response = await getUserData();
@@ -21,115 +25,112 @@ const Navbar = ({ handleScroll, refs }) => {
                     console.error('Error fetching navbar data:', response.error);
                     return;
                 }
-                if (response.data?.portfolios?.length > 0) {
+                if (response.data && response.data.portfolios && response.data.portfolios.length > 0) {
+                    // Extract the first portfolio from the portfolios array
                     setUserData([response.data.portfolios[0]]);
+                } else {
+                    console.warn('No portfolios found in response');
                 }
             } catch (error) {
                 console.error('Error fetching navbar data:', error);
             }
         };
-        fetchUserData();
+        fetchUserData(); // Fetch user data on component mount
     }, []);
 
+    // Track scroll position to update navbar style
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 10);
-        window.addEventListener('scroll', onScroll);
-        return () => window.removeEventListener('scroll', onScroll);
+        const handleScroll = () => {
+            setScrollTop(window.scrollY === 0); // Set scrollTop to true if scroll position is at 0
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll); // Clean up scroll listener on unmount
+        };
     }, []);
 
+    // Function to handle both scrolling and closing the menu
     const handleMenuClick = (ref) => {
-        handleScroll(ref);
-        if (isOpen) toggleMenu();
+        handleScroll(ref); // Scroll to the relevant section
+        if (isOpen) toggleMenu(); // Close the mobile menu if it's open
     };
-
-    const navLinks = [
-        { label: 'Accueil', ref: refs.homeRef },
-        { label: 'À Propos', ref: refs.aboutRef },
-        { label: 'Projets', ref: refs.projetRef },
-        { label: 'Contact', ref: refs.contactRef },
-    ];
 
     return (
         <nav
-            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-                scrolled
-                    ? 'bg-[#050506]/80 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_1px_0_0_rgba(255,255,255,0.06)]'
-                    : 'bg-transparent'
+            className={`h-fit p-2 w-full max-w-full z-50 fixed top-0 left-0 transition-all duration-300 backdrop-blur-md ${
+                scrollTop ? 'bg-web3-dark/30 text-white' : 'bg-web3-dark/80 text-white'
             }`}
         >
-            <div className="flex w-full max-w-7xl mx-auto justify-between items-center px-4 py-3">
-                {/* Logo + Name */}
-                <div className="flex items-center gap-3">
+            <div className="flex w-full max-w-7xl mx-auto justify-between items-center pr-2">
+                <div className="flex items-center py-2">
                     {userData.length > 0 && userData.map(data => (
-                        data?.firstName && data?.lastName ? (
-                            <div key={data._id} className="flex items-center gap-3 cursor-pointer" onClick={() => handleScroll(refs.homeRef)}>
+                        data && data.firstName && data.lastName ? (
+                            <div key={data._id} className="flex items-center mx-2 gap-4">
                                 <img
-                                    className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-white/[0.1] hover:border-linear-accent/50 transition-all duration-200 object-cover"
+                                    className='w-12 md:w-14 rounded-full border-2 border-web3-accent/50 hover:border-web3-accent sm:hover:scale-110 transition-all duration-300 shadow-md hover:shadow-lg object-cover'
                                     src={getImageUrl(apiUrl, data.profilePic)}
-                                    alt={`${data.firstName} ${data.lastName}`}
-                                    width={40}
-                                    height={40}
+                                    alt={`${data.firstName} ${data.lastName} profile`}
+                                    width={56}
+                                    height={56}
                                     loading="eager"
                                     decoding="async"
                                 />
-                                <span className="text-sm font-semibold text-linear-fg tracking-tight">
+                                <h2 className='sm:hover:scale-110 transition-transform duration-300 text-xl font-medium text-white'>
                                     {`${data.firstName} ${data.lastName}`}
-                                </span>
+                                </h2>
                             </div>
                         ) : null
                     ))}
                 </div>
 
-                {/* Mobile toggle */}
                 <button
-                    className="md:hidden p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-linear-accent/50 focus:ring-offset-2 focus:ring-offset-[#050506]"
+                    className="md:hidden cursor-pointer p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-web3-accent transition-all duration-300"
                     onClick={toggleMenu}
-                    aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+                    aria-label={isOpen ? 'Fermer le menu de navigation' : 'Ouvrir le menu de navigation'}
                     aria-expanded={isOpen}
                 >
-                    <div className={`w-5 h-0.5 bg-linear-fg transition-all duration-200 ${isOpen ? 'rotate-45 translate-y-[3px]' : ''}`} />
-                    <div className={`w-5 h-0.5 bg-linear-fg mt-1 transition-all duration-200 ${isOpen ? 'opacity-0' : ''}`} />
-                    <div className={`w-5 h-0.5 bg-linear-fg mt-1 transition-all duration-200 ${isOpen ? '-rotate-45 -translate-y-[3px]' : ''}`} />
+                    {/* Hamburger menu */}
+                    <div className={`w-10 h-0.5 my-1 transition-transform duration-300 bg-web3-accent ${isOpen ? 'rotate-45 translate-y-1.5' : ''}`}></div>
+                    <div className={`w-10 h-0.5 my-1 transition-opacity duration-300 bg-web3-accent ${isOpen ? 'opacity-0' : ''}`}></div>
+                    <div className={`w-10 h-0.5 my-1 transition-transform duration-300 bg-web3-accent ${isOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></div>
                 </button>
 
-                {/* Desktop nav */}
-                <ul className="hidden md:flex items-center gap-1">
-                    {navLinks.map(link => (
-                        <li key={link.label}>
-                            <button
-                                onClick={() => handleScroll(link.ref)}
-                                className="px-3 py-1.5 text-sm font-medium text-linear-muted hover:text-linear-fg rounded-lg hover:bg-white/[0.05] transition-all duration-200 cursor-pointer"
-                            >
-                                {link.label}
-                            </button>
+                <div className="hidden md:flex">
+                    {/* Navigation menu */}
+                    <ul className='flex gap-2'>
+                        <li className='mx-1 text-lg font-medium text-white cursor-pointer hover:text-web3-accent transition-all duration-300 relative group' onClick={() => handleScroll(refs.homeRef)}>
+                            Accueil
+                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-web3-accent group-hover:w-full transition-all duration-300"></span>
                         </li>
-                    ))}
-                </ul>
-            </div>
-
-            {/* Mobile menu */}
-            <div
-                className={`md:hidden transition-all duration-200 overflow-hidden ${
-                    isOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
-                }`}
-            >
-                <div className="bg-[#050506]/95 backdrop-blur-xl border-t border-white/[0.06] px-4 py-3">
-                    <ul className="flex flex-col gap-1">
-                        {navLinks.map(link => (
-                            <li key={link.label}>
-                                <button
-                                    onClick={() => handleMenuClick(link.ref)}
-                                    className="w-full text-left px-4 py-3 text-base font-medium text-linear-muted hover:text-linear-fg hover:bg-white/[0.05] rounded-lg transition-all duration-200"
-                                >
-                                    {link.label}
-                                </button>
-                            </li>
-                        ))}
+                        <li className='mx-1 text-lg font-medium text-white cursor-pointer hover:text-web3-accent transition-all duration-300 relative group' onClick={() => handleScroll(refs.aboutRef)}>
+                            À Propos
+                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-web3-accent group-hover:w-full transition-all duration-300"></span>
+                        </li>
+                        <li className='mx-1 text-lg font-medium text-white cursor-pointer hover:text-web3-accent transition-all duration-300 relative group' onClick={() => handleScroll(refs.projetRef)}>
+                            Projets
+                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-web3-accent group-hover:w-full transition-all duration-300"></span>
+                        </li>
+                        <li className='mx-1 text-lg font-medium text-white cursor-pointer hover:text-web3-accent transition-all duration-300 relative group' onClick={() => handleScroll(refs.contactRef)}>
+                            Contact
+                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-web3-accent group-hover:w-full transition-all duration-300"></span>
+                        </li>
                     </ul>
                 </div>
             </div>
+
+            {/* Mobile menu */}
+            <div className={`md:hidden flex sticky z-10 flex-col ${isOpen ? 'block' : 'hidden'} backdrop-blur-lg bg-web3-dark/90 rounded-b-2xl border-b border-web3-accent/20`}>
+                <ul className='flex flex-col justify-center items-end p-4'>
+                    <li className='mr-5 my-2 text-2xl text-white cursor-pointer hover:text-web3-accent transition-all duration-300' onClick={() => handleMenuClick(refs.homeRef)}>Accueil</li>
+                    <li className='mr-5 my-2 text-2xl text-white cursor-pointer hover:text-web3-accent transition-all duration-300' onClick={() => handleMenuClick(refs.aboutRef)}>À Propos</li>
+                    <li className='mr-5 my-2 text-2xl text-white cursor-pointer hover:text-web3-accent transition-all duration-300' onClick={() => handleMenuClick(refs.projetRef)}>Projets</li>
+                    <li className='mr-5 my-2 text-2xl text-white cursor-pointer hover:text-web3-accent transition-all duration-300' onClick={() => handleMenuClick(refs.contactRef)}>Contact</li>
+                </ul>
+            </div>
         </nav>
     );
-};
+}
 
 export default Navbar;
