@@ -1,0 +1,16 @@
+# Redirects for Netlify
+# Handle old sitemap URLs that no longer exist
+
+# Redirect service pages to home
+/services/developpement-web-lille / 301
+/services/automatisation-ia / 301  
+/services/react-nodejs-development / 301
+/services/python-machine-learning / 301
+
+# Redirect blog and legal pages to home
+/blog / 301
+/mentions-legales / 301
+/politique-confidentialite / 301
+
+# Handle SPA routing - redirect all other paths to index.html
+/* /index.html 200
