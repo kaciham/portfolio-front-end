@@ -74,7 +74,7 @@ const ImageComponent = ({ src, alt, className, title, onClick, fallbackSrc, size
   };
 
   return (
-    <div ref={imgRef} className="relative inline-block w-full h-full">
+    <div ref={imgRef} className="relative inline-block w-fit h-fit">
       {!isLoaded && isInView && !hasError && (
         <div className={`absolute inset-0 bg-gradient-to-br from-web3-card to-web3-darker animate-pulse rounded ${className}`} aria-label="Image en cours de chargement" />
       )}

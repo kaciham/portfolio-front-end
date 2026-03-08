@@ -246,28 +246,28 @@ const Home = () => {
             <div className="flex items-center justify-center rounded-full p-1 m-3 gap-4 my-6">
               <div className="bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
                 <a href={data.linkedinUrl} target="_blank" rel="noreferrer" aria-label="Visit LinkedIn profile">
-                  <ImageComponent src={linkedinLogo} className="w-8 mt-2" alt="LinkedIn" title="Profil LinkedIn" width={32} height={32} />
+                  <ImageComponent src={linkedinLogo} className="w-8" alt="LinkedIn" title="Profil LinkedIn" width={32} height={32} />
                 </a>
               </div>
               <div className="bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
                 <a href={data.githubUrl} target="_blank" rel="noreferrer" aria-label="Visit GitHub profile">
-                  <ImageComponent src={githubLogo} className="w-8 mt-2" alt="GitHub" title="Profil Github" width={32} height={32} />
+                  <ImageComponent src={githubLogo} className="w-8" alt="GitHub" title="Profil Github" width={32} height={32} />
                 </a>
               </div>
               <div className="bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
                 <a href={getImageUrl(apiUrl, data.resumePdf)} target="_blank" rel="noreferrer" aria-label="Download resume">
-                  <ImageComponent src={cvLogo} className="w-7 mt-2" alt="Resume" title="CV" width={28} height={28} />
+                  <ImageComponent src={cvLogo} className="w-7" alt="Resume" title="CV" width={28} height={28} />
                 </a>
               </div>
               <div className="bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
                 <a href={data.scheduleUrl} target="_blank" rel="noreferrer" aria-label="Schedule a meeting">
-                  <ImageComponent src={calendarLogo} className="w-7 mt-2" alt="Schedule appointment" title="Prenons Rendez-vous !" width={28} height={28} />
+                  <ImageComponent src={calendarLogo} className="w-7" alt="Schedule appointment" title="Prenons Rendez-vous !" width={28} height={28} />
                 </a>
               </div>
               <div className="bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer transition-transform duration-500 ease-in-out hover:-translate-y-1">
                 <button onClick={() => handleScroll(contactRef)} aria-label="Scroll to contact section">
                   <span className="hidden">Contact</span>
-                  <ImageComponent src={contactLogo} className="w-7 mt-2" alt="Contact" title="Contact" width={28} height={28} />
+                  <ImageComponent src={contactLogo} className="w-7" alt="Contact" title="Contact" width={28} height={28} />
                 </button>
               </div>
             </div>
