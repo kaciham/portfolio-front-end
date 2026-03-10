@@ -382,10 +382,10 @@ const Home = () => {
                           <div className="relative aspect-video overflow-hidden">
                             {project.projectUrl ? (
                               <a href={project.projectUrl} target="_blank" rel="noreferrer" className="block w-full h-full">
-                                <ImageComponent src={getImageUrl(apiUrl, project.imageUrl)} alt={project.title} className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-500" width={400} height={225} loading="lazy" />
+                                <ImageComponent src={getImageUrl(apiUrl, project.imageUrl)} alt={project.title} className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-500" containerClassName="relative w-full h-full" width={400} height={225} loading="lazy" />
                               </a>
                             ) : (
-                              <ImageComponent src={getImageUrl(apiUrl, project.imageUrl)} alt={project.title} className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-500" width={400} height={225} loading="lazy" />
+                              <ImageComponent src={getImageUrl(apiUrl, project.imageUrl)} alt={project.title} className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-500" containerClassName="relative w-full h-full" width={400} height={225} loading="lazy" />
                             )}
                           </div>
                           {/* Content */}

@@ -1,7 +1,7 @@
 // components/ImageComponent.js
 import React, { useState, useRef, useEffect } from 'react';
 
-const ImageComponent = ({ src, alt, className, title, onClick, fallbackSrc, sizes, srcSet, width, height, ...props }) => {
+const ImageComponent = ({ src, alt, className, title, onClick, fallbackSrc, sizes, srcSet, width, height, containerClassName, ...props }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -74,7 +74,7 @@ const ImageComponent = ({ src, alt, className, title, onClick, fallbackSrc, size
   };
 
   return (
-    <div ref={imgRef} className="relative inline-block w-fit h-fit">
+    <div ref={imgRef} className={containerClassName || "relative inline-block w-fit h-fit"}>
       {!isLoaded && isInView && !hasError && (
         <div className={`absolute inset-0 bg-gradient-to-br from-web3-card to-web3-darker animate-pulse rounded ${className}`} aria-label="Image en cours de chargement" />
       )}
