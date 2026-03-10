@@ -44,7 +44,7 @@ const CookieConsent = ({ children }) => {
     return (
       <>
         {children}
-        <div className="fixed bottom-0 left-0 right-0 bg-web3-card border-t border-web3-accent/30 shadow-2xl z-50">
+        <div className="fixed bottom-0 left-0 right-0 bg-foreground border-t border-border shadow-2xl z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex-1 text-center sm:text-left">
@@ -70,7 +70,7 @@ const CookieConsent = ({ children }) => {
                     setShowSettings(true);
                     setIsVisible(false);
                   }}
-                  className="bg-gradient-to-r from-web3-accent to-web3-purple text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 ease-in-out shadow-lg hover:shadow-neon focus:outline-none focus:ring-2 focus:ring-web3-accent focus:ring-offset-2 focus:ring-offset-web3-dark"
+                  className="bg-gradient-to-r  border border-web3-accent/50 from-web3-accent to-web3-purple text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 ease-in-out shadow-lg hover:shadow-neon focus:outline-none focus:ring-2 focus:ring-web3-accent focus:ring-offset-2 focus:ring-offset-web3-dark"
                 >
                   Personnaliser
                 </button>
@@ -82,7 +82,7 @@ const CookieConsent = ({ children }) => {
                       functionality: true
                     };
                     const consentData = {
-                      consent: 'all',
+                      consent: 'all', 
                       preferences: preferences,
                       timestamp: new Date().toISOString(),
                       version: '1.0'
@@ -259,7 +259,7 @@ const CookieConsent = ({ children }) => {
               <div className="flex flex-col sm:flex-row gap-3 mt-6">
                 <button
                   onClick={handleCustomAccept}
-                  className="flex-1 bg-gradient-to-r from-web3-accent to-web3-purple text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 ease-in-out shadow-lg hover:shadow-neon focus:outline-none focus:ring-2 focus:ring-web3-accent focus:ring-offset-2 focus:ring-offset-web3-dark"
+                  className="flex-1 bg-gradient-to-r  from-web3-accent to-web3-purple text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 ease-in-out shadow-lg hover:shadow-neon focus:outline-none focus:ring-2 focus:ring-web3-accent focus:ring-offset-2 focus:ring-offset-web3-dark"
                 >
                   Enregistrer mes choix
                 </button>

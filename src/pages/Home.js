@@ -488,7 +488,7 @@ const Home = () => {
       {/* Back to top */}
       {showTopIcon && (
         <button
-          className="fixed bottom-5 right-5 w-11 h-11 flex items-center justify-center rounded-xl bg-white border border-border shadow-card hover:shadow-accent hover:-translate-y-0.5 transition-all duration-200 z-40"
+          className="fixed bottom-5 right-5 w-11 h-11 flex items-center justify-center rounded-xl bg-white border border-border hover:shadow-accent hover:-translate-y-0.5 transition-all duration-200 z-40"
           onClick={toTop} aria-label="Retour en haut"
         >
           <TopIcon iconSource={upArrow} onClick={toTop} />
