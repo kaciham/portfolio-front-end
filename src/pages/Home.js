@@ -459,7 +459,7 @@ const Home = () => {
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label htmlFor="contactSecondMail" className="text-sm font-medium text-foreground">Email</label>
-                  <input value={formData.contactSecondMail} onChange={handleChange} className={inputClass} type="email" name="contactSecondMail" placeholder="votre@email.com" id="contactSecondMail" />
+                  <input value={formData.contactSecondMail} onChange={handleChange} className={inputClass} type="email" name="contactSecondMail" placeholder="votre adresse email" id="contactSecondMail" />
                   {errors.contactSecondMail && <p className="text-red-500 text-xs mt-0.5">{errors.contactSecondMail}</p>}
                 </div>
                 <div className="flex flex-col gap-1.5">
