@@ -63,7 +63,7 @@ const Navbar = ({ handleScroll, refs }) => {
                                     width={36} height={36} loading="eager" decoding="async"
                                 />
                                 <span className="text-sm font-semibold text-foreground tracking-tight">
-                                    {data.firstName} {data.lastName}
+                                    {data.firstName} {data.lastName.toUpperCase()}
                                 </span>
                             </div>
                         ) : null
