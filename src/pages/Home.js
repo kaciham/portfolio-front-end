@@ -229,7 +229,7 @@ const Home = () => {
             <h1 className="font-display text-[2.75rem] sm:text-6xl md:text-[5.25rem] leading-[1.05] tracking-[-0.02em] text-center text-foreground">
               {data.firstName}{' '}
               <span className="relative">
-                <span className="gradient-text">{data.lastName}</span>
+                <span className="gradient-text uppercase">{data.lastName}</span>
                 <span className="absolute bottom-[-0.25rem] md:bottom-[-0.5rem] left-0 h-3 md:h-4 w-full rounded-sm bg-gradient-to-r from-accent/15 to-accent-secondary/10" />
               </span>
             </h1>
