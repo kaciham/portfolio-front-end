@@ -1,0 +1,118 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://www.kacihamroun.com/#person",
+      "name": "Kaci Hamroun",
+      "givenName": "Kaci",
+      "familyName": "Hamroun",
+      "jobTitle": "Développeur Full-Stack & Spécialiste Automatisation IA",
+      "description": "Développeur full-stack expert en automatisation IA, spécialisé en React, Node.js, Python et solutions d'intelligence artificielle à Lille.",
+      "url": "https://www.kacihamroun.com",
+      "image": "https://www.kacihamroun.com/images/kaci-hamroun-profile.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Lille",
+        "postalCode": "59000",
+        "addressRegion": "Hauts-de-France",
+        "addressCountry": "FR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "50.6292",
+        "longitude": "3.0573"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/kaci-hamroun",
+        "https://github.com/kaciham",
+        "https://twitter.com/kacihamroun"
+      ],
+      "knowsAbout": [
+        "Développement Full-Stack",
+        "Automatisation IA",
+        "Intelligence Artificielle",
+        "React.js",
+        "Node.js",
+        "Python",
+        "Machine Learning",
+        "Automatisation de processus",
+        "API RESTful",
+        "Base de données",
+        "DevOps",
+        "Solutions cloud"
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Développeur Full-Stack",
+        "occupationLocation": {
+          "@type": "City",
+          "name": "Lille",
+          "containedInPlace": {
+            "@type": "Country",
+            "name": "France"
+          }
+        },
+        "skills": [
+          "JavaScript",
+          "React",
+          "Node.js",
+          "Python",
+          "Intelligence Artificielle",
+          "Automatisation",
+          "SQL",
+          "NoSQL",
+          "Git",
+          "Docker"
+        ]
+      },
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Freelance",
+        "description": "Services de développement web et automatisation IA"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.kacihamroun.com/#website",
+      "url": "https://www.kacihamroun.com",
+      "name": "Kaci Hamroun - Portfolio Développeur Full-Stack IA",
+      "description": "Portfolio professionnel de Kaci Hamroun, développeur full-stack spécialisé en automatisation IA à Lille. Découvrez mes projets, compétences et services.",
+      "publisher": {
+        "@id": "https://www.kacihamroun.com/#person"
+      },
+      "inLanguage": "fr-FR",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.kacihamroun.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://www.kacihamroun.com/#service",
+      "name": "Services de Développement Full-Stack et Automatisation IA",
+      "description": "Services professionnels de développement web full-stack et solutions d'automatisation IA sur mesure pour entreprises et startups.",
+      "provider": {
+        "@id": "https://www.kacihamroun.com/#person"
+      },
+      "areaServed": [
+        "Lille",
+        "France",
+        "Europe"
+      ],
+      "serviceType": [
+        "Développement Web",
+        "Automatisation IA",
+        "Consulting Tech",
+        "Formation"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "availability": "https://schema.org/InStock",
+        "price": "Sur devis",
+        "priceCurrency": "EUR"
+      }
+    }
+  ]
+}

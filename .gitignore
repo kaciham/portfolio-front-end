@@ -19,6 +19,7 @@
 
 # Claude
 /.Claude
+.mcp.json
 
 npm-debug.log*
 yarn-debug.log*
