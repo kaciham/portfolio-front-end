@@ -5,6 +5,7 @@ import LoadingWrapper from '../components/LoadingWrapper';
 // Lazy load page components for code-splitting (performance optimization)
 const Home = React.lazy(() => import("../pages/Home"))
 const PrivacyPolicy = React.lazy(() => import("../pages/PrivacyPolicy"))
+const Bio = React.lazy(() => import("../pages/Bio"))
 
 // Component to handle redirects from old URLs that were in sitemap
 const RedirectToHome = () => {
@@ -17,6 +18,7 @@ const RouteIndex = () => {
             <Suspense fallback={<LoadingWrapper isLoading={true} />}>
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/bio" element={<Bio />} />
                     <Route path="/politique-confidentialite" element={<PrivacyPolicy />} />
                     {/* Redirect old sitemap URLs to home page */}
                     <Route path="/services/*" element={<RedirectToHome />} />

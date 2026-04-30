@@ -8,7 +8,7 @@ const Loader = ({ type = 'default', size = 'medium', color = 'blue' }) => {
   };
 
   const colorClasses = {
-    blue: 'border-blue-500',
+    blue: 'border-[#F2B772]',
     white: 'border-white',
     gray: 'border-gray-500'
   };
@@ -24,9 +24,9 @@ const Loader = ({ type = 'default', size = 'medium', color = 'blue' }) => {
   if (type === 'dots') {
     return (
       <div className="flex justify-center items-center space-x-2">
-        <div className={`${sizeClasses[size]} bg-blue-500 rounded-full animate-bounce`} style={{ animationDelay: '0ms' }}></div>
-        <div className={`${sizeClasses[size]} bg-blue-500 rounded-full animate-bounce`} style={{ animationDelay: '150ms' }}></div>
-        <div className={`${sizeClasses[size]} bg-blue-500 rounded-full animate-bounce`} style={{ animationDelay: '300ms' }}></div>
+        <div className={`${sizeClasses[size]} bg-[#F2B772] rounded-full animate-bounce`} style={{ animationDelay: '0ms' }}></div>
+        <div className={`${sizeClasses[size]} bg-[#F2B772] rounded-full animate-bounce`} style={{ animationDelay: '150ms' }}></div>
+        <div className={`${sizeClasses[size]} bg-[#F2B772] rounded-full animate-bounce`} style={{ animationDelay: '300ms' }}></div>
       </div>
     );
   }
@@ -34,7 +34,7 @@ const Loader = ({ type = 'default', size = 'medium', color = 'blue' }) => {
   if (type === 'pulse') {
     return (
       <div className="flex justify-center items-center">
-        <div className={`${sizeClasses[size]} bg-blue-500 rounded-full animate-pulse`}></div>
+        <div className={`${sizeClasses[size]} bg-[#F2B772] rounded-full animate-pulse`}></div>
       </div>
     );
   }

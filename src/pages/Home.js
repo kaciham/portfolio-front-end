@@ -244,22 +244,22 @@ const Home = () => {
 
             {/* Social links — original SVG logos kept */}
             <div className="flex items-center justify-center rounded-full p-1 m-3 gap-4 my-6">
-              <div className="bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
+              <div className="bg-muted border border-border rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
                 <a href={data.linkedinUrl} target="_blank" rel="noreferrer" aria-label="Visit LinkedIn profile">
                   <ImageComponent src={linkedinLogo} className="w-8" alt="LinkedIn" title="Profil LinkedIn" width={32} height={32} />
                 </a>
               </div>
-              <div className="bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
+              <div className="bg-muted border border-border rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
                 <a href={data.githubUrl} target="_blank" rel="noreferrer" aria-label="Visit GitHub profile">
                   <ImageComponent src={githubLogo} className="w-8" alt="GitHub" title="Profil Github" width={32} height={32} />
                 </a>
               </div>
-              <div className="bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
+              <div className="bg-muted border border-border rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
                 <a href={getImageUrl(apiUrl, data.resumePdf)} target="_blank" rel="noreferrer" aria-label="Download resume">
                   <ImageComponent src={cvLogo} className="w-7" alt="Resume" title="CV" width={28} height={28} />
                 </a>
               </div>
-              <div className="bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
+              <div className="bg-muted border border-border rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
                 <a href={data.scheduleUrl} target="_blank" rel="noreferrer" aria-label="Schedule a meeting">
                   <ImageComponent src={calendarLogo} className="w-7" alt="Schedule appointment" title="Prenons Rendez-vous !" width={28} height={28} />
                 </a>
@@ -469,7 +469,7 @@ const Home = () => {
                 </div>
                 <div className="flex justify-center mt-2">
                   <button
-                    className="bg-gradient-to-r from-accent to-accent-secondary text-white font-medium text-sm py-3 px-10 rounded-xl shadow-accent hover:shadow-accent-lg hover:-translate-y-0.5 hover:brightness-110 active:scale-[0.98] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-gradient-to-r from-accent to-accent-secondary text-accent-fg font-medium text-sm py-3 px-10 rounded-xl shadow-accent hover:shadow-accent-lg hover:-translate-y-0.5 hover:brightness-95 active:scale-[0.98] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     type="submit" disabled={isMultiLoading('contactForm')}
                   >
                     {isMultiLoading('contactForm') ? <Loader type="spinner" size="small" color="blue" /> : 'Envoyer'}

@@ -6,16 +6,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: '#FAFAFA',
-        foreground: '#0F172A',
-        muted: '#F1F5F9',
-        'muted-fg': '#64748B',
-        accent: '#0052FF',
-        'accent-secondary': '#4D7CFF',
-        'accent-fg': '#FFFFFF',
-        border: '#E2E8F0',
-        card: '#FFFFFF',
-        ring: '#0052FF',
+        background: '#FFFFFF',
+        foreground: '#0A0A0A',
+        muted: '#F5F5F5',
+        'muted-fg': '#6B6B6B',
+        accent: '#F2B772',
+        'accent-secondary': '#D4892A',
+        'accent-fg': '#0A0A0A',
+        border: '#E8E8E8',
+        card: '#FAFAFA',
+        ring: '#F2B772',
       },
       fontFamily: {
         display: ['"Calistoga"', 'Georgia', 'serif'],
@@ -55,8 +55,8 @@ module.exports = {
       boxShadow: {
         'card': '0 4px 6px rgba(0,0,0,0.07)',
         'card-hover': '0 20px 25px rgba(0,0,0,0.1)',
-        'accent': '0 4px 14px rgba(0,82,255,0.25)',
-        'accent-lg': '0 8px 24px rgba(0,82,255,0.35)',
+        'accent': '0 4px 14px rgba(242,183,114,0.4)',
+        'accent-lg': '0 8px 24px rgba(242,183,114,0.55)',
       },
     },
   },
