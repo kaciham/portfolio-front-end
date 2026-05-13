@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaLinkedinIn, FaGlobe } from 'react-icons/fa';
+import { FaLinkedinIn, FaGlobe, FaEnvelope, FaPhone } from 'react-icons/fa';
 import { getUserData } from '../api/apiCalls';
 import { getImageUrl } from '../utils/imageHelpers';
 import { API_BASE_URL } from '../config/apiConfig';
@@ -31,6 +31,18 @@ const Bio = () => {
           label: 'Mon Portfolio',
           href: 'https://www.kacihamroun.com',
           icon: <FaGlobe />,
+        },
+        {
+          label: 'contact@kacihamroun.com',
+          href: 'mailto:contact@kacihamroun.com',
+          icon: <FaEnvelope />,
+          external: false,
+        },
+        {
+          label: '06 40 11 92 52',
+          href: 'tel:+33640119252',
+          icon: <FaPhone />,
+          external: false,
         },
       ]
     : [];
@@ -85,7 +97,7 @@ const Bio = () => {
         <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/5 px-4 py-1.5">
           <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-dot" />
           <span className="font-mono text-xs uppercase tracking-[0.15em] text-accent">
-            Développeur Full-Stack &amp; IA · Lille
+            Web - IA - Automatisation
           </span>
         </div>
 
