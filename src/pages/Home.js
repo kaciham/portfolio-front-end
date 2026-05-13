@@ -3,7 +3,7 @@ import Cal, { getCalApi } from "@calcom/embed-react";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
-import { FaLinkedinIn, FaGithub, FaFileAlt, FaRegCalendarAlt, FaEnvelope } from 'react-icons/fa';
+import { FaLinkedinIn, FaGithub, FaRegCalendarAlt, FaEnvelope } from 'react-icons/fa';
 import upArrow from '../assets/icons/up-arrow.svg';
 import ImageComponent from '../components/ImageComponent';
 import TopIcon from '../components/TopIcon';
@@ -248,11 +248,7 @@ const Home = () => {
                 className="flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-accent/10 text-accent border border-border shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-accent/30">
                 <FaGithub className="text-lg" />
               </a>
-              <a href={getImageUrl(apiUrl, data.resumePdf)} target="_blank" rel="noreferrer" aria-label="Download resume" title="CV"
-                className="flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-accent/10 text-accent border border-border shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-accent/30">
-                <FaFileAlt className="text-lg" />
-              </a>
-              <a href={data.scheduleUrl} target="_blank" rel="noreferrer" aria-label="Schedule a meeting" title="Prenons Rendez-vous !"
+<a href={data.scheduleUrl} target="_blank" rel="noreferrer" aria-label="Schedule a meeting" title="Prenons Rendez-vous !"
                 className="flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-accent/10 text-accent border border-border shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-accent/30">
                 <FaRegCalendarAlt className="text-lg" />
               </a>

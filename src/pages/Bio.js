@@ -8,6 +8,7 @@ import SEO from '../components/SEO';
 const Bio = () => {
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -108,13 +109,31 @@ const Bio = () => {
             <div className="h-4 bg-muted animate-pulse rounded w-4/5 mx-auto" />
           </div>
         ) : (
-          <p className="text-sm text-muted-fg text-center leading-relaxed max-w-xs">
-            {userData?.bio
-              ? userData.bio.length > 160
-                ? userData.bio.substring(0, 160).trimEnd() + '…'
-                : userData.bio.trim()
-              : 'Passionné par la technologie et l’innovation, je crée des solutions web modernes et intelligentes pour transformer les idées en réalité.'}
-          </p>
+          (() => {
+            const fallback = 'Passionné par la technologie et l’innovation, je crée des solutions web modernes et intelligentes pour transformer les idées en réalité.';
+            const fullBio = userData?.bio?.trim() || fallback;
+            const isLong = fullBio.length > 160;
+            const displayed = !isLong || isExpanded
+              ? fullBio
+              : fullBio.substring(0, 160).trimEnd() + '…';
+            return (
+              <div className="flex flex-col items-center gap-2 max-w-xs">
+                <p className="text-sm text-muted-fg text-center leading-relaxed whitespace-pre-line">
+                  {displayed}
+                </p>
+                {isLong && (
+                  <button
+                    type="button"
+                    onClick={() => setIsExpanded(v => !v)}
+                    className="font-mono text-xs uppercase tracking-[0.15em] text-accent hover:underline focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background rounded"
+                    aria-expanded={isExpanded}
+                  >
+                    {isExpanded ? 'Voir moins −' : 'Voir plus +'}
+                  </button>
+                )}
+              </div>
+            );
+          })()
         )}
 
         {/* Divider */}
@@ -141,11 +160,6 @@ const Bio = () => {
                 </a>
               ))}
         </div>
-
-        {/* Footer */}
-        <p className="text-xs text-muted-fg mt-2">
-          kacihamrounpro@gmail.com
-        </p>
       </div>
     </div>
   );
