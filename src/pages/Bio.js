@@ -25,14 +25,12 @@ const Bio = () => {
         {
           label: 'Mon LinkedIn',
           href: userData.linkedinUrl,
-          icon: <FaLinkedinIn className="text-lg" />,
-          accent: true,
+          icon: <FaLinkedinIn />,
         },
         {
           label: 'Mon Portfolio',
           href: 'https://www.kacihamroun.com',
-          icon: <FaGlobe className="text-lg" />,
-          accent: false,
+          icon: <FaGlobe />,
         },
       ]
     : [];
@@ -116,20 +114,18 @@ const Bio = () => {
             ? [1, 2].map(i => (
                 <div key={i} className="h-14 bg-muted animate-pulse rounded-xl" />
               ))
-            : links.map(({ label, href, icon, accent }) => (
+            : links.map(({ label, href, icon }) => (
                 <a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noreferrer"
-                  className={`flex items-center justify-center gap-3 w-full py-4 px-6 rounded-xl font-medium text-sm transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background ${
-                    accent
-                      ? 'bg-gradient-to-r from-accent to-accent-secondary text-white shadow-accent hover:shadow-accent-lg hover:brightness-110'
-                      : 'bg-card border border-border text-foreground shadow-card hover:shadow-card-hover hover:border-accent/30'
-                  }`}
+                  className="relative flex items-center w-full py-4 px-5 rounded-xl bg-card border border-border text-foreground shadow-card font-medium text-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-accent/30 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
                 >
-                  {icon}
-                  {label}
+                  <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-accent/10 text-accent shrink-0">
+                    <span className="text-lg leading-none">{icon}</span>
+                  </span>
+                  <span className="flex-1 text-center pr-9">{label}</span>
                 </a>
               ))}
         </div>

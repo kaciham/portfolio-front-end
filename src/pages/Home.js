@@ -3,11 +3,7 @@ import Cal, { getCalApi } from "@calcom/embed-react";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
-import githubLogo from '../assets/icons/github.svg';
-import linkedinLogo from '../assets/icons/linkedin.svg';
-import cvLogo from '../assets/icons/cv.svg';
-import calendarLogo from '../assets/icons/calendar.svg';
-import contactLogo from '../assets/icons/email.svg';
+import { FaLinkedinIn, FaGithub, FaFileAlt, FaRegCalendarAlt, FaEnvelope } from 'react-icons/fa';
 import upArrow from '../assets/icons/up-arrow.svg';
 import ImageComponent from '../components/ImageComponent';
 import TopIcon from '../components/TopIcon';
@@ -242,34 +238,28 @@ const Home = () => {
               </h2>
             </div>
 
-            {/* Social links — original SVG logos kept */}
-            <div className="flex items-center justify-center rounded-full p-1 m-3 gap-4 my-6">
-              <div className="bg-muted border border-border rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
-                <a href={data.linkedinUrl} target="_blank" rel="noreferrer" aria-label="Visit LinkedIn profile">
-                  <ImageComponent src={linkedinLogo} className="w-8" alt="LinkedIn" title="Profil LinkedIn" width={32} height={32} />
-                </a>
-              </div>
-              <div className="bg-muted border border-border rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
-                <a href={data.githubUrl} target="_blank" rel="noreferrer" aria-label="Visit GitHub profile">
-                  <ImageComponent src={githubLogo} className="w-8" alt="GitHub" title="Profil Github" width={32} height={32} />
-                </a>
-              </div>
-              <div className="bg-muted border border-border rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
-                <a href={getImageUrl(apiUrl, data.resumePdf)} target="_blank" rel="noreferrer" aria-label="Download resume">
-                  <ImageComponent src={cvLogo} className="w-7" alt="Resume" title="CV" width={28} height={28} />
-                </a>
-              </div>
-              <div className="bg-muted border border-border rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform duration-500 ease-in-out hover:-translate-y-1">
-                <a href={data.scheduleUrl} target="_blank" rel="noreferrer" aria-label="Schedule a meeting">
-                  <ImageComponent src={calendarLogo} className="w-7" alt="Schedule appointment" title="Prenons Rendez-vous !" width={28} height={28} />
-                </a>
-              </div>
-              <div className="bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer transition-transform duration-500 ease-in-out hover:-translate-y-1">
-                <button onClick={() => handleScroll(contactRef)} aria-label="Scroll to contact section">
-                  <span className="hidden">Contact</span>
-                  <ImageComponent src={contactLogo} className="w-7" alt="Contact" title="Contact" width={28} height={28} />
-                </button>
-              </div>
+            {/* Social links */}
+            <div className="flex items-center justify-center flex-wrap gap-3 my-6">
+              <a href={data.linkedinUrl} target="_blank" rel="noreferrer" aria-label="Visit LinkedIn profile" title="Profil LinkedIn"
+                className="flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-accent/10 text-accent border border-border shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-accent/30">
+                <FaLinkedinIn className="text-lg" />
+              </a>
+              <a href={data.githubUrl} target="_blank" rel="noreferrer" aria-label="Visit GitHub profile" title="Profil Github"
+                className="flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-accent/10 text-accent border border-border shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-accent/30">
+                <FaGithub className="text-lg" />
+              </a>
+              <a href={getImageUrl(apiUrl, data.resumePdf)} target="_blank" rel="noreferrer" aria-label="Download resume" title="CV"
+                className="flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-accent/10 text-accent border border-border shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-accent/30">
+                <FaFileAlt className="text-lg" />
+              </a>
+              <a href={data.scheduleUrl} target="_blank" rel="noreferrer" aria-label="Schedule a meeting" title="Prenons Rendez-vous !"
+                className="flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-accent/10 text-accent border border-border shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-accent/30">
+                <FaRegCalendarAlt className="text-lg" />
+              </a>
+              <button onClick={() => handleScroll(contactRef)} aria-label="Scroll to contact section" title="Contact"
+                className="flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-accent/10 text-accent border border-border shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-accent/30">
+                <FaEnvelope className="text-lg" />
+              </button>
             </div>
 
             {/* Scroll indicator */}
